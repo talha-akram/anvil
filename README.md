@@ -18,6 +18,7 @@ Completions
 ├── compiler
 │  └── python.vim
 ├── images
+│  ├── anvil-completions.png
 │  └── anvil.png
 ├── init.vim
 ├── LICENSE
