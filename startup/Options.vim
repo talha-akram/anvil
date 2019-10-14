@@ -23,7 +23,7 @@ set cursorline
 " But only the visual line, not the complete physical line (not supported yet)
 " set cursorlineopt=screenline
 " Enable mouse interaction
-set mouse=a
+set mouse=nvi
 " Use English dictionary
 set spelllang=en_gb
 " Hide buffers with unsaved changes without being prompted

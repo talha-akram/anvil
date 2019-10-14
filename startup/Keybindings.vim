@@ -69,6 +69,10 @@ map  <A-p>      "+p
 " Bind Ctrl+/ for commenting/uncommenting
 map  <C-_>      gc
 
+" Use alt modifier for scrolling buffer
+map  <A-j>      <C-E>
+map  <A-k>      <C-Y>
+
 " Move vertically by visual line
 nnoremap j      gj
 nnoremap k      gk
