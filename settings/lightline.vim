@@ -100,8 +100,8 @@ let s:p.inactive.left   = [ [ s:gray1,  s:bg    ] ]
 let s:p.inactive.middle = [ [ s:gray1,  s:bg    ] ]
 let s:p.inactive.right  = [ [ s:gray1,  s:bg    ] ]
 
-let g:lightline#colorscheme#functional#palette = lightline#colorscheme#flatten(s:p)
-let g:lightline.colorscheme = 'functional'
+let g:lightline#colorscheme#anvil#palette = lightline#colorscheme#flatten(s:p)
+let g:lightline.colorscheme = 'anvil'
 
 function! LightlineBuffersPrev() abort
     let bfrs = ''
