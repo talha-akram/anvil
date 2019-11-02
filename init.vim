@@ -25,9 +25,6 @@ if $USER != "root"
     " For when there is a need to visualy browse files inside of neovim.
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-    " Use coc.vim for completions see :CocConfig for configuration.
-    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
     " Use LanguageClient-neovim for completions
     Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 
@@ -49,7 +46,6 @@ if $USER != "root"
     source ~/.config/nvim/settings/NERDTree.vim
     source ~/.config/nvim/settings/LanguageClient-neovim.vim
     source ~/.config/nvim/settings/UltiSnips.vim
-    " source ~/.config/nvim/settings/coc.vim
 endif
 
 " Set Vim Options

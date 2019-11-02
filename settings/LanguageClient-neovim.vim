@@ -14,7 +14,7 @@ let g:LanguageClient_hasSnippetSupport = 1
 let g:LanguageClient_useFloatingHover = 1
 let g:LanguageClient_useVirtualText = 1
 let g:LanguageClient_changeThrottle = 0.5
-let g:LanguageClient_virtualTextPrefix = "    •••➜ "
+let g:LanguageClient_virtualTextPrefix = "    ••➜ "
 let g:LanguageClient_diagnosticsList = "Location"
 let g:LanguageClient_selectionUI = "location-list"
 let g:LanguageClient_hoverpreview = "Always"
@@ -70,7 +70,7 @@ function! LanguageClientMaps()
         nnoremap <silent> <Leader>k :call LanguageClient#textDocument_hover()<CR>
         nnoremap <silent> <Leader>j :call LanguageClient#textDocument_definition()<CR>
         nnoremap <silent> <Leader>r :call LanguageClient#textDocument_references()<CR>
-        nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+        nnoremap <silent> <F2>      :call LanguageClient#textDocument_rename()<CR>
         set completefunc=LanguageClient#complete
         " set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
         nmap <C-F2> :call g:LanguageClient#textDocument_rename()<CR>

@@ -104,4 +104,4 @@ highlight Whitespace    guifg=#6272A4   guibg=#282A36
 " configure highlights for wild menu (command mode completions)
 highlight StatusLine    guibg=#3E4452   ctermbg=240
 highlight WildMenu      guifg=#50FA7B   guibg=#3E4452   ctermfg=76     ctermbg=240
-
+let g:python3_host_prog="/usr/bin/python3.7"
