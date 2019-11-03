@@ -31,6 +31,10 @@ if $USER != "root"
     " JavaScript/TypeScript language server for LanguageClient-neovim
     Plug 'sourcegraph/javascript-typescript-langserver', {'do': 'yarn install; yarn build'}
 
+    Plug 'ncm2/ncm2'
+    Plug 'roxma/nvim-yarp'
+    Plug 'ncm2/ncm2-ultisnips'
+
     " Snippet support
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
@@ -45,6 +49,7 @@ if $USER != "root"
     source ~/.config/nvim/settings/lightline.vim
     source ~/.config/nvim/settings/NERDTree.vim
     source ~/.config/nvim/settings/LanguageClient-neovim.vim
+    source ~/.config/nvim/settings/ncm2.vim
     source ~/.config/nvim/settings/UltiSnips.vim
 endif
 

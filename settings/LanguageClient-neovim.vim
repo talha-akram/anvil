@@ -13,6 +13,7 @@ let g:LanguageClient_diagnosticsSignsMax = 0
 let g:LanguageClient_hasSnippetSupport = 1
 let g:LanguageClient_useFloatingHover = 1
 let g:LanguageClient_useVirtualText = 1
+let g:LanguageClient_hasSnippetSupport = 1
 let g:LanguageClient_changeThrottle = 0.5
 let g:LanguageClient_virtualTextPrefix = "    ••➜ "
 let g:LanguageClient_diagnosticsList = "Location"
@@ -117,6 +118,7 @@ endfunction
 " Language Server Status
 function! LightlineStatus() abort
     return g:LanguageClient#serverStatusMessage()
+    " return LanguageClient#serverStatus() == 0 ? 'LS:Idle' : 'LS:Busy'
 endfunction
 
 " Bindings for LanguageClient-neovim
@@ -127,5 +129,5 @@ augroup bind_ls_actions
     autocmd FileType javascript,python setlocal omnifunc=LanguageClient#complete
     " Update lightline on LC diagnostic update
     autocmd User LanguageClientDiagnosticsChanged call lightline#update()
-augroup END
+augroup end
 
