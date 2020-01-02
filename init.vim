@@ -12,6 +12,8 @@ if $USER != "root"
     call plug#begin('~/.config/nvim/plugins')
     " Color theme
     Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'nightsense/cosmic_latte'
+    Plug 'protesilaos/tempus-themes-vim'
     " To asks for the right file to open in case wrong name is used.
     Plug 'EinfachToll/DidYouMean'
     " Visualise and control undo history in tree form.
@@ -20,27 +22,43 @@ if $USER != "root"
     Plug 'tpope/vim-commentary'
     " Quick open/fuzzy find files (and more!) see plugin settings: fzf.vim.
     Plug 'junegunn/fzf.vim'
+    " A vim-native fuzzy finder/dispatcher
+    Plug 'liuchengxu/vim-clap'
     " Nice highly configurable lightweight status line.
     Plug 'itchyny/lightline.vim'
     " For when there is a need to visualy browse files inside of neovim.
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+    " For REPL integration
+    Plug 'rhysd/reply.vim', { 'on': ['Repl', 'ReplAuto', 'ReplSend'] }
+    " For jinja2 syntax support
+    Plug 'Glench/Vim-Jinja2-Syntax'
 
-    " Use LanguageClient-neovim for completions
-    Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 
-    " JavaScript/TypeScript language server for LanguageClient-neovim
+    " Use language server via LanguageClient-neovim
+    " Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+
+    " Use language server via vim-lsp
+    " Plug 'prabirshrestha/async.vim'
+    " Plug 'prabirshrestha/vim-lsp'
+
+    " JavaScript/TypeScript language server
     Plug 'sourcegraph/javascript-typescript-langserver', {'do': 'yarn install; yarn build'}
 
-    Plug 'ncm2/ncm2'
-    Plug 'roxma/nvim-yarp'
-    Plug 'ncm2/ncm2-ultisnips'
+    " Use language server via vim-lsc
+    Plug 'natebosch/vim-lsc'
 
     " Snippet support
-    Plug 'SirVer/ultisnips'
+    Plug 'Shougo/neosnippet-snippets'
+    Plug 'Shougo/neosnippet.vim'
+    " Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
     call plug#end()
 
     colorscheme dracula
+    " Use github colorscheme if in diff mode
+    if &diff
+        colorscheme sol
+    endif
 
     """ PLUGIN SETTINGS
     " Configure plugins, plugin specific functions and autocommands are to be
@@ -48,9 +66,14 @@ if $USER != "root"
     " plugins easier)
     source ~/.config/nvim/settings/lightline.vim
     source ~/.config/nvim/settings/NERDTree.vim
-    source ~/.config/nvim/settings/LanguageClient-neovim.vim
-    source ~/.config/nvim/settings/ncm2.vim
-    source ~/.config/nvim/settings/UltiSnips.vim
+    source ~/.config/nvim/settings/reply.vim
+    source ~/.config/nvim/settings/vim-clap.vim
+    source ~/.config/nvim/settings/vim-lsc.vim
+    " source ~/.config/nvim/settings/vim-lsp.vim
+    " source ~/.config/nvim/settings/nvim-LSP.vim
+    " source ~/.config/nvim/settings/LanguageClient-neovim.vim
+    source ~/.config/nvim/settings/neosnippet.vim
+    " source ~/.config/nvim/settings/UltiSnips.vim
 endif
 
 " Set Vim Options

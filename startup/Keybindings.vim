@@ -25,14 +25,20 @@ nmap <Leader>f  :Rg<CR>
 nmap <F8>       :UndotreeToggle<CR>
 nmap <F9>       :NERDTreeToggle<CR>
 
-" For writing changes and frequent close actions
+" Write changes to file
 nmap ,w         :w<CR>
-nmap ,d         :bd<CR>
+" Delete current buffer, (keep window splits)
+nmap ,d         :bp\|bd #<CR>
+" Exit current window
 nmap ,c         :q<CR>
+" Close Quickfix list
 nmap ,q         :ccl<CR>
+" Close Location list
 nmap ,l         :lcl<CR>
+
 " Fast * list navigation, inspired by tpope/vim-unimpaired
-" Quickfix list navigation
+" [ / ] -> previous / next, Uppercase Modifier -> First / Last
+" Quickfix list navigation:
 nmap [q         :cpr<CR>
 nmap ]q         :cnex<CR>
 nmap [Q         :cfir<CR>
@@ -48,15 +54,19 @@ nmap ]b         :bn<CR>
 nmap [B         :bf<CR>
 nmap ]B         :bl<CR>
 
-" Bad habbit
+" use h, j, k & l instead
 nmap <UP>       <NOP>
 nmap <DOWN>     <NOP>
 nmap <LEFT>     <NOP>
 nmap <RIGHT>    <NOP>
 
+" Clear search highlighting
 nmap <F7>       :nohlsearch<CR>
+" Yank current line to system clipboard
 nmap <F10>      "+yy
+" Exit (n)vim
 map  <F11>      :qa<CR>
+" Write all changes made to open files
 map  <F12>      :wa<CR>
 
 " Use ctrl+space for omnifunc
@@ -86,9 +96,10 @@ nnoremap <expr> q (&filetype == 'help' ? ":q\<CR>" : "q")
 
 " Close popup menu and compensate cursor shifting one place left
 inoremap <expr> <Esc> (pumvisible() ? "\<Esc>i\<Right>" : "\<Right>\<Esc>")
+inoremap <expr> <CR> (pumvisible() ? "\<C-Y>" : "\<CR>")
 
 " Use <C-w> to move between terminal buffer and other buffers
 tnoremap <C-w> <C-\><C-n><C-w>
 
-" Use <Esc><Esc> to exit insert mode in terminal buffers
+" Use <Leader><Esc> to exit insert mode in terminal buffers
 tnoremap <silent> <Leader><C-[> <C-\><C-n>

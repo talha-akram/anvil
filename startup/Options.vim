@@ -78,6 +78,8 @@ set tags=/tmp/tags
 set sidescroll=5
 " Minimum number of columns to keep towards the right of the cursor
 set sidescrolloff=5
+" Keep folds open by default, they can easily be closed using 'zM'
+set nofoldenable
 " Enable True Color support
 if (has("termguicolors"))
   set termguicolors
