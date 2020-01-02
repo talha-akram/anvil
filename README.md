@@ -24,11 +24,17 @@ Completions
 ├── LICENSE
 ├── README.md
 ├── settings
-│  ├── coc.vim
 │  ├── LanguageClient-neovim.vim
 │  ├── lightline.vim
+│  ├── neosnippet.vim
 │  ├── NERDTree.vim
-│  └── UltiSnips.vim
+│  ├── nvim-LSP.vim
+│  ├── REPL.vim
+│  ├── reply.vim
+│  ├── UltiSnips.vim
+│  ├── vim-clap.vim
+│  ├── vim-lsc.vim
+│  └── vim-lsp.vim
 └── startup
    ├── AutoCommands.vim
    ├── Keybindings.vim
