@@ -30,8 +30,10 @@ if $USER != "root"
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
     " For REPL integration
     Plug 'rhysd/reply.vim', { 'on': ['Repl', 'ReplAuto', 'ReplSend'] }
-    " For jinja2 syntax support
+    " For syntax support
     Plug 'Glench/Vim-Jinja2-Syntax'
+    Plug 'MaxMEllon/vim-jsx-pretty'
+    Plug 'pangloss/vim-javascript'
 
 
     " Use language server via LanguageClient-neovim
@@ -48,9 +50,9 @@ if $USER != "root"
     Plug 'natebosch/vim-lsc'
 
     " Snippet support
-    Plug 'Shougo/neosnippet-snippets'
-    Plug 'Shougo/neosnippet.vim'
-    " Plug 'SirVer/ultisnips'
+    " Plug 'Shougo/neosnippet-snippets'
+    " Plug 'Shougo/neosnippet.vim'
+    Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
     call plug#end()
 
@@ -67,13 +69,14 @@ if $USER != "root"
     source ~/.config/nvim/settings/lightline.vim
     source ~/.config/nvim/settings/NERDTree.vim
     source ~/.config/nvim/settings/reply.vim
+    source ~/.config/nvim/settings/vim-jsx-pretty.vim
     source ~/.config/nvim/settings/vim-clap.vim
     source ~/.config/nvim/settings/vim-lsc.vim
     " source ~/.config/nvim/settings/vim-lsp.vim
     " source ~/.config/nvim/settings/nvim-LSP.vim
     " source ~/.config/nvim/settings/LanguageClient-neovim.vim
-    source ~/.config/nvim/settings/neosnippet.vim
-    " source ~/.config/nvim/settings/UltiSnips.vim
+    " source ~/.config/nvim/settings/neosnippet.vim
+    source ~/.config/nvim/settings/UltiSnips.vim
 endif
 
 " Set Vim Options

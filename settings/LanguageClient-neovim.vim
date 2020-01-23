@@ -31,6 +31,7 @@ highlight LCInfoHighlight   ctermfg=239 guifg=#44475A
 let g:LanguageClient_serverCommands = {
     \     "typescript": ["~/.config/nvim/plugins/javascript-typescript-langserver/lib/language-server-stdio.js"],
     \     "javascript": ["~/.config/nvim/plugins/javascript-typescript-langserver/lib/language-server-stdio.js"],
+    \     "javascriptreact": ["~/.config/nvim/plugins/javascript-typescript-langserver/lib/language-server-stdio.js"],
     \     "javascript.jsx": ["~/.config/nvim/plugins/javascript-typescript-langserver/lib/language-server-stdio.js"],
     \     "python": ["pyls"],
     \ }
