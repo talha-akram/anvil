@@ -50,8 +50,8 @@ set lazyredraw
 " set cmdheight=2
 " Don't show mode as it is already displayrd in status line
 set noshowmode
-" Always show diagnostics column
-set signcolumn=yes
+" Show sign column only if there is content
+set signcolumn=auto
 " Minimum number of lines to keep before scrolling
 set scrolloff=6
 " Max number of items visible in popup menu

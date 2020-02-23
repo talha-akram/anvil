@@ -72,8 +72,8 @@ endfunction
 
 augroup enable_lsp_actions
     autocmd!
-    autocmd FileType javascript,javascriptreact,python call SetupVimLSP()
-    autocmd FileType javascript,python setlocal omnifunc=lsp#complete
+    autocmd FileType javascript,javascriptreact,ruby,python call SetupVimLSP()
+    autocmd FileType javascript,javascriptreact,ruby,python setlocal omnifunc=lsp#complete
     autocmd User LanguageClientDiagnosticsChanged call lightline#update()
 augroup end
 

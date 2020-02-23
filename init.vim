@@ -31,13 +31,12 @@ if $USER != "root"
     " For REPL integration
     Plug 'rhysd/reply.vim', { 'on': ['Repl', 'ReplAuto', 'ReplSend'] }
     " For syntax support
-    Plug 'Glench/Vim-Jinja2-Syntax'
     Plug 'MaxMEllon/vim-jsx-pretty'
     Plug 'pangloss/vim-javascript'
 
 
     " Use language server via LanguageClient-neovim
-    " Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+    Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 
     " Use language server via vim-lsp
     " Plug 'prabirshrestha/async.vim'
@@ -47,7 +46,10 @@ if $USER != "root"
     Plug 'sourcegraph/javascript-typescript-langserver', {'do': 'yarn install; yarn build'}
 
     " Use language server via vim-lsc
-    Plug 'natebosch/vim-lsc'
+    " Plug 'natebosch/vim-lsc'
+
+    " Configurations for builtin language server support
+    " Plug 'neovim/nvim-lsp'
 
     " Snippet support
     " Plug 'Shougo/neosnippet-snippets'
@@ -71,10 +73,10 @@ if $USER != "root"
     source ~/.config/nvim/settings/reply.vim
     source ~/.config/nvim/settings/vim-jsx-pretty.vim
     source ~/.config/nvim/settings/vim-clap.vim
-    source ~/.config/nvim/settings/vim-lsc.vim
+    " source ~/.config/nvim/settings/vim-lsc.vim
     " source ~/.config/nvim/settings/vim-lsp.vim
     " source ~/.config/nvim/settings/nvim-LSP.vim
-    " source ~/.config/nvim/settings/LanguageClient-neovim.vim
+    source ~/.config/nvim/settings/LanguageClient-neovim.vim
     " source ~/.config/nvim/settings/neosnippet.vim
     source ~/.config/nvim/settings/UltiSnips.vim
 endif

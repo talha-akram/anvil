@@ -10,9 +10,8 @@ let g:languageclient_configuration_loaded = 1
 
 " Stop annoying diagnostics sign popups, use virtual text with prefix instead
 let g:LanguageClient_diagnosticsSignsMax = 0
-let g:LanguageClient_hasSnippetSupport = 1
 let g:LanguageClient_useFloatingHover = 1
-let g:LanguageClient_useVirtualText = 1
+let g:LanguageClient_useVirtualText = "All"
 let g:LanguageClient_hasSnippetSupport = 1
 let g:LanguageClient_changeThrottle = 0.5
 let g:LanguageClient_virtualTextPrefix = "    ••➜ "
@@ -34,6 +33,7 @@ let g:LanguageClient_serverCommands = {
     \     "javascriptreact": ["~/.config/nvim/plugins/javascript-typescript-langserver/lib/language-server-stdio.js"],
     \     "javascript.jsx": ["~/.config/nvim/plugins/javascript-typescript-langserver/lib/language-server-stdio.js"],
     \     "python": ["pyls"],
+    \     "ruby": ["~/.rbenv/shims/solargraph", "stdio"],
     \ }
 let g:LanguageClient_diagnosticsDisplay = {
     \      1: {
@@ -126,8 +126,8 @@ endfunction
 augroup bind_ls_actions
     autocmd!
     " Use language server with supported file types
-    autocmd FileType javascript,python call LanguageClientMaps()
-    autocmd FileType javascript,python setlocal omnifunc=LanguageClient#complete
+    autocmd FileType javascript,javascriptreact,ruby,python call LanguageClientMaps()
+    autocmd FileType javascript,javascriptreact,ruby,python setlocal omnifunc=LanguageClient#complete
     " Update lightline on LC diagnostic update
     autocmd User LanguageClientDiagnosticsChanged call lightline#update()
 augroup end
