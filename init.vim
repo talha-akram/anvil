@@ -20,6 +20,8 @@ if $USER != "root"
     Plug 'mbbill/undotree'
     " Comment/Uncomment blocks of code see keybindings to get started.
     Plug 'tpope/vim-commentary'
+    " For better git integration
+    Plug 'tpope/vim-fugitive'
     " Quick open/fuzzy find files (and more!) see plugin settings: fzf.vim.
     Plug 'junegunn/fzf.vim'
     " A vim-native fuzzy finder/dispatcher
@@ -73,6 +75,7 @@ if $USER != "root"
     source ~/.config/nvim/settings/reply.vim
     source ~/.config/nvim/settings/vim-jsx-pretty.vim
     source ~/.config/nvim/settings/vim-clap.vim
+    source ~/.config/nvim/settings/fugitive.vim
     " source ~/.config/nvim/settings/vim-lsc.vim
     " source ~/.config/nvim/settings/vim-lsp.vim
     " source ~/.config/nvim/settings/nvim-LSP.vim
