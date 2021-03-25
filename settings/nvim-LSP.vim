@@ -6,8 +6,10 @@ let g:nvim_LSP_configuration_loaded = 1
 
 " use the defaults from the LS
 lua << EOF
-  local nvim_lsp = require('nvim_lsp')
-  nvim_lsp.pyls.setup(nvim_lsp.pyls.template_config.default_config)
+  vim.cmd('packadd nvim-lsp')
+  local nvim_lsp = require'nvim_lsp'
+  nvim_lsp.pyls.setup{nvim_lsp.pyls.template_config.default_config}
+  nvim_lsp.solargraph.setup{}
 EOF
 
 let settings = {

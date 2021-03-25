@@ -1,8 +1,9 @@
 set nocompatible
 
 " Check if vim-plug is installed, if not then install it
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-    silent !curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+    echo "Downloading junegunn/vim-plug for managing plugins..."
+    silent !curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
 colorscheme slate
@@ -12,6 +13,7 @@ if $USER != "root"
     call plug#begin('~/.config/nvim/plugins')
     " Color theme
     Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'sainnhe/gruvbox-material'
     Plug 'nightsense/cosmic_latte'
     Plug 'protesilaos/tempus-themes-vim'
     " To asks for the right file to open in case wrong name is used.
@@ -23,7 +25,7 @@ if $USER != "root"
     " For better git integration
     Plug 'tpope/vim-fugitive'
     " Quick open/fuzzy find files (and more!) see plugin settings: fzf.vim.
-    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     " A vim-native fuzzy finder/dispatcher
     Plug 'liuchengxu/vim-clap'
     " Nice highly configurable lightweight status line.
@@ -35,10 +37,11 @@ if $USER != "root"
     " For syntax support
     Plug 'MaxMEllon/vim-jsx-pretty'
     Plug 'pangloss/vim-javascript'
+    Plug 'dag/vim-fish'
 
 
     " Use language server via LanguageClient-neovim
-    Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+    " Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 
     " Use language server via vim-lsp
     " Plug 'prabirshrestha/async.vim'
@@ -48,7 +51,7 @@ if $USER != "root"
     Plug 'sourcegraph/javascript-typescript-langserver', {'do': 'yarn install; yarn build'}
 
     " Use language server via vim-lsc
-    " Plug 'natebosch/vim-lsc'
+    Plug 'natebosch/vim-lsc'
 
     " Configurations for builtin language server support
     " Plug 'neovim/nvim-lsp'
@@ -60,7 +63,8 @@ if $USER != "root"
     Plug 'honza/vim-snippets'
     call plug#end()
 
-    colorscheme dracula
+    let g:gruvbox_material_background = 'medium'
+    colorscheme gruvbox-material
     " Use github colorscheme if in diff mode
     if &diff
         colorscheme sol
@@ -76,12 +80,12 @@ if $USER != "root"
     source ~/.config/nvim/settings/vim-jsx-pretty.vim
     source ~/.config/nvim/settings/vim-clap.vim
     source ~/.config/nvim/settings/fugitive.vim
-    " source ~/.config/nvim/settings/vim-lsc.vim
+    source ~/.config/nvim/settings/vim-lsc.vim
     " source ~/.config/nvim/settings/vim-lsp.vim
     " source ~/.config/nvim/settings/nvim-LSP.vim
-    source ~/.config/nvim/settings/LanguageClient-neovim.vim
-    " source ~/.config/nvim/settings/neosnippet.vim
-    source ~/.config/nvim/settings/UltiSnips.vim
+    " source ~/.config/nvim/settings/LanguageClient-neovim.vim
+    source ~/.config/nvim/settings/neosnippet.vim
+    " source ~/.config/nvim/settings/UltiSnips.vim
 endif
 
 " Set Vim Options
@@ -91,5 +95,5 @@ source ~/.config/nvim/startup/AutoCommands.vim
 " Setup keybindings
 source ~/.config/nvim/startup/Keybindings.vim
 " Load functions
-source ~/.config/nvim/startup/Functions.vim
+" source ~/.config/nvim/startup/Functions.vim
 

@@ -118,7 +118,7 @@ endfunction
 
 " Language Server Status
 function! LightlineStatus() abort
-    return g:LanguageClient#serverStatusMessage()
+    " return g:LanguageClient#serverStatusMessage()
     " return LanguageClient#serverStatus() == 0 ? 'LS:Idle' : 'LS:Busy'
 endfunction
 

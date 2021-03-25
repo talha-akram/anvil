@@ -59,7 +59,7 @@ set pumheight=12
 " Trigger CursorHold event if nothing is typed for the duration
 set updatetime=1000
 " Settings for better diffs
-set diffopt=filler,vertical,hiddenoff,foldcolumn:0,algorithm:patience
+" set diffopt=filler,vertical,hiddenoff,foldcolumn:0,algorithm:patience
 " Show whitespace characters
 set list
 " Only show tabs and trailing spaces
@@ -108,4 +108,4 @@ highlight Whitespace    guifg=#6272A4   guibg=#282A36
 " configure highlights for wild menu (command mode completions)
 highlight StatusLine    guibg=#3E4452   ctermbg=240
 highlight WildMenu      guifg=#50FA7B   guibg=#3E4452   ctermfg=76     ctermbg=240
-let g:python3_host_prog="/usr/bin/python"
+let g:python3_host_prog="/usr/bin/python3"

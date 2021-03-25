@@ -14,10 +14,10 @@ let g:lsc_server_commands = {
     \        'python.linting.pydocstyleEnabled': v:true,
     \    },
     \  },
-    \ 'javascript': "/home/talha/.config/nvim/plugins/javascript-typescript-langserver/lib/language-server-stdio.js",
-    \ 'javascriptreact': "/home/talha/.config/nvim/plugins/javascript-typescript-langserver/lib/language-server-stdio.js",
+    \ 'javascript': '/home/talha/.config/nvim/plugins/javascript-typescript-langserver/lib/language-server-stdio.js',
+    \ 'javascriptreact': '/home/talha/.config/nvim/plugins/javascript-typescript-langserver/lib/language-server-stdio.js',
     \ 'php': {
-    \        'command': "/home/talha/.local/bin/php_ls_serenata.phar --uri=tcp://127.0.0.1:11111"
+    \        'command': '/home/talha/.local/bin/php_ls_serenata.phar --uri=tcp://127.0.0.1:11111'
     \  },
     \ 'ruby': 'solargraph stdio'
     \}
