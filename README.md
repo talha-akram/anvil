@@ -45,7 +45,7 @@ Completions
 To create a highly extensible neovim configuration that can easily be adapted as an IDE for any programming language via LSP while staying light and as close to vanilla neovim as possible. This distribution aims to be a non intrusive, solid base which the user can easily customize to fit their workflow needs.
 
 ## Contributing
-Found a bug or somthing is broken?
+Found a bug or something is broken?
 Have a suggestion or feature you want added?
 Please open an issue.
 
