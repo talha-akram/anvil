@@ -1,4 +1,7 @@
-""" Auto commands
+""" Auto commands use sparingly, having auto commands that trigger often will
+""" slow down nvim
+
+" Limit file from being sourced multiple times
 if exists("g:custom_autocmds_loaded")
   finish
 endif
@@ -10,17 +13,20 @@ augroup line_highlight
     autocmd WinEnter * setlocal cursorline
     autocmd WinLeave * setlocal nocursorline
 augroup END
-" Use vertical splits
+
+" Use vertical splits for help windows
 augroup vertical_help
     autocmd!
     autocmd FileType help wincmd L
 augroup END
+
 " Auto Populate loclist with table of content in manpages
 augroup man_toc
     autocmd!
     autocmd FileType man normal gO
     autocmd FileType man lclose
 augroup END
+
 " Trim whitespapes for specified file types upon write
 " augroup trim_white_space
 "     autocmd!
