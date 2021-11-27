@@ -18,12 +18,9 @@ nmap <Leader>t  :!ctags -R /tmp/tags<CR>
 nmap <A-q>      :cope<CR>
 nmap <A-l>      :lope<CR>
 
-" For essential Plugins
-nmap <Leader>b  :Bu<CR>
-nmap <Leader>o  :Files<CR>
-nmap <Leader>f  :Rg<CR>
-nmap <F8>       :UndotreeToggle<CR>
-nmap <F9>       :NERDTreeToggle<CR>
+"" For essential Plugins
+" UndoTree
+nnoremap <F8>       :UndotreeToggle<CR>
 
 " Write changes to file
 nmap ,w         :w<CR>
@@ -35,6 +32,9 @@ nmap ,c         :q<CR>
 nmap ,q         :ccl<CR>
 " Close Location list
 nmap ,l         :lcl<CR>
+" Copy to & paste from system clipboard
+vmap ,y      "+y
+map  ,p      "+p
 
 " Fast * list navigation, inspired by tpope/vim-unimpaired
 " [ / ] -> previous / next, Uppercase Modifier -> First / Last
@@ -69,12 +69,10 @@ map  <F11>      :qa<CR>
 " Write all changes made to open files
 map  <F12>      :wa<CR>
 
-" Use ctrl+space for omnifunc
-imap <C-Space> <C-X><C-O>
-
-" Copy to & paste from system clipboard
-vmap <A-y>      "+y
-map  <A-p>      "+p
+" " Use ctrl+space for omnifunc
+" imap <C-Space> <C-X><C-O>
+" " Use alt+space for completefunc
+" imap <A-Space> <C-X><C-U>
 
 " Bind Ctrl+/ for commenting/uncommenting
 map  <C-_>      gc
