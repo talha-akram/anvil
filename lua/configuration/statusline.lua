@@ -7,44 +7,80 @@ local api = vim.api
 local vim_cmd = vim.cmd
 local listed = fn.buflisted
 local get_count = vim.lsp.diagnostic.get_count
+local hl_by_name = vim.api.nvim_get_hl_by_name
 
 -- TODO: replace with API calls, when available
----@param group_name name of highlight group
----@param group_colours map of highlight settings (type to colour values)
-local create_highlight = function(group_name, group_colours)
+---@param hl_name name of highlight group
+---@param colors map of highlight settings (type to color values)
+local create_highlight = function(hl_name, colors)
   local options = {}
+
   -- build array of all group highlight settings
-  for k, v in pairs(group_colours) do
+  for k, v in pairs(colors) do
     table.insert(options, string.format('%s=%s', k, v))
   end
-  vim_cmd(string.format('highlight %s %s', group_name, table.concat(options, " ")))
+
+  vim_cmd(string.format('highlight %s %s', hl_name, table.concat(options, " ")))
 end
 
--- TODO: build palette from active colorscheme colours
--- colour palette for Statusline
--- Normal -> fg, Disabled -> Grey, Highlight -> Cyan, Orange -> DarkYellow
-local palette = {
-  Normal   = { ctermfg = 223, ctermbg = 235, guifg = '#ddc7a1', guibg = '#292C33' },
-  Disabled = { ctermfg = 241, ctermbg = 235, guifg = '#5c6370', guibg = '#292C33' },
-  Red      = { ctermfg = 167, ctermbg = 235, guifg = '#ea6962', guibg = '#292C33' },
-  Orange   = { ctermfg = 208, ctermbg = 235, guifg = '#e78a4e', guibg = '#292C33' },
-  Yellow   = { ctermfg = 214, ctermbg = 235, guifg = '#d8a657', guibg = '#292C33' },
-  Green    = { ctermfg = 142, ctermbg = 235, guifg = '#a9b665', guibg = '#292C33' },
-  Cyan     = { ctermfg = 108, ctermbg = 235, guifg = '#89b482', guibg = '#292C33' },
-  Blue     = { ctermfg = 109, ctermbg = 235, guifg = '#7daea3', guibg = '#292C33' },
-  Megenta  = { ctermfg = 175, ctermbg = 235, guifg = '#d3869b', guibg = '#292C33' },
-}
+
+-- retrieve color value of [kind] from highlight group
+---@param hl_name name of highlight group
+---@param kind type of value to extract (either `background` or `foreground`)
+local get_color = function(hl_name, kind)
+  local rgb = hl_by_name(hl_name, true)[kind]
+  local cterm = hl_by_name(hl_name, false)[kind]
+  local hex = (rgb and bit.tohex(rgb, 6) or 'ffffff')
+  return { gui = string.format('#%s', hex), cterm = cterm }
+end
+
+local palette = {}
+
+-- define highlight groups and build palette from active colorscheme colors
+base.build_palette = function()
+  local bg      = get_color('StatusLine', 'background')
+  local nc      = get_color('StatusLineNC', 'foreground')
+  local colors  = {'Red', 'Orange', 'Yellow', 'Green', 'Aqua', 'Blue', 'Purple', 'Normal'}
+
+  palette.Disabled = { ctermfg = nc.cterm, ctermbg = bg.cterm, guifg = nc.gui, guibg = bg.gui }
+  palette.Disabled = setmetatable(
+      { ctermfg = nc.cterm, ctermbg = bg.cterm, guifg = nc.gui, guibg = bg.gui },
+      { __tostring = function() return 'StatusLineDisabled' end }
+    )
+
+  for _, color in ipairs(colors) do
+    local fg = get_color(color, 'foreground')
+    local group_name = 'StatusLine' .. color
+    local group = setmetatable(
+      { ctermfg = fg.cterm, ctermbg = bg.cterm, guifg = fg.gui, guibg = bg.gui },
+      { __tostring = function() return group_name end }
+    )
+    palette[color] = group
+    create_highlight(group_name, group)
+  end
+
+  -- statusline highlight for inactive buffers
+  create_highlight(tostring(palette.Disabled), palette.Disabled)
+  -- default highlight for the statusline
+  create_highlight('StatusLine', palette.Normal)
+  -- configure highlight for wild menu (command mode completions)
+  create_highlight('WildMenu', palette.Aqua)
+
+  return palette
+end
+
+palette = base.build_palette()
 
 -- Map accent color for statusline based on active mode
-local colour_map = setmetatable({
+local color_map = setmetatable({
   ['n']    = palette.Green,   -- Normal
   ['no']   = palette.Green,   -- Operator pending
-  ['v']    = palette.Megenta, -- Visual by character (v)
-  ['V']    = palette.Megenta, -- Visual by line (V)
-  ['\022'] = palette.Megenta, -- Visual block wise (CTRL-V)
-  ['s']    = palette.Megenta, -- Select by character (gh)
-  ['S']    = palette.Megenta, -- Select by line (gH)
-  ['\019'] = palette.Megenta, -- Select block wise (g CTRL-H)
+  ['v']    = palette.Purple,  -- Visual by character (v)
+  ['V']    = palette.Purple,  -- Visual by line (V)
+  ['\022'] = palette.Purple,  -- Visual block wise (CTRL-V)
+  ['s']    = palette.Purple,  -- Select by character (gh)
+  ['S']    = palette.Purple,  -- Select by line (gH)
+  ['\019'] = palette.Purple,  -- Select block wise (g CTRL-H)
   ['i']    = palette.Blue,    -- Insert
   ['ic']   = palette.Blue,    -- Insert completion (generic)
   ['ix']   = palette.Blue,    -- Insert completion (CTRL-X)
@@ -170,8 +206,8 @@ base.get_file_encoding = function()
   return string.format('%s ', vim.o.encoding)
 end
 
--- Accent colour to be applied to statusline based on active mode
-base.highlight = function(_, group)
+-- Accent color to be applied to statusline based on active mode
+base.highlight = function(self, group)
   return string.format('%%#%s#', group)
 end
 
@@ -201,13 +237,13 @@ end
 -- Statusline to be displayed on active windows
 base.set_active = function(self)
   local mode = api.nvim_get_mode().mode
-  local accent_colour = self:highlight(colour_map[mode])
+  local accent_color = self:highlight(color_map[mode])
   local buffers = self:get_buffers()
 
   return table.concat({
-    accent_colour,
+    accent_color,
     self:get_current_mode(),
-    self:highlight(palette.Cyan),
+    self:highlight(palette.Aqua),
     self:get_file_state(),
     '%<',                           -- Collapse point for smaller screen size
     self:highlight(palette.Red),
@@ -220,7 +256,7 @@ base.set_active = function(self)
     self:format_hints(),
     self:highlight(palette.Disabled),
     buffers.prev_bufs,
-    accent_colour,
+    accent_color,
     buffers.current,
     self:highlight(palette.Disabled),
     buffers.next_bufs,
@@ -229,12 +265,12 @@ base.set_active = function(self)
     self:get_lsp_status(),
     self:get_file_encoding(),
     self:get_file_format(),
-    accent_colour,
+    accent_color,
     self:get_file_type(),
     '%<',                           -- Collapse point for smaller screen size
-    self:highlight(palette.Cyan),
+    self:highlight(palette.Aqua),
     ' --%1p%%-- ',                  -- Place in file as a percentage
-    accent_colour,
+    accent_color,
     ' %l:%c ',                      -- position of cursor
   })
 end
@@ -250,44 +286,31 @@ base.set_inactive = function(self)
   })
 end
 
--- define highlight groups
-local define_highlight_groups = function()
-  for suffix, group in pairs(palette) do
-    local group_name = 'StatusLine' .. suffix
-    palette[suffix] = setmetatable(group, { __tostring = function() return group_name end })
-    create_highlight(group_name, group)
-  end
-
-  -- default highlight for the statusline
-  create_highlight('StatusLine', palette.Normal)
-  -- configure highlight for wild menu (command mode completions)
-  create_highlight('WildMenu', palette.Cyan)
-end
-
--- allow defining highlight groups outside of calling setup again
-base.define_highlight_groups = define_highlight_groups
-
--- enable StatusLine
--- calling setup will create required highlight groups and add the auto command for switching
--- between statusline active and inactive variants
-base.setup = function()
-  define_highlight_groups()
-
-  vim_cmd([[
-    augroup StatusLine
-      au!
-      au WinEnter,BufEnter * setlocal statusline=%!v:lua.StatusLine('active')
-      au WinLeave,BufLeave * setlocal statusline=%!v:lua.StatusLine('inactive')
-    augroup END
-  ]])
-end
-
 -- Build statusline
 StatusLine = setmetatable(base, {
   __call = function(self, mode)
     return self['set_' .. mode](self)
   end,
 })
+
+-- enable StatusLine
+-- calling setup will create required highlight groups and add the auto command for switching
+-- between statusline active and inactive variants
+base.setup = function()
+  StatusLine:build_palette()
+
+  vim_cmd([[
+    augroup StatusLine
+      au!
+      " setup highlight rules for new colorscheme after it has loaded
+      au ColorScheme       * lua StatusLine:build_palette()
+      " set statusline to active variant for focused buffer
+      au WinEnter,BufEnter * setlocal statusline=%!v:lua.StatusLine('active')
+      " set statusline to inactive variant for buffers without focus
+      au WinLeave,BufLeave * setlocal statusline=%!v:lua.StatusLine('inactive')
+    augroup END
+  ]])
+end
 
 return StatusLine
 

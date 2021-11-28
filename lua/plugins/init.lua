@@ -19,15 +19,12 @@ local function on_startup(use)
   }
 
   -- color themes
-  use { 'dracula/vim', as = 'dracula' }
-  use { 'nightsense/cosmic_latte' }
+  use { 'sainnhe/everforest' }
   use {
     'sainnhe/gruvbox-material',
     config = function()
       vim.g.colors_name = 'gruvbox-material'
       vim.g.gruvbox_material_background = 'medium'
-      -- Gruvbox clears highlights so we need to setup highlighs again after it loads
-      StatusLine.define_highlight_groups()
     end
   }
 
