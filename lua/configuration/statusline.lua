@@ -44,9 +44,9 @@ base.build_palette = function()
 
   palette.Disabled = { ctermfg = nc.cterm, ctermbg = bg.cterm, guifg = nc.gui, guibg = bg.gui }
   palette.Disabled = setmetatable(
-      { ctermfg = nc.cterm, ctermbg = bg.cterm, guifg = nc.gui, guibg = bg.gui },
-      { __tostring = function() return 'StatusLineDisabled' end }
-    )
+    { ctermfg = nc.cterm, ctermbg = bg.cterm, guifg = nc.gui, guibg = bg.gui },
+    { __tostring = function() return 'StatusLineDisabled' end }
+  )
 
   for _, color in ipairs(colors) do
     local fg = get_color(color, 'foreground')
