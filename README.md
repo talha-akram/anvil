@@ -4,9 +4,15 @@ A work in progress highly adaptable neovim distribution.
 ## Preview:
 ![anvil preview](/images/anvil.png?raw=true "anvil preview")
 
-Completions
+### Completions
 
 ![anvil completions preview](/images/anvil-completions.png?raw=true "anvil completions preview")
+
+### StatusLine
+
+Awesome statusline implemented in lua, without any plugin dependencies.
+
+![check it out!](/lua/configuration/statusline.lua "link to anvil statusline code")
 
 ## Directory Structure:
 ```
@@ -14,31 +20,39 @@ Completions
 ├── after
 │  └── ftplugin
 │     └── python.vim
-├── coc-settings.json
+├── autoload
 ├── compiler
 │  └── python.vim
 ├── images
 │  ├── anvil-completions.png
 │  └── anvil.png
-├── init.vim
+├── init.lua
 ├── LICENSE
+├── lua
+│  ├── configuration
+│  │  ├── eslint.lua
+│  │  ├── init.lua
+│  │  ├── options.lua
+│  │  └── statusline.lua
+│  └── plugins
+│     ├── cmp.lua
+│     ├── init.lua
+│     ├── lsp.lua
+│     ├── reply.lua
+│     ├── telescope.lua
+│     ├── treesitter.lua
+│     └── vsnip.lua
+├── plugin
+│  └── packer_compiled.lua
 ├── README.md
 ├── settings
-│  ├── LanguageClient-neovim.vim
-│  ├── lightline.vim
-│  ├── neosnippet.vim
-│  ├── NERDTree.vim
-│  ├── nvim-LSP.vim
-│  ├── REPL.vim
-│  ├── reply.vim
-│  ├── UltiSnips.vim
-│  ├── vim-clap.vim
-│  ├── vim-lsc.vim
-│  └── vim-lsp.vim
-└── startup
-   ├── AutoCommands.vim
-   ├── Keybindings.vim
-   └── Options.vim
+├── snippets
+│  ├── javascript.json
+│  ├── javascriptreact.json
+│  └── javascriptreact.snippets
+├── startup
+│  ├── AutoCommands.vim
+│  └── Keybindings.vim
 ```
 ## Goals
 
