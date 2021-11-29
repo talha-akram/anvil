@@ -20,13 +20,7 @@ local function on_startup(use)
 
   -- color themes
   use { 'sainnhe/everforest' }
-  use {
-    'sainnhe/gruvbox-material',
-    config = function()
-      vim.g.colors_name = 'gruvbox-material'
-      vim.g.gruvbox_material_background = 'medium'
-    end
-  }
+  use { 'sainnhe/gruvbox-material' }
 
   -- syntax support
   use { 'dag/vim-fish' }
@@ -69,9 +63,6 @@ local function on_startup(use)
 
   -- LSP Intigration: for builtin language server support (nvim >= 0.5)
   use { 'neovim/nvim-lspconfig', config = function() require('plugins.lsp') end }
-
-  -- JavaScript/TypeScript language server
-  use { 'sourcegraph/javascript-typescript-langserver', run = 'yarn install; yarn build' }
 
   -- snippet support: Use vim-vsnip as snippet provider
   use {

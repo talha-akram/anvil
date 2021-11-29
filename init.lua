@@ -20,11 +20,13 @@ vim.cmd([[
   " Set fish as default shell
   set shell=fish
 
-  " Set fallback colorscheme
-  colorscheme darkblue
-
   " Set colorscheme
-  colorscheme gruvbox-material
+  set background=dark
+  let g:gruvbox_material_background = 'medium'
+  try
+    colorscheme gruvbox-material
+    catch
+  endtry
 
   " Enable autocommands
   source ~/.config/nvim/startup/AutoCommands.vim
