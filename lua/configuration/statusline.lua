@@ -14,6 +14,7 @@ local hl_by_name = vim.api.nvim_get_hl_by_name
 ---@param colors map of highlight settings (type to color values)
 local create_highlight = function(hl_name, colors)
   local options = {}
+  if not colors then return end
 
   -- build array of all group highlight settings
   for k, v in pairs(colors) do
@@ -49,14 +50,16 @@ base.build_palette = function()
   )
 
   for _, color in ipairs(colors) do
-    local fg = get_color(color, 'foreground')
     local group_name = 'StatusLine' .. color
-    local group = setmetatable(
-      { ctermfg = fg.cterm, ctermbg = bg.cterm, guifg = fg.gui, guibg = bg.gui },
-      { __tostring = function() return group_name end }
-    )
-    palette[color] = group
-    create_highlight(group_name, group)
+    local success, fg = pcall(get_color, color, 'foreground')
+    if success then
+      local group = setmetatable(
+        { ctermfg = fg.cterm, ctermbg = bg.cterm, guifg = fg.gui, guibg = bg.gui },
+        { __tostring = function() return group_name end }
+      )
+      palette[color] = group
+      create_highlight(group_name, group)
+    end
   end
 
   -- statusline highlight for inactive buffers
@@ -69,7 +72,7 @@ base.build_palette = function()
   return palette
 end
 
-palette = base.build_palette()
+base.build_palette()
 
 -- Map accent color for statusline based on active mode
 local color_map = setmetatable({
