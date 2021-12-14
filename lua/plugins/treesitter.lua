@@ -7,30 +7,22 @@ return config.setup({
     'json', 'lua', 'php', 'python', 'regex', 'ruby', 'rust', 'scss', 'svelte',
     'typescript', 'vue', 'yaml', 'markdown'
   },
-  ignore_install = {},
-  modules = {
-    highlight = {
-      additional_vim_regex_highlighting = false,
-      custom_captures = {},
-      disable = {},
-      enable = true,
+  highlight = {
+    additional_vim_regex_highlighting = false,
+    enable = true,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_decremental = "grm",
+      node_incremental = "grn",
+      scope_incremental = "grc"
     },
-    incremental_selection = {
-      disable = {},
-      enable = true,
-      keymaps = {
-        init_selection = "gnn",
-        node_decremental = "grm",
-        node_incremental = "grn",
-        scope_incremental = "grc"
-      },
-    },
-    indent = {
-      disable = {},
-      enable = true,
-    }
+  },
+  indent = {
+    enable = true,
   },
   sync_install = false,
-  update_strategy = "lockfile"
 })
 
