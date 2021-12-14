@@ -85,6 +85,10 @@ map  <A-k>      <C-Y>
 nnoremap j      gj
 nnoremap k      gk
 
+" Use Shift + J/K to moves selected lines up/down in visual mode
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 " Keep current search result centered on the screen
 nnoremap n      nzz
 nnoremap N      Nzz

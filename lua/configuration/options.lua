@@ -105,21 +105,12 @@ local Options = {
       global_options[option] = value
     end
 
-    vim_cmd([[
-      " Use filetypes
-      filetype on
-      " Use plugins
-      filetype plugin indent on
-    ]])
-
-    -- Configure highlights for wild menu (command mode completions)
-    vim_cmd([[
-      highlight StatusLine    guibg=#3E4452   ctermbg=240
-      highlight WildMenu      guifg=#50FA7B   guibg=#3E4452   ctermfg=76     ctermbg=240
-    ]])
+    -- Enable filetype detection and use plugins and indentation
+    vim_cmd('filetype plugin indent on')
 
     -- Enable highlighting embedded lua code
     vim.g.vimsyn_embed      = 'l'
+    -- Use Python 3 for plugins
     vim.g.python3_host_prog = 'python3'
   end
 }

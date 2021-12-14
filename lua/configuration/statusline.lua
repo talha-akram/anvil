@@ -169,7 +169,7 @@ base.get_lsp_status = function()
       table.insert(client_names, client.config.name)
     end
 
-    return string.format('● (%s) ', table.concat(client_names, ' '))
+    return string.format('(%s) ● ', table.concat(client_names, ' '))
   end
 
   return "◯ "
@@ -249,6 +249,12 @@ base.set_active = function(self)
     self:highlight(palette.Aqua),
     self:get_file_state(),
     '%<',                           -- Collapse point for smaller screen size
+    self:highlight(palette.Disabled),
+    buffers.prev_bufs,
+    accent_color,
+    buffers.current,
+    self:highlight(palette.Disabled),
+    buffers.next_bufs,
     self:highlight(palette.Red),
     self:format_errors(),
     self:highlight(palette.Orange),
@@ -257,12 +263,6 @@ base.set_active = function(self)
     self:format_info(),
     self:highlight(palette.Blue),
     self:format_hints(),
-    self:highlight(palette.Disabled),
-    buffers.prev_bufs,
-    accent_color,
-    buffers.current,
-    self:highlight(palette.Disabled),
-    buffers.next_bufs,
     '%=',                           -- left / right separator
     self:highlight(palette.Normal),
     self:get_lsp_status(),
