@@ -17,11 +17,7 @@ if (fn.exists('$SUDO_USER') == 0) then
 end
 
 vim.cmd([[
-  " Set fish as default shell
-  set shell=fish
-
   " Set colorscheme
-  set background=dark
   let g:gruvbox_material_background = 'medium'
   try
     colorscheme gruvbox-material

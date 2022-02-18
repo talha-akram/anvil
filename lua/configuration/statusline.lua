@@ -1,12 +1,12 @@
 -- Statusline configuration
 -- inspiration: https://elianiva.my.id/post/neovim-lua-statusline
 
-local base = {}
+local M = {}
 local fn = vim.fn
 local api = vim.api
 local vim_cmd = vim.cmd
 local listed = fn.buflisted
-local get_count = vim.lsp.diagnostic.get_count
+local get_diagnostics = vim.diagnostic.get
 local hl_by_name = vim.api.nvim_get_hl_by_name
 
 -- TODO: replace with API calls, when available
@@ -38,7 +38,7 @@ end
 local palette = {}
 
 -- define highlight groups and build palette from active colorscheme colors
-base.build_palette = function()
+M.build_palette = function()
   local bg      = get_color('StatusLine', 'background')
   local nc      = get_color('StatusLineNC', 'foreground')
   local colors  = {'Red', 'Orange', 'Yellow', 'Green', 'Aqua', 'Blue', 'Purple', 'Normal'}
@@ -51,8 +51,8 @@ base.build_palette = function()
 
   for _, color in ipairs(colors) do
     local group_name = 'StatusLine' .. color
-    local success, fg = pcall(get_color, color, 'foreground')
-    if success then
+    local found, fg = pcall(get_color, color, 'foreground')
+    if found then
       local group = setmetatable(
         { ctermfg = fg.cterm, ctermbg = bg.cterm, guifg = fg.gui, guibg = bg.gui },
         { __tostring = function() return group_name end }
@@ -72,7 +72,7 @@ base.build_palette = function()
   return palette
 end
 
-base.build_palette()
+M.build_palette()
 
 -- Map accent color for statusline based on active mode
 local color_map = setmetatable({
@@ -97,7 +97,8 @@ local color_map = setmetatable({
   ['rm']   = palette.Yellow,  -- Read more (-- more -- prompt)
   ['r?']   = palette.Yellow,  -- Prompt yes/no (confirmation prompt)
   ['!']    = palette.Red,     -- Shell execution
-  ['t']    = palette.Red,     -- Terminal mode
+  ['t']    = palette.Red,     -- Terminal mode (insert)
+  ['nt']   = palette.Green,   -- Terminal mode (normal)
 }, {
   __index  = function(_, idx)
     return palette.Green      -- Catch any undefined modes
@@ -105,7 +106,7 @@ local color_map = setmetatable({
 })
 
 -- Map symbols/text to be used as an identifier for currently active mode
-base.mode_map = setmetatable({
+M.mode_map = setmetatable({
   ['n']    = 'N',             -- Normal
   ['no']   = 'N-P',           -- Operator pending
   ['v']    = 'V',             -- Visual by character
@@ -127,7 +128,8 @@ base.mode_map = setmetatable({
   ['rm']   = 'P!',            -- Read more (-- more -- prompt)
   ['r?']   = 'P?',            -- Prompt yes/no (confirmation prompt)
   ['!']    = 'S',             -- Shell execution
-  ['t']    = 'T',             -- Terminal mode
+  ['t']    = 'I-T',           -- Terminal mode (insert)
+  ['nt']   = 'N-T',           -- Terminal mode (normal)
 }, {
   __index  = function(_, mode)
     -- Catch any undefined modes
@@ -136,31 +138,31 @@ base.mode_map = setmetatable({
 })
 
 -- LSP provided diagnostic error message count
-base.format_errors = function()
-  local count = get_count(0, 'Error')
+M.format_errors = function()
+  local count = #(get_diagnostics(0, { severity = vim.diagnostic.severity.ERROR }))
   return count == 0 and '' or string.format(' E:%s ', count)
 end
 
 -- LSP provided diagnostic warning message count
-base.format_warnings = function()
-  local count = get_count(0, 'Warning')
+M.format_warnings = function()
+  local count = #(get_diagnostics(0, { severity = vim.diagnostic.severity.WARN }))
   return count == 0 and '' or string.format(' W:%s ', count)
 end
 
 -- LSP provided diagnostic information message count
-base.format_info = function()
-  local count = get_count(0, 'Information')
+M.format_info = function()
+  local count = #(get_diagnostics(0, { severity = vim.diagnostic.severity.INFO }))
   return count == 0 and '' or string.format(' I:%s ', count)
 end
 
 -- LSP provided diagnostic hints count
-base.format_hints = function()
-  local count = get_count(0, 'Hint')
+M.format_hints = function()
+  local count = #(get_diagnostics(0, { severity = vim.diagnostic.severity.HINT }))
   return count == 0 and '' or string.format(' H:%s ', count)
 end
 
 -- Language server status and progress messages
-base.get_lsp_status = function()
+M.get_lsp_status = function()
   local clients = vim.lsp.buf_get_clients()
   if (#clients > 0) then
     local client_names = {}
@@ -176,13 +178,13 @@ base.get_lsp_status = function()
 end
 
 -- Returns symbolic identifier for current mode
-base.get_current_mode = function(self)
+M.get_current_mode = function(self)
   local current_mode = api.nvim_get_mode().mode
   return string.format(' %s ', self.mode_map[current_mode])
 end
 
 -- File name with read-only marker or identifier for unsaved changes
-base.get_file_state = function()
+M.get_file_state = function()
   local name = fn.expand('%:t')
   local file_name = (name == '' and '[no name]' or name)
   local read_only = "%{&readonly?' -':''}"
@@ -191,7 +193,7 @@ base.get_file_state = function()
 end
 
 -- File's type as identified by neovim.
-base.get_file_type = function()
+M.get_file_type = function()
   local file_type = vim.bo.filetype:lower()
 
   return file_type == ''
@@ -200,21 +202,21 @@ base.get_file_type = function()
 end
 
 -- File line ending format Unix / Windows
-base.get_file_format = function()
+M.get_file_format = function()
   return string.format('%s ', vim.o.fileformat)
 end
 
 -- Character encoding of current file
-base.get_file_encoding = function()
+M.get_file_encoding = function()
   return string.format('%s ', vim.o.encoding)
 end
 
 -- Accent color to be applied to statusline based on active mode
-base.highlight = function(self, group)
+M.highlight = function(self, group)
   return string.format('%%#%s#', group)
 end
 
-base.get_buffers = function()
+M.get_buffers = function()
   local buffers = api.nvim_list_bufs()
   local current = api.nvim_get_current_buf()
   local prev_bufs = {}
@@ -238,7 +240,7 @@ base.get_buffers = function()
 end
 
 -- Statusline to be displayed on active windows
-base.set_active = function(self)
+M.set_active = function(self)
   local mode = api.nvim_get_mode().mode
   local accent_color = self:highlight(color_map[mode])
   local buffers = self:get_buffers()
@@ -248,7 +250,7 @@ base.set_active = function(self)
     self:get_current_mode(),
     self:highlight(palette.Aqua),
     self:get_file_state(),
-    '%<',                           -- Collapse point for smaller screen size
+    '%<',                           -- Collapse point for smaller screen sizes
     self:highlight(palette.Disabled),
     buffers.prev_bufs,
     accent_color,
@@ -270,7 +272,6 @@ base.set_active = function(self)
     self:get_file_format(),
     accent_color,
     self:get_file_type(),
-    '%<',                           -- Collapse point for smaller screen size
     self:highlight(palette.Aqua),
     ' --%1p%%-- ',                  -- Place in file as a percentage
     accent_color,
@@ -279,7 +280,7 @@ base.set_active = function(self)
 end
 
 -- Statusline to be displayed on inactive windows
-base.set_inactive = function(self)
+M.set_inactive = function(self)
   return table.concat({
     self:highlight(palette.Disabled),
     self:get_file_state(),
@@ -290,7 +291,7 @@ base.set_inactive = function(self)
 end
 
 -- Build statusline
-StatusLine = setmetatable(base, {
+StatusLine = setmetatable(M, {
   __call = function(self, mode)
     return self['set_' .. mode](self)
   end,
@@ -299,7 +300,7 @@ StatusLine = setmetatable(base, {
 -- enable StatusLine
 -- calling setup will create required highlight groups and add the auto command for switching
 -- between statusline active and inactive variants
-base.setup = function()
+M.setup = function()
   StatusLine:build_palette()
 
   vim_cmd([[

@@ -3,6 +3,10 @@ local vim_cmd  = vim.cmd
 local global_options = vim.o
 
 local defined_options  = {
+  -- Prefer dark background
+  background     = 'dark',
+  -- Set fish as default shell
+  shell          = 'fish',
   -- Dissable modelines
   modeline       = false,
   -- Restrict existing tab to width of 4 spaces

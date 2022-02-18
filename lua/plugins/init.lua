@@ -34,12 +34,17 @@ local function on_startup(use)
   use {
     'mbbill/undotree',
     config = function()
-      vim.api.nvim_set_keymap('n', '<A-r>', ':UndotreeToggle<CR>', { noremap = true })
+      vim.api.nvim_set_keymap('n', ',r', ':UndotreeToggle<CR>', { noremap = true })
     end
   }
 
-  -- comment/Uncomment blocks of code see keybindings to get started.
-  use { 'tpope/vim-commentary' }
+  -- comment/Uncomment blocks of code using gc (or CTRL+/).
+  use {
+    'numToStr/Comment.nvim',
+    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
+    config = function() require('plugins.comment') end
+  }
+  -- use { 'tpope/vim-commentary' }
 
   -- improved git integration
   use {

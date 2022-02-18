@@ -20,6 +20,9 @@ return config.setup({
       scope_incremental = "grc"
     },
   },
+  context_commentstring = {
+    enable = true,
+  },
   indent = {
     enable = true,
   },

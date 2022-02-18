@@ -10,11 +10,11 @@ let mapleader = "\<Space>"
 " Use semicolon to enter command mode
 nmap ;          :
 
-nmap <Leader>l  :lli<CR>
-nmap <Leader>q  :cli<CR>
-nmap <Leader>s  :%s/\s\+$//e<CR>
-nmap <Leader>t  :!ctags -R /tmp/tags<CR>
+" Use CTRL + j/k for fast scroll
+nnoremap <C-k> <C-u>
+nnoremap <C-j> <C-d>
 
+" Use ALT + q/l for opening quickfix and loclist
 nmap <A-q>      :cope<CR>
 nmap <A-l>      :lope<CR>
 
@@ -22,8 +22,14 @@ nmap <A-l>      :lope<CR>
 " UndoTree
 nnoremap <F8>       :UndotreeToggle<CR>
 
+" Copy to & paste from system clipboard
+vmap ,y      "+y
+map  ,p      "+p
+
 " Write changes to file
 nmap ,w         :w<CR>
+" Trim trailing whitespace
+nmap ,s  :%s/\s\+$//e<CR>
 " Delete current buffer, (keep window splits)
 nmap ,d         :bp\|bd #<CR>
 " Exit current window
@@ -32,10 +38,6 @@ nmap ,c         :q<CR>
 nmap ,q         :ccl<CR>
 " Close Location list
 nmap ,l         :lcl<CR>
-" Copy to & paste from system clipboard
-vmap ,y      "+y
-map  ,p      "+p
-
 " Fast * list navigation, inspired by tpope/vim-unimpaired
 " [ / ] -> previous / next, Uppercase Modifier -> First / Last
 " Quickfix list navigation:
@@ -54,14 +56,6 @@ nmap ]b         :bn<CR>
 nmap [B         :bf<CR>
 nmap ]B         :bl<CR>
 
-" use h, j, k & l instead
-nmap <UP>       <NOP>
-nmap <DOWN>     <NOP>
-nmap <LEFT>     <NOP>
-nmap <RIGHT>    <NOP>
-
-" Clear search highlighting
-nmap <F7>       :nohlsearch<CR>
 " Yank current line to system clipboard
 nmap <F10>      "+yy
 " Exit (n)vim
@@ -78,12 +72,15 @@ map  <F12>      :wa<CR>
 map  <C-_>      gc
 
 " Use alt modifier for scrolling buffer
-map  <A-j>      <C-E>
-map  <A-k>      <C-Y>
+map  <A-j>      <C-e>
+map  <A-k>      <C-y>
 
 " Move vertically by visual line
 nnoremap j      gj
 nnoremap k      gk
+
+" Keep cursor inplace while joining lines
+nnoremap J      mzJ`z
 
 " Use Shift + J/K to moves selected lines up/down in visual mode
 vnoremap J :m '>+1<CR>gv=gv
