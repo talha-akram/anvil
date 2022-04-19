@@ -18,7 +18,7 @@ local function on_startup(use)
     config = function() require('plugins.treesitter') end
   }
 
-  -- color themes
+  -- color schemes
   use { 'sainnhe/everforest' }
   use { 'sainnhe/gruvbox-material' }
 
@@ -34,7 +34,7 @@ local function on_startup(use)
   use {
     'mbbill/undotree',
     config = function()
-      vim.api.nvim_set_keymap('n', ',r', ':UndotreeToggle<CR>', { noremap = true })
+      vim.keymap.set('n', ',r', ':UndotreeToggle<CR>', { noremap = true })
     end
   }
 
@@ -44,13 +44,12 @@ local function on_startup(use)
     requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
     config = function() require('plugins.comment') end
   }
-  -- use { 'tpope/vim-commentary' }
 
   -- improved git integration
   use {
     'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim', 'tpope/vim-fugitive' },
-    config = function() require('gitsigns').setup({ numhl = true }) end
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function() require('plugins.gitsigns') end
   }
 
   -- quick fuzzy selection for files and more, see plugin settings.
@@ -64,15 +63,22 @@ local function on_startup(use)
   }
 
   -- REPL integration
-  use { 'rhysd/reply.vim', cmd = {'Repl', 'ReplAuto', 'ReplSend'}, config = function() require('plugins.reply') end }
+  use {
+    'rhysd/reply.vim',
+    cmd = {'Repl', 'ReplAuto', 'ReplSend'},
+    config = function() require('plugins.reply') end
+  }
 
   -- LSP Intigration: for builtin language server support (nvim >= 0.5)
-  use { 'neovim/nvim-lspconfig', config = function() require('plugins.lsp') end }
+  use {
+    'neovim/nvim-lspconfig',
+    run = 'npm install -g typescript; gem install solargraph',
+    config = function() require('plugins.lspconfig') end
+  }
 
-  -- snippet support: Use vim-vsnip as snippet provider
+  -- snippet and completion support, uses vim-vsnip as snippet provider
   use {
     'hrsh7th/nvim-cmp',
-    run = 'npm install -g typescript; gem install solargraph',
     config = function() require('plugins.cmp') end,
     requires = {
       {'hrsh7th/cmp-nvim-lsp'},

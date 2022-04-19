@@ -1,7 +1,6 @@
 -- Base NeoVim configuration
 
 local fn = vim.fn
-local vim_cmd = vim.cmd
 
 -- Only load plugins when not runing as root
 if (fn.exists('$SUDO_USER') == 0) then
@@ -16,19 +15,14 @@ if (fn.exists('$SUDO_USER') == 0) then
   require('plugins').setup(run_sync)
 end
 
+
+-- Set colorscheme
 vim.cmd([[
-  " Set colorscheme
   let g:gruvbox_material_background = 'medium'
   try
     colorscheme gruvbox-material
     catch
   endtry
-
-  " Enable autocommands
-  source ~/.config/nvim/startup/AutoCommands.vim
-
-  " Setup keybindings
-  source ~/.config/nvim/startup/Keybindings.vim
 ]])
 
 -- Configure NeoVim

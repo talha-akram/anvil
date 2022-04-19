@@ -7,6 +7,8 @@ local api = vim.api
 local vim_cmd = vim.cmd
 local listed = fn.buflisted
 local get_diagnostics = vim.diagnostic.get
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 local hl_by_name = vim.api.nvim_get_hl_by_name
 
 -- TODO: replace with API calls, when available
@@ -34,6 +36,7 @@ local get_color = function(hl_name, kind)
   local hex = (rgb and bit.tohex(rgb, 6) or 'ffffff')
   return { gui = string.format('#%s', hex), cterm = cterm }
 end
+
 
 local palette = {}
 
@@ -165,13 +168,26 @@ end
 M.get_lsp_status = function()
   local clients = vim.lsp.buf_get_clients()
   if (#clients > 0) then
-    local client_names = {}
+    local client_status = {}
 
     for _, client in pairs(clients) do
-      table.insert(client_names, client.config.name)
+      local messages = {}
+      for _token, message in pairs(client.messages.progress) do
+        if message.done then
+          messages = {}
+          break
+        elseif message.percentage then
+          table.insert(messages, string.format('%s %s', message.title, message.message))
+        end
+      end
+      if #messages > 0 then
+        table.insert(client_status, string.format('%s[%s]', client.config.name, messages[1]))
+      else
+        table.insert(client_status, client.config.name)
+      end
     end
 
-    return string.format('(%s) ● ', table.concat(client_names, ' '))
+    return string.format('(%s) ● ', table.concat(client_status, ' '))
   end
 
   return "◯ "
@@ -297,23 +313,39 @@ StatusLine = setmetatable(M, {
   end,
 })
 
--- enable StatusLine
--- calling setup will create required highlight groups and add the auto command for switching
--- between statusline active and inactive variants
+-- Enable StatusLine
+-- Calling setup will create required highlight group and add the auto commands
+-- for switching between statusline active and inactive variants
 M.setup = function()
   StatusLine:build_palette()
 
-  vim_cmd([[
-    augroup StatusLine
-      au!
-      " setup highlight rules for new colorscheme after it has loaded
-      au ColorScheme       * lua StatusLine:build_palette()
-      " set statusline to active variant for focused buffer
-      au WinEnter,BufEnter * setlocal statusline=%!v:lua.StatusLine('active')
-      " set statusline to inactive variant for buffers without focus
-      au WinLeave,BufLeave * setlocal statusline=%!v:lua.StatusLine('inactive')
-    augroup END
-  ]])
+  local statusline = augroup("StatusLine", { clear = true })
+  -- Rebuild statusline pallet on colorscheme change event
+  autocmd("ColorScheme", {
+    desc = "rebuild statusline color pallet and highlight groups",
+    callback = StatusLine.build_palette,
+    group = statusline
+  })
+
+  -- Setup autocmds to switch between active and inactive variants when
+  -- not using a global status line
+  if vim.o.laststatus ~= 3 then
+    -- Set statusline to active variant for focused buffer
+    autocmd({ "WinEnter", "BufEnter" }, {
+      desc = "show active statusline with extra details",
+      callback = function() vim.wo.statusline = "%!v:lua.StatusLine('active')" end,
+      group = statusline
+    })
+    -- Set statusline to inactive variant for buffers without focus
+    autocmd({ "WinLeave", "BufLeave" }, {
+      desc = "show muted statusline without extra details",
+      callback = function() vim.wo.statusline = "%!v:lua.StatusLine('inactive')" end,
+      group = statusline
+    })
+  else
+    -- Use active varient for global statusline
+    vim.o.statusline = "%!v:lua.StatusLine('active')"
+  end
 end
 
 return StatusLine
