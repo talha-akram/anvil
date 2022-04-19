@@ -1,6 +1,6 @@
 -- Telescope configuration
 local telescope = require('telescope')
-local set_keymap = vim.api.nvim_set_keymap
+local set_keymap = vim.keymap.set
 
 telescope.load_extension('fzf')
 
