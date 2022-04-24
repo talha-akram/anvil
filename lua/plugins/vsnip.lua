@@ -1,4 +1,4 @@
-local set_keymap = vim.api.nvim_set_keymap
+local set_keymap = vim.keymap.set
 
 -- Expand if a snippet is available
 set_keymap('i', '<A-Space>', 'vsnip#expandable() ? "<Plug>(vsnip-expand)" : "<A-Space>"', { expr = true })

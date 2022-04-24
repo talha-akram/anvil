@@ -1,5 +1,5 @@
 local lsp = require('lspconfig');
-local set_keymap = vim.api.nvim_set_keymap
+local set_keymap = vim.keymap.set
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local on_attach = function()

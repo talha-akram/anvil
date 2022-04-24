@@ -82,6 +82,7 @@ local function on_startup(use)
     config = function() require('plugins.cmp') end,
     requires = {
       {'hrsh7th/cmp-nvim-lsp'},
+      {'hrsh7th/cmp-nvim-lua'},
       {'hrsh7th/cmp-vsnip'},
       {'hrsh7th/vim-vsnip', config = function() require('plugins.vsnip') end }
     }
