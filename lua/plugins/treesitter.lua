@@ -5,7 +5,9 @@ return config.setup({
   ensure_installed = {
     'css', 'dockerfile', 'elixir', 'erlang', 'fish', 'html', 'http', 'javascript',
     'json', 'lua', 'php', 'python', 'regex', 'ruby', 'rust', 'scss', 'svelte',
-    'typescript', 'vue', 'yaml', 'markdown'
+    'typescript', 'vue', 'yaml', 'markdown', 'bash', 'c', 'cmake', 'comment',
+    'cpp', 'dart', 'go', 'jsdoc', 'json5', 'jsonc', 'llvm', 'make', 'ninja',
+    'prisma', 'proto', 'pug', 'swift', 'todotxt', 'toml', 'tsx',
   },
   highlight = {
     additional_vim_regex_highlighting = false,
