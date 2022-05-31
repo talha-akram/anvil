@@ -57,6 +57,7 @@ local function on_startup(use)
     'nvim-telescope/telescope.nvim',
     config = function() require('plugins.telescope') end,
     requires = {
+      { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-live-grep-raw.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     },
