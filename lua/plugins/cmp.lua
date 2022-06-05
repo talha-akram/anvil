@@ -1,5 +1,6 @@
 -- Setup nvim-cmp.
 local cmp = require('cmp')
+-- local lsp_expand = require('luasnip').lsp_expand
 
 
 cmp.setup({
@@ -10,6 +11,7 @@ cmp.setup({
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
       vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` users.
+      -- lsp_expand(args.body) -- For `LuaSnip` users.
     end,
   },
   mapping = cmp.mapping.preset.insert({
@@ -24,10 +26,11 @@ cmp.setup({
     }),
   }),
   sources = cmp.config.sources({
+    -- { name = "copilot" },
     { name = 'nvim_lsp' },
-    { name = 'vsnip' }
-  }, {
-    { name = 'buffer' },
+    { name = 'nvim_lua' },
+    { name = 'vsnip' },
+    { name = 'buffer', keyword_length = 5 },
   })
 })
 

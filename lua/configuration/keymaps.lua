@@ -1,15 +1,5 @@
 local set_keymap = vim.keymap.set
 
--- Can add mapping to Lua functions
--- set_keymap('n', 'lhs', function() print("real lua function") end)
-
--- Can use it to map multiple modes
--- set_keymap({'n', 'v'}, '<leader>lr', vim.lsp.buf.references, { buffer=true })
-
--- Can add mapping for specific buffer
--- set_keymap('n', '<leader>w', "<cmd>w<cr>", { silent = true, buffer = 5 })
-
-
 return {
   setup = function()
     -- Set Space as the leader key
@@ -66,9 +56,6 @@ return {
     -- set_keymap('i', '<C-Space>', '<C-x><C-o>', { noremap = true })
     -- -- Use alt+space for completefunc
     -- set_keymap('i', '<A-Space>', '<C-x><C-u>', { noremap = true })
-
-    -- Bind Ctrl+/ for commenting/uncommenting
-    set_keymap('v', '<C-_>', 'gc', { noremap = true })
 
     -- Use alt modifier for scrolling buffer
     set_keymap('', '<A-j>', '<C-e>', { noremap = true })

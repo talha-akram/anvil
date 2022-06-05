@@ -6,6 +6,7 @@ local fn = vim.fn
 local api = vim.api
 local vim_cmd = vim.cmd
 local listed = fn.buflisted
+local severity = vim.diagnostic.severity
 local get_diagnostics = vim.diagnostic.get
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
@@ -141,27 +142,11 @@ M.mode_map = setmetatable({
 })
 
 -- LSP provided diagnostic error message count
-M.format_errors = function()
-  local count = #(get_diagnostics(0, { severity = vim.diagnostic.severity.ERROR }))
-  return count == 0 and '' or string.format(' E:%s ', count)
-end
-
--- LSP provided diagnostic warning message count
-M.format_warnings = function()
-  local count = #(get_diagnostics(0, { severity = vim.diagnostic.severity.WARN }))
-  return count == 0 and '' or string.format(' W:%s ', count)
-end
-
--- LSP provided diagnostic information message count
-M.format_info = function()
-  local count = #(get_diagnostics(0, { severity = vim.diagnostic.severity.INFO }))
-  return count == 0 and '' or string.format(' I:%s ', count)
-end
-
--- LSP provided diagnostic hints count
-M.format_hints = function()
-  local count = #(get_diagnostics(0, { severity = vim.diagnostic.severity.HINT }))
-  return count == 0 and '' or string.format(' H:%s ', count)
+---@param format lua format string with one `%s` indicating where count's value will be substituted
+---@param severity any value form vim.diagnostic.severity table
+local format_diagnostics = function(format, severity)
+  local count = #(get_diagnostics(0, { severity = severity }))
+  return count == 0 and '' or string.format(format, count)
 end
 
 -- Language server status and progress messages
@@ -266,7 +251,7 @@ M.set_active = function(self)
     self:get_current_mode(),
     self:highlight(palette.Aqua),
     self:get_file_state(),
-    '%<',                           -- Collapse point for smaller screen sizes
+    '%<',                                               -- Collapse point for smaller screen sizes
     self:highlight(palette.Disabled),
     buffers.prev_bufs,
     accent_color,
@@ -274,14 +259,14 @@ M.set_active = function(self)
     self:highlight(palette.Disabled),
     buffers.next_bufs,
     self:highlight(palette.Red),
-    self:format_errors(),
+    format_diagnostics(' E:%s ', severity.ERROR),
     self:highlight(palette.Orange),
-    self:format_warnings(),
+    format_diagnostics(' W:%s ', severity.WARN),
     self:highlight(palette.Yellow),
-    self:format_info(),
+    format_diagnostics(' I:%s ', severity.INFO),
     self:highlight(palette.Blue),
-    self:format_hints(),
-    '%=',                           -- left / right separator
+    format_diagnostics(' H:%s ', severity.HINT),
+    '%=',                                               -- left / right separator
     self:highlight(palette.Normal),
     self:get_lsp_status(),
     self:get_file_encoding(),
@@ -289,9 +274,9 @@ M.set_active = function(self)
     accent_color,
     self:get_file_type(),
     self:highlight(palette.Aqua),
-    ' --%1p%%-- ',                  -- Place in file as a percentage
+    ' --%1p%%-- ',                                      -- Place in file as a percentage
     accent_color,
-    ' %l:%c ',                      -- position of cursor
+    ' %l:%c ',                                          -- position of cursor
   })
 end
 
@@ -300,9 +285,9 @@ M.set_inactive = function(self)
   return table.concat({
     self:highlight(palette.Disabled),
     self:get_file_state(),
-    '%=',                           -- left / right separator
-    ' --%1p%%-- ',                  -- Place in file as a percentage
-    ' %l:%c ',                      -- position of cursor
+    '%=',                                               -- left / right separator
+    ' --%1p%%-- ',                                      -- Place in file as a percentage
+    ' %l:%c ',                                          -- position of cursor
   })
 end
 
@@ -332,13 +317,13 @@ M.setup = function()
   if vim.o.laststatus ~= 3 then
     -- Set statusline to active variant for focused buffer
     autocmd({ "WinEnter", "BufEnter" }, {
-      desc = "show active statusline with extra details",
+      desc = "show active statusline with details",
       callback = function() vim.wo.statusline = "%!v:lua.StatusLine('active')" end,
       group = statusline
     })
     -- Set statusline to inactive variant for buffers without focus
     autocmd({ "WinLeave", "BufLeave" }, {
-      desc = "show muted statusline without extra details",
+      desc = "show muted statusline without additional details",
       callback = function() vim.wo.statusline = "%!v:lua.StatusLine('inactive')" end,
       group = statusline
     })

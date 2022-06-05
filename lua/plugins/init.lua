@@ -5,29 +5,22 @@
 -- load packer
 local packer = require('packer');
 
--- add plugins
+-- Add plugins
 local function on_startup(use)
 
-  -- set packer to manage itself
+  -- Set packer to manage itself
   use { 'wbthomason/packer.nvim' }
 
-  -- TreeSitter for improved syntax highlighting
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    config = function() require('plugins.treesitter') end
-  }
-
-  -- color schemes
+  -- Color schemes
   use { 'sainnhe/everforest' }
   use { 'sainnhe/gruvbox-material' }
 
-  -- syntax support
+  -- Syntax support
   use { 'dag/vim-fish' }
   use { 'MaxMEllon/vim-jsx-pretty' }
   use { 'pangloss/vim-javascript' }
 
-  -- ask for the right file to open in case wrong name is used.
+  -- Ask for the right file to open when file matching name is not found
   use { 'EinfachToll/DidYouMean' }
 
   -- visualise and control undo history in tree form.
@@ -38,18 +31,11 @@ local function on_startup(use)
     end
   }
 
-  -- comment/Uncomment blocks of code using gc (or CTRL+/).
+  -- Comment/Uncomment blocks of code using gc (or CTRL+/).
   use {
     'numToStr/Comment.nvim',
     requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
     config = function() require('plugins.comment') end
-  }
-
-  -- improved git integration
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function() require('plugins.gitsigns') end
   }
 
   -- quick fuzzy selection for files and more, see plugin settings.
@@ -63,6 +49,13 @@ local function on_startup(use)
     },
   }
 
+  -- Git integration
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function() require('plugins.gitsigns') end
+  }
+
   -- REPL integration
   use {
     'rhysd/reply.vim',
@@ -70,21 +63,52 @@ local function on_startup(use)
     config = function() require('plugins.reply') end
   }
 
-  -- LSP Intigration: for builtin language server support (nvim >= 0.5)
+  -- TreeSitter integration
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function() require('plugins.treesitter') end
+  }
+
+  -- -- DAP integration
+  -- use {
+  --   'mfussenegger/nvim-dap',
+  --   config = function() end,
+  --   requires = {
+  --     { 'nvim-telescope/telescope-dap.nvim' },
+  --     { 'theHamsta/nvim-dap-virtual-text' },
+  --     { 'rcarriga/nvim-dap-ui' },
+  --     { 'leoluz/nvim-dap-go', config = function() require('dap-go').setup() end  },
+  --   },
+  -- }
+
+  -- LSP intigration
   use {
     'neovim/nvim-lspconfig',
     run = 'npm install -g typescript; gem install solargraph',
     config = function() require('plugins.lspconfig') end
   }
 
+  -- Copilot integration
+  -- use {
+  --   'zbirenbaum/copilot.lua',
+  --   config = function()
+  --     vim.defer_fn(function() require("copilot").setup() end, 100)
+  --   end,
+  -- }
+
   -- snippet and completion support, uses vim-vsnip as snippet provider
   use {
     'hrsh7th/nvim-cmp',
     config = function() require('plugins.cmp') end,
     requires = {
+      {'L3MON4D3/LuaSnip'},
       {'hrsh7th/cmp-nvim-lsp'},
       {'hrsh7th/cmp-nvim-lua'},
+      {'hrsh7th/cmp-buffer'},
       {'hrsh7th/cmp-vsnip'},
+      {'saadparwaiz1/cmp_luasnip'},
+      -- { 'zbirenbaum/copilot-cmp', after = { "copilot.lua", "nvim-cmp" } },
       {'hrsh7th/vim-vsnip', config = function() require('plugins.vsnip') end }
     }
   }
