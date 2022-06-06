@@ -34,8 +34,8 @@ local function on_startup(use)
   -- Comment/Uncomment blocks of code using gc (or CTRL+/).
   use {
     'numToStr/Comment.nvim',
-    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
-    config = function() require('plugins.comment') end
+    config = function() require('plugins.comment') end,
+    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' }
   }
 
   -- quick fuzzy selection for files and more, see plugin settings.
@@ -45,15 +45,15 @@ local function on_startup(use)
     requires = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-live-grep-raw.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     },
   }
 
   -- Git integration
   use {
     'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function() require('plugins.gitsigns') end
+    config = function() require('plugins.gitsigns') end,
+    requires = { 'nvim-lua/plenary.nvim' }
   }
 
   -- REPL integration
@@ -66,8 +66,8 @@ local function on_startup(use)
   -- TreeSitter integration
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    config = function() require('plugins.treesitter') end
+    config = function() require('plugins.treesitter') end,
+    run = ':TSUpdate'
   }
 
   -- -- DAP integration
@@ -85,8 +85,12 @@ local function on_startup(use)
   -- LSP intigration
   use {
     'neovim/nvim-lspconfig',
-    run = 'npm install -g typescript; gem install solargraph',
-    config = function() require('plugins.lspconfig') end
+    config = function() require('plugins.lspconfig') end,
+    run = {
+      'npm install -g typescript',
+      'gem install solargraph',
+      'go install golang.org/x/tools/gopls@latest'
+    }
   }
 
   -- Copilot integration
