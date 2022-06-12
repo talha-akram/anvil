@@ -25,7 +25,7 @@ return gitsigns.setup({
     delay = 1000,
     ignore_whitespace = false,
   },
-  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+  current_line_blame_formatter = '      <author>, <author_time:%R> - <summary>',
   sign_priority = 10,
   update_debounce = 100,
   status_formatter = nil,
