@@ -1,5 +1,8 @@
--- nvim-treesitter ccnfiguration
+-- nvim-treesitter configuration
 local config = require('nvim-treesitter.configs')
+
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 
 return config.setup({
   ensure_installed = {

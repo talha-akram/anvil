@@ -53,7 +53,7 @@ local function on_startup(use)
   use {
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end,
-    requires = { 'nvim-lua/plenary.nvim', 'tpope/vim-fugitive' }
+    requires = { 'nvim-lua/plenary.nvim', 'tpope/vim-fugitive', 'rbong/vim-flog' }
   }
 
   -- REPL integration
