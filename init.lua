@@ -20,7 +20,7 @@ end
 vim.cmd([[
   let g:gruvbox_material_background = 'medium'
   try
-    colorscheme gruvbox-material
+    colorscheme everforest
     catch
   endtry
 ]])

@@ -19,10 +19,10 @@ return config.setup({
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gnn",
-      node_decremental = "grm",
-      node_incremental = "grn",
-      scope_incremental = "grc"
+      init_selection = "gsn",
+      node_decremental = "gsm",
+      node_incremental = "gsn",
+      scope_incremental = "gss"
     },
   },
   context_commentstring = {
