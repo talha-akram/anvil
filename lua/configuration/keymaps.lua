@@ -76,9 +76,6 @@ return {
     set_keymap('n', 'n', 'nzz', { noremap = true })
     set_keymap('n', 'N', 'Nzz', { noremap = true })
 
-    -- Use q to close help
-    set_keymap('n', 'q', "(&filetype == 'help' ? ':q\\<CR>' : 'q')", { noremap = true, expr = true })
-
     -- Close popup menu and compensate cursor shifting one place left
     set_keymap('i', '<Esc>', function()
       return vim.fn.pumvisible() == 1 and "<Esc>i<Right>" or "<Right><Esc>"
