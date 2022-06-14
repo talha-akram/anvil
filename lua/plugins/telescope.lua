@@ -7,7 +7,7 @@ telescope.load_extension('fzf')
 set_keymap(
   'n',
   '<leader>f',
-  '<cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>',
+  '<cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<cr>',
   {noremap = true}
 )
 set_keymap('n', '<leader>o', '<cmd>lua require("telescope.builtin").find_files()<cr>',   {noremap = true})
