@@ -23,7 +23,7 @@ local function on_startup(use)
   -- Ask for the right file to open when file matching name is not found
   use { 'EinfachToll/DidYouMean' }
 
-  -- visualise and control undo history in tree form.
+  -- Visualise and control undo history in tree form.
   use {
     'mbbill/undotree',
     config = function()
@@ -41,7 +41,7 @@ local function on_startup(use)
     end
   }
 
-  -- quick fuzzy selection for files and more, see plugin settings.
+  -- Quick fuzzy selection for files and more, see plugin settings.
   use {
     'nvim-telescope/telescope.nvim',
     config = function() require('plugins.telescope') end,
@@ -105,7 +105,7 @@ local function on_startup(use)
   --   end,
   -- }
 
-  -- snippet and completion support, uses vim-vsnip as snippet provider
+  -- Snippet and completion support, uses vim-vsnip as snippet provider
   use {
     'hrsh7th/nvim-cmp',
     config = function() require('plugins.cmp') end,

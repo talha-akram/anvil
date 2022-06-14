@@ -83,7 +83,7 @@ if (fn.has("termguicolors")) then
   defined_options.termguicolors = true
 end
 
--- Undotree settings
+-- Undo file settings
 if (fn.has("persistent_undo")) then
     defined_options.undodir     = fn.stdpath("config") .. "/undodir/"
     defined_options.undofile    = true
