@@ -25,8 +25,16 @@ return config.setup({
       scope_incremental = "gss"
     },
   },
+  rainbow = {
+    enable = true,
+    extended_mode = false, -- Also highlight non-bracket delimiters like html tags
+    max_file_lines = 3000, -- Do not enable for files with more than 3000 lines
+    colors = {'#d2b48c', '#cd853f', '#ffa500', '#ffd700'}, -- table of hex strings
+    termcolors = {'White', 'LightYellow', 'Yellow'}
+  },
   context_commentstring = {
     enable = true,
+    enable_autocmd = false,
   },
   indent = {
     enable = true,

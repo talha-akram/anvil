@@ -31,9 +31,9 @@ local function on_startup(use)
     end
   }
 
-  -- Comment/Uncomment blocks of code using gc (or CTRL+/).
+  -- Comment/Uncomment blocks of code using gc
   use {
-    'numToStr/Comment.nvim',
+    'terrortylor/nvim-comment',
     config = function() require('plugins.comment') end,
     requires = { 'JoosepAlviste/nvim-ts-context-commentstring' }
   }
@@ -67,7 +67,8 @@ local function on_startup(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     config = function() require('plugins.treesitter') end,
-    run = ':TSUpdate'
+    run = ':TSUpdate',
+    requires = { 'p00f/nvim-ts-rainbow' }
   }
 
   -- -- DAP integration
