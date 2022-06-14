@@ -33,9 +33,12 @@ local function on_startup(use)
 
   -- Comment/Uncomment blocks of code using gc
   use {
-    'terrortylor/nvim-comment',
-    config = function() require('plugins.comment') end,
-    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' }
+    'b3nj5m1n/kommentary',
+    config = function()
+      require('kommentary.config').configure_language("default", {
+          prefer_single_line_comments = true,
+      })
+    end
   }
 
   -- quick fuzzy selection for files and more, see plugin settings.
