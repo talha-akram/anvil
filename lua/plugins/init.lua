@@ -46,8 +46,8 @@ local function on_startup(use)
     'nvim-telescope/telescope.nvim',
     config = function() require('plugins.telescope') end,
     requires = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-live-grep-args.nvim' },
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-live-grep-args.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     },
   }
@@ -71,7 +71,7 @@ local function on_startup(use)
     'nvim-treesitter/nvim-treesitter',
     config = function() require('plugins.treesitter') end,
     run = ':TSUpdate',
-    requires = { 'p00f/nvim-ts-rainbow' }
+    requires = 'p00f/nvim-ts-rainbow'
   }
 
   -- -- DAP integration
@@ -91,9 +91,9 @@ local function on_startup(use)
     'neovim/nvim-lspconfig',
     config = function() require('plugins.lspconfig') end,
     run = {
-      'npm install -g typescript',
-      'gem install solargraph',
-      'go install golang.org/x/tools/gopls@latest'
+      'command -v solargraph >/dev/null || gem install solargraph',
+      'command -v gopls >/dev/null || go install golang.org/x/tools/gopls@latest',
+      'command -v typescript-language-server >/dev/null || npm install -g typescript-language-server',
     }
   }
 
@@ -103,21 +103,21 @@ local function on_startup(use)
   --   config = function()
   --     vim.defer_fn(function() require("copilot").setup() end, 100)
   --   end,
+  --   requires = {
+  --     'zbirenbaum/copilot-cmp',
+  --     after = { "copilot.lua", "nvim-cmp" }
+  --   },
   -- }
 
-  -- Snippet and completion support, uses vim-vsnip as snippet provider
+  -- Snippet and completion support, uses LuaSnip as snippet provider
   use {
     'hrsh7th/nvim-cmp',
     config = function() require('plugins.cmp') end,
     requires = {
-      {'L3MON4D3/LuaSnip'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-nvim-lua'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-vsnip'},
-      {'saadparwaiz1/cmp_luasnip'},
-      -- { 'zbirenbaum/copilot-cmp', after = { "copilot.lua", "nvim-cmp" } },
-      {'hrsh7th/vim-vsnip', config = function() require('plugins.vsnip') end }
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-buffer',
+      { 'saadparwaiz1/cmp_luasnip', requires = 'L3MON4D3/LuaSnip' },
     }
   }
 end
