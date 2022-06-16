@@ -6,7 +6,7 @@
 local packer = require('packer');
 
 -- Add plugins
-local function on_startup(use)
+local on_startup = function(use)
 
   -- Set packer to manage itself
   use { 'wbthomason/packer.nvim' }
@@ -14,11 +14,6 @@ local function on_startup(use)
   -- Color schemes
   use { 'sainnhe/everforest' }
   use { 'sainnhe/gruvbox-material' }
-
-  -- Syntax support
-  use { 'dag/vim-fish' }
-  use { 'MaxMEllon/vim-jsx-pretty' }
-  use { 'pangloss/vim-javascript' }
 
   -- Ask for the right file to open when file matching name is not found
   use { 'EinfachToll/DidYouMean' }
@@ -56,7 +51,12 @@ local function on_startup(use)
   use {
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end,
-    requires = { 'nvim-lua/plenary.nvim', 'tpope/vim-fugitive', 'rbong/vim-flog' }
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'TimUntersberger/neogit',
+      -- 'tpope/vim-fugitive',
+      -- 'rbong/vim-flog'
+    }
   }
 
   -- REPL integration
@@ -74,7 +74,7 @@ local function on_startup(use)
     requires = 'p00f/nvim-ts-rainbow'
   }
 
-  -- -- DAP integration
+  -- DAP integration
   -- use {
   --   'mfussenegger/nvim-dap',
   --   config = function() end,
