@@ -109,7 +109,14 @@ local function on_startup(use)
   --   },
   -- }
 
-  -- Snippet and completion support, uses LuaSnip as snippet provider
+  -- Use LuaSnip as snippet provider
+  use {
+    'L3MON4D3/LuaSnip',
+    config = function() require('plugins.luasnip') end,
+    requires = {'rafamadriz/friendly-snippets'}
+  }
+
+  -- Snippet and completion integration
   use {
     'hrsh7th/nvim-cmp',
     config = function() require('plugins.cmp') end,
@@ -117,7 +124,7 @@ local function on_startup(use)
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-buffer',
-      { 'saadparwaiz1/cmp_luasnip', requires = 'L3MON4D3/LuaSnip' },
+      'saadparwaiz1/cmp_luasnip',
     }
   }
 end
