@@ -1,8 +1,8 @@
 -- nvim-treesitter configuration
 local config = require('nvim-treesitter.configs')
 
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldmethod  = 'expr'
+vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
 
 return config.setup({
   ensure_installed = {
@@ -19,10 +19,10 @@ return config.setup({
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gsn",
-      node_decremental = "gsm",
-      node_incremental = "gsn",
-      scope_incremental = "gss"
+      init_selection = 'gs',
+      node_decremental = '<C-j>',
+      node_incremental = '<C-k>',
+      scope_incremental = 'gss'
     },
   },
   rainbow = {
