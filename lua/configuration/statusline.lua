@@ -6,26 +6,12 @@ local fn = vim.fn
 local api = vim.api
 local vim_cmd = vim.cmd
 local listed = fn.buflisted
+local create_highlight = vim.api.nvim_set_hl
 local severity = vim.diagnostic.severity
 local get_diagnostics = vim.diagnostic.get
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local hl_by_name = vim.api.nvim_get_hl_by_name
-
--- TODO: replace with API calls, when available
----@param hl_name name of highlight group
----@param colors map of highlight settings (type to color values)
-local create_highlight = function(hl_name, colors)
-  local options = {}
-  if not colors then return end
-
-  -- build array of all group highlight settings
-  for k, v in pairs(colors) do
-    table.insert(options, string.format('%s=%s', k, v))
-  end
-
-  vim_cmd(string.format('highlight %s %s', hl_name, table.concat(options, " ")))
-end
 
 
 -- retrieve color value of [kind] from highlight group
@@ -47,9 +33,9 @@ M.build_palette = function()
   local nc      = get_color('StatusLineNC', 'foreground')
   local colors  = {'Red', 'Orange', 'Yellow', 'Green', 'Aqua', 'Blue', 'Purple', 'Normal'}
 
-  palette.Disabled = { ctermfg = nc.cterm, ctermbg = bg.cterm, guifg = nc.gui, guibg = bg.gui }
+  palette.Disabled = { ctermfg = nc.cterm, ctermbg = bg.cterm, fg = nc.gui, bg = bg.gui }
   palette.Disabled = setmetatable(
-    { ctermfg = nc.cterm, ctermbg = bg.cterm, guifg = nc.gui, guibg = bg.gui },
+    { ctermfg = nc.cterm, ctermbg = bg.cterm, fg = nc.gui, bg = bg.gui },
     { __tostring = function() return 'StatusLineDisabled' end }
   )
 
@@ -58,20 +44,21 @@ M.build_palette = function()
     local found, fg = pcall(get_color, color, 'foreground')
     if found then
       local group = setmetatable(
-        { ctermfg = fg.cterm, ctermbg = bg.cterm, guifg = fg.gui, guibg = bg.gui },
+        { ctermfg = fg.cterm, ctermbg = bg.cterm, fg = fg.gui, bg = bg.gui },
         { __tostring = function() return group_name end }
       )
       palette[color] = group
-      create_highlight(group_name, group)
+      create_highlight(0, group_name, group)
+      -- create_highlight(group_name, group)
     end
   end
 
   -- statusline highlight for inactive buffers
-  create_highlight(tostring(palette.Disabled), palette.Disabled)
+  create_highlight(0, tostring(palette.Disabled), palette.Disabled)
   -- default highlight for the statusline
-  create_highlight('StatusLine', palette.Normal)
+  create_highlight(0, 'StatusLine', palette.Normal)
   -- configure highlight for wild menu (command mode completions)
-  create_highlight('WildMenu', palette.Aqua)
+  create_highlight(0, 'WildMenu', palette.Aqua)
 
   return palette
 end
