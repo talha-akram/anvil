@@ -113,7 +113,7 @@ local on_startup = function(use)
   use {
     'L3MON4D3/LuaSnip',
     config = function() require('plugins.luasnip') end,
-    requires = {'rafamadriz/friendly-snippets'}
+    requires = 'rafamadriz/friendly-snippets'
   }
 
   -- Snippet and completion integration

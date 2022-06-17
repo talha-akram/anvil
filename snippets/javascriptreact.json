@@ -1,6 +1,6 @@
 {
   "mapStateToProps": {
-    "prefix": ["mstp"],
+    "prefix": "mstp",
     "body": [
       "const mapStateToProps = (state) => {",
       "\treturn {",
@@ -12,7 +12,7 @@
   },
 
   "mapDispatchToProps": {
-    "prefix": ["mdtp"],
+    "prefix": "mdtp",
     "body": [
       "const mapDispatchToProps = (dispatch) => {",
       "\treturn {",
@@ -26,13 +26,13 @@
   },
 
   "connect": {
-    "prefix": ["con"],
+    "prefix": "con",
     "body": "connect(${1:mapStateToProps}, ${2:mapDispatchToProps})(${3:${TM_FILENAME_BASE}});",
     "description": "Connect with redux store."
   },
 
   "action": {
-    "prefix": ["act"],
+    "prefix": "act",
     "body": [
       "const ${1:ACTION_NAME} = (${2:ARG}) => {",
       "\treturn {",
@@ -45,7 +45,7 @@
   },
 
   "reducer": {
-    "prefix": ["rdc"],
+    "prefix": "rdc",
     "body": [
       "const ${1:${TM_FILENAME_BASE}} = (state=${2:initialState}, action) => {",
       "\tswitch(action.type) {",
