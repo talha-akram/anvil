@@ -17,7 +17,7 @@ telescope.setup({
 })
 
 telescope.load_extension('fzf')
-telescope.load_extension('dap')
+-- telescope.load_extension('dap')
 
 set_keymap('<leader>o', telescope_builtin.find_files)
 set_keymap('<leader>b', telescope_builtin.buffers)
