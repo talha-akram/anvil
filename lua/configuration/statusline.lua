@@ -4,7 +4,6 @@
 local M = {}
 local fn = vim.fn
 local api = vim.api
-local vim_cmd = vim.cmd
 local listed = fn.buflisted
 local create_highlight = vim.api.nvim_set_hl
 local severity = vim.diagnostic.severity
