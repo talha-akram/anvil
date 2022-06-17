@@ -1,20 +1,36 @@
 -- Telescope configuration
 local telescope = require('telescope')
-local set_keymap = vim.keymap.set
+local telescope_builtin = require('telescope.builtin')
+local set_keymap = function(lhs, rhs)
+  vim.keymap.set('n', lhs, rhs, { noremap = true })
+end
+
+telescope.setup({
+  extensions = {
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = 'smart_case',        -- other options: 'ignore_case' or 'respect_case'
+    }
+  }
+})
 
 telescope.load_extension('fzf')
+telescope.load_extension('dap')
 
-set_keymap(
-  'n',
-  '<leader>f',
-  '<cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<cr>',
-  {noremap = true}
-)
-set_keymap('n', '<leader>o', '<cmd>lua require("telescope.builtin").find_files()<cr>',   {noremap = true})
-set_keymap('n', '<leader>b', '<cmd>lua require("telescope.builtin").buffers()<cr>',      {noremap = true})
-set_keymap('n', '<leader>p', '<cmd>lua require("telescope.builtin").commands()<cr>',     {noremap = true})
-set_keymap('n', '<leader>q', '<cmd>lua require("telescope.builtin").quickfix()<cr>',     {noremap = true})
-set_keymap('n', '<leader>g', '<cmd>lua require("telescope.builtin").git_status()<cr>',   {noremap = true})
-set_keymap('n', '<leader>l', '<cmd>lua require("telescope.builtin").loclist()<cr>',      {noremap = true})
-set_keymap('n', '<F1>',      '<cmd>lua require("telescope.builtin").help_tags()<cr>',    {noremap = true})
+set_keymap('<leader>o', telescope_builtin.find_files)
+set_keymap('<leader>b', telescope_builtin.buffers)
+set_keymap('<leader>p', telescope_builtin.commands)
+set_keymap('<leader>q', telescope_builtin.quickfix)
+set_keymap('<leader>g', telescope_builtin.git_status)
+set_keymap('<leader>l', telescope_builtin.loclist)
+set_keymap('<F1>',      telescope_builtin.help_tags)
 
+set_keymap('<leader>f', telescope.extensions.live_grep_args.live_grep_args)
+
+set_keymap('<leader>do', telescope.extensions.dap.commands)
+set_keymap('<leader>dc', telescope.extensions.dap.configurations)
+set_keymap('<leader>db', telescope.extensions.dap.list_breakpoints)
+set_keymap('<leader>dv', telescope.extensions.dap.variables)
+set_keymap('<leader>df', telescope.extensions.dap.frames)
