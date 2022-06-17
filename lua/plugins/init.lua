@@ -2,8 +2,11 @@
 -- Configure plugins, plugin specific functions and autocommands are to be
 -- written in the corresponding files (makes debuging and trying out plugins easier)
 
--- load packer
-local packer = require('packer');
+-- Use a protected call to avoid errors on first use
+local status_ok, packer = pcall(require, 'packer')
+if not status_ok then
+  return
+end
 
 -- Add plugins
 local on_startup = function(use)
