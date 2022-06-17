@@ -22,9 +22,17 @@ return {
     -- Use vertical splits for help windows
     local vertical_help = augroup("VerticalHelp", { clear = true })
     autocmd("FileType", {
-      desc = "LOL",
+      desc = "make help split vertical",
       pattern="help",
       command = "wincmd L",
+      group = vertical_help
+    })
+
+    -- Highlight yanked text
+    local vertical_help = augroup("HighlightYank", { clear = true })
+    autocmd("TextYankPost", {
+      desc = "highlight yanked text",
+      callback = function() vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 50 }) end,
       group = vertical_help
     })
   end
