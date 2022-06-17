@@ -1,8 +1,25 @@
 -- Gitsigns configuration
 local gitsigns = require('gitsigns')
 
+local on_attach = function()
+  local set_keymap = function(lhs, rhs)
+    vim.keymap.set('n', lhs, rhs, { noremap = true })
+  end
+
+  set_keymap(',gs', gitsigns.stage_hunk)
+  set_keymap(',gu', gitsigns.undo_stage_hunk)
+  set_keymap('[g',  gitsigns.prev_hunk)
+  set_keymap(']g',  gitsigns.next_hunk)
+  set_keymap(',g',  gitsigns.preview_hunk)
+end
 
 return gitsigns.setup({
+  on_attach = on_attach,
+  sign_priority = 10,
+  update_debounce = 100,
+  status_formatter = nil,
+  max_file_length = 40000,
+  current_line_blame_formatter = '      <author>, <author_time:%R> - <summary>',
   signs = {
     add          = { hl = 'GitSignsAdd',    text = '│', numhl='GitSignsAddNr',    linehl='GitSignsAddLn'    },
     change       = { hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
@@ -26,11 +43,6 @@ return gitsigns.setup({
     delay = 1000,
     ignore_whitespace = false,
   },
-  current_line_blame_formatter = '      <author>, <author_time:%R> - <summary>',
-  sign_priority = 10,
-  update_debounce = 100,
-  status_formatter = nil,
-  max_file_length = 40000,
   preview_config = {
     -- Options passed to nvim_open_win
     border = 'single',
