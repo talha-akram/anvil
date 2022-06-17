@@ -99,7 +99,7 @@ if (fn.exists("$SUDO_USER") ~= 0) then
 end
 
 -- Use ripgrep as the grep program, if available
-if (fn.executable("rg")) then
+if (fn.executable("rg") == 1) then
     defined_options.grepprg     = "rg --vimgrep --no-heading --smart-case"
 end
 

@@ -51,12 +51,15 @@ local on_startup = function(use)
   -- Git integration
   use {
     'lewis6991/gitsigns.nvim',
-    config = function() require('plugins.gitsigns') end,
-    requires = {
-      'nvim-lua/plenary.nvim',
-      -- 'tpope/vim-fugitive',
-      -- 'rbong/vim-flog'
-    }
+    config = function()
+      require('plugins.gitsigns')
+
+      -- Create User command for opening gitui in neovim, if installed
+      if (vim.fn.executable('gitui') == 1) then
+          vim.cmd('command -nargs=0 GitUI edit term://gitui')
+      end
+    end,
+    -- requires = {'tpope/vim-fugitive', 'rbong/vim-flog'}
   }
 
   -- REPL integration
