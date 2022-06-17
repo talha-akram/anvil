@@ -17,9 +17,6 @@ Awesome statusline implemented in lua, without any plugin dependencies.
 ## Directory Structure:
 ```
 .
-├── after
-│  └── ftplugin
-│     └── python.vim
 ├── autoload
 ├── compiler
 │  └── python.vim
@@ -30,18 +27,20 @@ Awesome statusline implemented in lua, without any plugin dependencies.
 ├── LICENSE
 ├── lua
 │  ├── configuration
-│  │  ├── eslint.lua
+│  │  ├── autocommands.lua
 │  │  ├── init.lua
+│  │  ├── keymaps.lua
 │  │  ├── options.lua
 │  │  └── statusline.lua
 │  └── plugins
 │     ├── cmp.lua
+│     ├── gitsigns.lua
 │     ├── init.lua
-│     ├── lsp.lua
+│     ├── lspconfig.lua
+│     ├── luasnip.lua
 │     ├── reply.lua
 │     ├── telescope.lua
-│     ├── treesitter.lua
-│     └── vsnip.lua
+│     └── treesitter.lua
 ├── plugin
 │  └── packer_compiled.lua
 ├── README.md
@@ -49,10 +48,8 @@ Awesome statusline implemented in lua, without any plugin dependencies.
 ├── snippets
 │  ├── javascript.json
 │  ├── javascriptreact.json
-│  └── javascriptreact.snippets
-├── startup
-│  ├── AutoCommands.vim
-│  └── Keybindings.vim
+│  └── package.json
+└── undodir
 ```
 ## Goals
 
