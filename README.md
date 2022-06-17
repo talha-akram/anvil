@@ -17,7 +17,6 @@ Awesome statusline implemented in lua, without any plugin dependencies.
 ## Directory Structure:
 ```
 .
-├── autoload
 ├── compiler
 │  └── python.vim
 ├── images
