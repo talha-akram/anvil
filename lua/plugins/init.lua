@@ -21,6 +21,7 @@ local on_startup = function(use)
   -- Visualise and control undo history in tree form.
   use {
     'mbbill/undotree',
+    cmd = {'UndotreeToggle', 'UndotreeFocus', 'UndotreeHide', 'UndotreeShow'},
     config = function()
       vim.keymap.set('n', ',r', ':UndotreeToggle<CR>', { noremap = true })
     end
@@ -53,7 +54,6 @@ local on_startup = function(use)
     config = function() require('plugins.gitsigns') end,
     requires = {
       'nvim-lua/plenary.nvim',
-      'TimUntersberger/neogit',
       -- 'tpope/vim-fugitive',
       -- 'rbong/vim-flog'
     }
