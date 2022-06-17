@@ -56,7 +56,7 @@ local on_startup = function(use)
 
       -- Create User command for opening gitui in neovim, if installed
       if (vim.fn.executable('gitui') == 1) then
-          vim.api.create_user_command('GitUI', 'edit term://gitui', {})
+          vim.api.nvim_create_user_command('GitUI', 'edit term://gitui', {})
       end
     end,
     -- requires = {'tpope/vim-fugitive', 'rbong/vim-flog'}
