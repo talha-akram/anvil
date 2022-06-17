@@ -173,7 +173,7 @@ end
 
 -- File name with read-only marker or identifier for unsaved changes
 M.get_file_state = function()
-  local name = fn.expand('%:t')
+  local name = vim.bo.filetype == 'help' and fn.expand('%:t') or fn.expand('%')
   local file_name = (name == '' and '[no name]' or name)
   local read_only = "%{&readonly?' -':''}"
   local modified = "%{&modified?' +':''}"

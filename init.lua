@@ -18,7 +18,6 @@ end
 
 -- Set colorscheme
 vim.cmd([[
-  let g:gruvbox_material_background = 'medium'
   try
     colorscheme everforest
     catch
