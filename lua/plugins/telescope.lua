@@ -29,8 +29,9 @@ set_keymap('<F1>',      telescope_builtin.help_tags)
 
 set_keymap('<leader>f', telescope.extensions.live_grep_args.live_grep_args)
 
-set_keymap('<leader>do', telescope.extensions.dap.commands)
-set_keymap('<leader>dc', telescope.extensions.dap.configurations)
-set_keymap('<leader>db', telescope.extensions.dap.list_breakpoints)
-set_keymap('<leader>dv', telescope.extensions.dap.variables)
-set_keymap('<leader>df', telescope.extensions.dap.frames)
+-- set_keymap('<leader>do', telescope.extensions.dap.commands)
+-- set_keymap('<leader>dc', telescope.extensions.dap.configurations)
+-- set_keymap('<leader>db', telescope.extensions.dap.list_breakpoints)
+-- set_keymap('<leader>dv', telescope.extensions.dap.variables)
+-- set_keymap('<leader>df', telescope.extensions.dap.frames)
+
