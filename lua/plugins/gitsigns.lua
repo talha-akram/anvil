@@ -13,7 +13,7 @@ local on_attach = function()
   set_keymap(',g',  gitsigns.preview_hunk)
 end
 
-return gitsigns.setup({
+gitsigns.setup({
   on_attach = on_attach,
   sign_priority = 10,
   update_debounce = 100,

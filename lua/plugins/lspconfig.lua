@@ -19,6 +19,7 @@ local on_attach = function()
   set_keymap('<Leader>w', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
   set_keymap('<Leader>]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
   set_keymap('<Leader>[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+
   set_keymap('<Leader>lr', telescope_builtin.lsp_references)
   set_keymap('<Leader>ls', telescope_builtin.lsp_document_symbols)
   set_keymap('<Leader>lw', telescope_builtin.lsp_workspace_symbols)

@@ -44,7 +44,7 @@ set_keymap(
   { expr = true, silent = true, noremap = true }
 )
 
-return luasnip.config.setup({
+luasnip.config.setup({
   ext_opts = {
     [types.choiceNode] = {
       active = {

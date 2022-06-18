@@ -4,7 +4,7 @@ local config = require('nvim-treesitter.configs')
 vim.o.foldmethod  = 'expr'
 vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
 
-return config.setup({
+config.setup({
   ensure_installed = {
     'css', 'dockerfile', 'elixir', 'erlang', 'fish', 'html', 'http', 'javascript',
     'json', 'lua', 'php', 'python', 'regex', 'ruby', 'rust', 'scss', 'svelte',
