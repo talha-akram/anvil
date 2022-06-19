@@ -13,6 +13,7 @@ if (fn.exists('$SUDO_USER') == 0) then
   end
 
   require('plugins').setup(run_sync)
+  print('Neovim restart required for stabilty')
 end
 
 
