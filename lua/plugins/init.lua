@@ -34,7 +34,7 @@ local on_startup = function(use)
   use {
     'b3nj5m1n/kommentary',
     config = function()
-      require('kommentary.config').configure_language("default", {
+      require('kommentary.config').configure_language('default', {
           prefer_single_line_comments = true,
       })
     end
@@ -59,7 +59,9 @@ local on_startup = function(use)
 
       -- Create User command for opening gitui in neovim, if installed
       if (vim.fn.executable('gitui') == 1) then
-          vim.api.nvim_create_user_command('GitUI', 'edit term://gitui', {})
+          vim.api.nvim_create_user_command(
+            'GitUI', 'edit term://gitui | :startinsert', {}
+          )
       end
     end,
     -- requires = {'tpope/vim-fugitive', 'rbong/vim-flog'}
@@ -107,11 +109,11 @@ local on_startup = function(use)
   -- use {
   --   'zbirenbaum/copilot.lua',
   --   config = function()
-  --     vim.defer_fn(function() require("copilot").setup() end, 100)
+  --     vim.defer_fn(function() require('copilot').setup() end, 100)
   --   end,
   --   requires = {
   --     'zbirenbaum/copilot-cmp',
-  --     after = { "copilot.lua", "nvim-cmp" }
+  --     after = { 'copilot.lua', 'nvim-cmp' }
   --   },
   -- }
 
@@ -136,6 +138,7 @@ local on_startup = function(use)
 end
 
 return {
+  reload = function() on_startup(packer.use) end,
   setup = function(run_sync)
     local config = packer.startup({
       on_startup,
