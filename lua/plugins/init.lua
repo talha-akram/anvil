@@ -67,7 +67,7 @@ local on_startup = function(use)
     requires = {
       {
         'TimUntersberger/neogit',
-        config = function() require('neogit').setup() end,
+        config = function() require('plugins.neogit') end,
         requires = {
           'sindrets/diffview.nvim',
           config = function() require('plugins.diffview') end,

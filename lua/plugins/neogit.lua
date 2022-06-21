@@ -18,7 +18,7 @@ neogit.setup {
   signs = {
     section = {'▶', '▼'},
     item = {'┗', '┣'},
-    hunk = {'▷', '▽'},
+    hunk = {'┃', '━'},
   },
   integrations = {
     diffview = true
@@ -51,9 +51,8 @@ neogit.setup {
   mappings = {
     -- modify status buffer mappings
     status = {
-      -- Adds a mapping with 'B' as key that does the 'BranchPopup' command
       ['X'] = 'Discard',
-      -- Removes the default mapping of 's'
+      -- Remove default mapping of 'x'
       ['x'] = '',
     }
   }
