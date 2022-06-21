@@ -64,7 +64,26 @@ local on_startup = function(use)
           )
       end
     end,
-    -- requires = {'tpope/vim-fugitive', 'rbong/vim-flog'}
+    requires = {
+      {
+        'TimUntersberger/neogit',
+        config = function() require('neogit').setup() end,
+        requires = {
+          'sindrets/diffview.nvim',
+          config = function() require('plugins.diffview') end,
+          requires = 'nvim-lua/plenary.nvim'
+        }
+      },
+      {
+        'akinsho/git-conflict.nvim',
+        config = function()
+          require('git-conflict').setup({
+            default_mappings = false,
+            disable_diagnostics = false,
+          })
+        end
+      },
+    }
   }
 
   -- REPL integration
