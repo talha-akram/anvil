@@ -5,10 +5,12 @@ neogit.setup {
   disable_hint = false,
   disable_context_highlighting = false,
   disable_commit_confirmation = false,
-  -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size.
-  -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
+  -- Neogit refreshes its internal state after specific events,
+  -- which can be expensive depending on the repository size.
+  -- Disabling `auto_refresh` will make it so you have to manually
+  -- refresh the status after you open it.
   auto_refresh = true,
-  disable_builtin_notifications = false,
+  disable_builtin_notifications = true,
   use_magit_keybindings = false,
   commit_popup = {
       kind = 'split',
@@ -23,7 +25,7 @@ neogit.setup {
   integrations = {
     diffview = true
   },
-  -- Setting any section to `false` will make the section not render at all
+  -- Setting any section to `false` stop it from rendering
   sections = {
     untracked = {
       folded = false
