@@ -48,7 +48,6 @@ M.build_palette = function()
       )
       palette[color] = group
       create_highlight(0, group_name, group)
-      -- create_highlight(group_name, group)
     end
   end
 
