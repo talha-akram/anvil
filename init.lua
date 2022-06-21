@@ -12,8 +12,12 @@ if (fn.exists('$SUDO_USER') == 0) then
     run_sync = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
   end
 
-  require('plugins').setup(run_sync)
-  print('Neovim restart required for stabilty')
+  require('plugins')
+
+  if run_sync then
+    require('packer').sync()
+    print('Please restart Neovim now for stabilty')
+  end
 end
 
 
@@ -26,5 +30,5 @@ vim.cmd([[
 ]])
 
 -- Configure NeoVim
-require('configuration').setup()
+require('configuration')
 

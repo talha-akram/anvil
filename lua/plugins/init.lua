@@ -54,35 +54,16 @@ local on_startup = function(use)
   -- Git integration
   use {
     'lewis6991/gitsigns.nvim',
-    config = function()
-      require('plugins.gitsigns')
-
-      -- Create User command for opening gitui in neovim, if installed
-      if (vim.fn.executable('gitui') == 1) then
-          vim.api.nvim_create_user_command(
-            'GitUI', 'edit term://gitui | :startinsert', {}
-          )
-      end
-    end,
+    config = function() require('plugins.gitsigns') end
+  }
+  use {
+    'TimUntersberger/neogit',
+    config = function() require('plugins.neogit') end,
+    cmd = 'Neogit',
     requires = {
-      {
-        'TimUntersberger/neogit',
-        config = function() require('plugins.neogit') end,
-        requires = {
-          'sindrets/diffview.nvim',
-          config = function() require('plugins.diffview') end,
-          requires = 'nvim-lua/plenary.nvim'
-        }
-      },
-      {
-        'akinsho/git-conflict.nvim',
-        config = function()
-          require('git-conflict').setup({
-            default_mappings = false,
-            disable_diagnostics = false,
-          })
-        end
-      },
+      'sindrets/diffview.nvim',
+      config = function() require('plugins.diffview') end,
+      requires = 'nvim-lua/plenary.nvim'
     }
   }
 
@@ -156,25 +137,14 @@ local on_startup = function(use)
   }
 end
 
-return {
-  reload = function() on_startup(packer.use) end,
-  setup = function(run_sync)
-    local config = packer.startup({
-      on_startup,
-      config = {
-        display = {
-          open_fn = function()
-            return require('packer.util').float({ border = 'single' })
-          end
-        }
-      }
-    })
-
-    if run_sync then
-      packer.sync()
-    end
-
-    return config
-  end
-}
+packer.startup({
+  on_startup,
+  config = {
+    display = {
+      open_fn = function()
+        return require('packer.util').float({ border = 'single' })
+      end
+    }
+  }
+})
 

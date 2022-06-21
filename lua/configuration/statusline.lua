@@ -284,39 +284,36 @@ StatusLine = setmetatable(M, {
 })
 
 -- Enable StatusLine
--- Calling setup will create required highlight group and add the auto commands
+-- this will create required highlight group and add the auto commands
 -- for switching between statusline active and inactive variants
-M.setup = function()
-  StatusLine:build_palette()
+StatusLine:build_palette()
 
-  local statusline = augroup("StatusLine", { clear = true })
-  -- Rebuild statusline pallet on colorscheme change event
-  autocmd("ColorScheme", {
-    desc = "rebuild statusline color pallet and highlight groups",
-    callback = StatusLine.build_palette,
+local statusline = augroup("StatusLine", { clear = true })
+-- Rebuild statusline pallet on colorscheme change event
+autocmd("ColorScheme", {
+  desc = "rebuild statusline color pallet and highlight groups",
+  callback = StatusLine.build_palette,
+  group = statusline
+})
+
+-- Setup autocmds to switch between active and inactive variants when
+-- not using a global status line
+if vim.o.laststatus ~= 3 then
+  -- Set statusline to active variant for focused buffer
+  autocmd({ "WinEnter", "BufEnter" }, {
+    desc = "show active statusline with details",
+    callback = function() vim.wo.statusline = "%!v:lua.StatusLine('active')" end,
     group = statusline
   })
-
-  -- Setup autocmds to switch between active and inactive variants when
-  -- not using a global status line
-  if vim.o.laststatus ~= 3 then
-    -- Set statusline to active variant for focused buffer
-    autocmd({ "WinEnter", "BufEnter" }, {
-      desc = "show active statusline with details",
-      callback = function() vim.wo.statusline = "%!v:lua.StatusLine('active')" end,
-      group = statusline
-    })
-    -- Set statusline to inactive variant for buffers without focus
-    autocmd({ "WinLeave", "BufLeave" }, {
-      desc = "show muted statusline without additional details",
-      callback = function() vim.wo.statusline = "%!v:lua.StatusLine('inactive')" end,
-      group = statusline
-    })
-  else
-    -- Use active varient for global statusline
-    vim.o.statusline = "%!v:lua.StatusLine('active')"
-  end
+  -- Set statusline to inactive variant for buffers without focus
+  autocmd({ "WinLeave", "BufLeave" }, {
+    desc = "show muted statusline without additional details",
+    callback = function() vim.wo.statusline = "%!v:lua.StatusLine('inactive')" end,
+    group = statusline
+  })
+else
+  -- Use active varient for global statusline
+  vim.o.statusline = "%!v:lua.StatusLine('active')"
 end
 
-return StatusLine
 

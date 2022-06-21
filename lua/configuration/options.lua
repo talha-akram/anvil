@@ -103,23 +103,18 @@ if (fn.executable("rg") == 1) then
     defined_options.grepprg     = "rg --vimgrep --no-heading --smart-case"
 end
 
-local Options = {
-  defined = defined_options,
-  setup = function()
-    for option, value in pairs(defined_options) do
-      global_options[option] = value
-    end
+for option, value in pairs(defined_options) do
+  global_options[option] = value
+end
 
-    -- Enable filetype detection and use plugins and indentation
-    vim.cmd("filetype plugin indent on")
+-- Enable filetype detection and use plugins and indentation
+vim.cmd("filetype plugin indent on")
 
-    -- Enable highlighting embedded lua code
-    vim.g.vimsyn_embed      = "l"
-    -- Use Python 3 for plugins
-    vim.g.python3_host_prog = "python3"
-  end
-}
+-- Enable highlighting embedded lua code
+vim.g.vimsyn_embed      = "l"
+-- Use Python 3 for plugins
+vim.g.python3_host_prog = "python3"
 
-
-return Options
+-- Set Space as the leader key
+vim.g.mapleader = ' '
 
