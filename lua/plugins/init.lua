@@ -85,12 +85,12 @@ local on_startup = function(use)
   -- DAP integration
   -- use {
   --   'mfussenegger/nvim-dap',
-  --   config = function() end,
   --   requires = {
-  --     { 'nvim-telescope/telescope-dap.nvim' },
-  --     { 'theHamsta/nvim-dap-virtual-text' },
-  --     { 'rcarriga/nvim-dap-ui' },
+  --     'nvim-telescope/telescope-dap.nvim',
+  --     'theHamsta/nvim-dap-virtual-text',
+  --     { 'rcarriga/nvim-dap-ui', config = function() require('plugins.dapui') end  },
   --     { 'leoluz/nvim-dap-go', config = function() require('dap-go').setup() end  },
+  --     { 'suketa/nvim-dap-ruby', config = function() require('dap-ruby').setup() end }
   --   },
   -- }
 
@@ -104,18 +104,6 @@ local on_startup = function(use)
       'command -v typescript-language-server >/dev/null || npm install -g typescript-language-server',
     }
   }
-
-  -- Copilot integration
-  -- use {
-  --   'zbirenbaum/copilot.lua',
-  --   config = function()
-  --     vim.defer_fn(function() require('copilot').setup() end, 100)
-  --   end,
-  --   requires = {
-  --     'zbirenbaum/copilot-cmp',
-  --     after = { 'copilot.lua', 'nvim-cmp' }
-  --   },
-  -- }
 
   -- Use LuaSnip as snippet provider
   use {
