@@ -12,6 +12,10 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local hl_by_name = vim.api.nvim_get_hl_by_name
 local highlight = function(group_name, group)
+  if group == nil or group_name == nil then
+    return
+  end
+
   pcall(create_highlight, 0, group_name, group or 'StatusLineNC')
 end
 
@@ -19,10 +23,10 @@ end
 -- retrieve color value of [kind] from highlight group
 ---@param hl_name name of highlight group
 ---@param kind type of value to extract (either `background` or `foreground`)
-local get_color = function(hl_name, kind)
+local get_color = function(hl_name, kind, default)
   local rgb = hl_by_name(hl_name, true)[kind]
   local cterm = hl_by_name(hl_name, false)[kind]
-  local hex = (rgb and bit.tohex(rgb, 6) or 'ffffff')
+  local hex = (rgb and bit.tohex(rgb, 6) or default:sub(2))
   return { gui = string.format('#%s', hex), cterm = cterm }
 end
 
@@ -31,8 +35,8 @@ local palette = {}
 
 -- define highlight groups and build palette from active colorscheme colors
 M.build_palette = function()
-  local bg      = get_color('StatusLine', 'background')
-  local nc      = get_color('StatusLineNC', 'foreground')
+  local bg      = get_color('StatusLine', 'background', '#ffffff')
+  local nc      = get_color('StatusLineNC', 'foreground', '#666666')
   local colors  = {'Red', 'Orange', 'Yellow', 'Green', 'Aqua', 'Blue', 'Purple', 'Normal'}
 
   palette.Disabled = { ctermfg = nc.cterm, ctermbg = bg.cterm, fg = nc.gui, bg = bg.gui }
@@ -43,7 +47,7 @@ M.build_palette = function()
 
   for _, color in ipairs(colors) do
     local group_name = 'StatusLine' .. color
-    local found, fg = pcall(get_color, color, 'foreground')
+    local found, fg = pcall(get_color, color, 'foreground', nc.gui)
     if found then
       local group = setmetatable(
         { ctermfg = fg.cterm, ctermbg = bg.cterm, fg = fg.gui, bg = bg.gui },

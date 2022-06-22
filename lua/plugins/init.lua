@@ -8,7 +8,14 @@ local run_sync = false
 
 -- Install packer for package management, if missing
 if (fn.empty(fn.glob(install_path)) > 0) then
-  run_sync = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  run_sync = fn.system({
+    'git',
+    'clone',
+    '--depth',
+    '1',
+    'https://github.com/wbthomason/packer.nvim',
+    install_path
+  })
   vim.cmd [[packadd packer.nvim]]
 end
 
