@@ -1,25 +1,9 @@
 -- Base NeoVim configuration
 
-local fn = vim.fn
-
 -- Only load plugins when not runing as root
-if (fn.exists('$SUDO_USER') == 0) then
-  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-  local run_sync = false
-
-  -- install packer for package management, if missing
-  if (fn.empty(fn.glob(install_path)) > 0) then
-    run_sync = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-  end
-
+if (vim.fn.exists('$SUDO_USER') == 0) then
   require('plugins')
-
-  if run_sync then
-    require('packer').sync()
-    print('Please restart Neovim now for stabilty')
-  end
 end
-
 
 -- Set colorscheme
 vim.cmd([[

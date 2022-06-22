@@ -2,9 +2,20 @@
 -- Configure plugins, plugin specific functions and autocommands are to be
 -- written in the corresponding files (makes debuging and trying out plugins easier)
 
+local fn = vim.fn
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+local run_sync = false
+
+-- Install packer for package management, if missing
+if (fn.empty(fn.glob(install_path)) > 0) then
+  run_sync = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.cmd [[packadd packer.nvim]]
+end
+
 -- Use a protected call to avoid errors on first use
 local status_ok, packer = pcall(require, 'packer')
 if not status_ok then
+  vim.notify('Packer not found, Plugins will not be available!')
   return
 end
 
@@ -135,4 +146,9 @@ packer.startup({
     }
   }
 })
+
+if run_sync then
+  packer.sync()
+  vim.notify('Please restart Neovim now for stabilty')
+end
 

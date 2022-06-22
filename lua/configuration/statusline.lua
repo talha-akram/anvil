@@ -11,6 +11,9 @@ local get_diagnostics = vim.diagnostic.get
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local hl_by_name = vim.api.nvim_get_hl_by_name
+local highlight = function(group_name, group)
+  pcall(create_highlight, 0, group_name, group or 'StatusLineNC')
+end
 
 
 -- retrieve color value of [kind] from highlight group
@@ -47,16 +50,16 @@ M.build_palette = function()
         { __tostring = function() return group_name end }
       )
       palette[color] = group
-      create_highlight(0, group_name, group)
+      highlight(group_name, group)
     end
   end
 
   -- statusline highlight for inactive buffers
-  create_highlight(0, tostring(palette.Disabled), palette.Disabled)
+  highlight(tostring(palette.Disabled), palette.Disabled)
   -- default highlight for the statusline
-  create_highlight(0, 'StatusLine', palette.Normal)
+  highlight('StatusLine', palette.Normal)
   -- configure highlight for wild menu (command mode completions)
-  create_highlight(0, 'WildMenu', palette.Aqua)
+  highlight('WildMenu', palette.Aqua)
 
   return palette
 end
