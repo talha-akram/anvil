@@ -30,51 +30,51 @@ end
 local on_startup = function(use)
 
   -- Set packer to manage itself
-  use { 'wbthomason/packer.nvim' }
+  use('wbthomason/packer.nvim')
 
   -- Color schemes
-  use { 'sainnhe/everforest' }
-  use { 'sainnhe/gruvbox-material' }
+  use('sainnhe/everforest')
+  use('sainnhe/gruvbox-material')
 
   -- Ask for the right file to open when file matching name is not found
-  use { 'EinfachToll/DidYouMean' }
+  use('EinfachToll/DidYouMean')
 
   -- Visualise and control undo history in tree form.
-  use {
+  use({
     'mbbill/undotree',
     cmd = {'UndotreeToggle', 'UndotreeFocus', 'UndotreeHide', 'UndotreeShow'},
     config = function()
-      vim.keymap.set('n', ',r', ':UndotreeToggle<CR>', { noremap = true })
-    end
-  }
+        vim.keymap.set('n', ',r', ':UndotreeToggle<CR>', { noremap = true })
+      end
+  })
 
   -- Comment/Uncomment blocks of code using gc
-  use {
+  use({
     'b3nj5m1n/kommentary',
     config = function()
-      require('kommentary.config').configure_language('default', {
-          prefer_single_line_comments = true,
-      })
+      require('kommentary.config').configure_language(
+        'default', { prefer_single_line_comments = true }
+      )
     end
-  }
+  })
 
   -- Quick fuzzy selection for files and more, see plugin settings.
-  use {
+  use({
     'nvim-telescope/telescope.nvim',
     config = function() require('plugins.telescope') end,
     requires = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    },
-  }
+    }
+  })
 
   -- Git integration
-  use {
+  use({
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end
-  }
-  use {
+  })
+  use({
     'TimUntersberger/neogit',
     config = function() require('plugins.neogit') end,
     cmd = 'Neogit',
@@ -83,25 +83,25 @@ local on_startup = function(use)
       config = function() require('plugins.diffview') end,
       requires = 'nvim-lua/plenary.nvim'
     }
-  }
+  })
 
   -- REPL integration
-  use {
+  use({
     'rhysd/reply.vim',
     cmd = {'Repl', 'ReplAuto', 'ReplSend'},
     config = function() require('plugins.reply') end
-  }
+  })
 
   -- TreeSitter integration
-  use {
+  use({
     'nvim-treesitter/nvim-treesitter',
     config = function() require('plugins.treesitter') end,
     run = ':TSUpdate',
     requires = 'p00f/nvim-ts-rainbow'
-  }
+  })
 
   -- DAP integration
-  -- use {
+  -- use({
   --   'mfussenegger/nvim-dap',
   --   requires = {
   --     'nvim-telescope/telescope-dap.nvim',
@@ -109,38 +109,38 @@ local on_startup = function(use)
   --     { 'rcarriga/nvim-dap-ui', config = function() require('plugins.dapui') end  },
   --     { 'leoluz/nvim-dap-go', config = function() require('dap-go').setup() end  },
   --     { 'suketa/nvim-dap-ruby', config = function() require('dap-ruby').setup() end }
-  --   },
-  -- }
+  --   }
+  -- })
 
   -- LSP intigration
-  use {
+  use({
     'neovim/nvim-lspconfig',
     config = function() require('plugins.lspconfig') end,
     run = {
       'command -v solargraph >/dev/null || gem install solargraph',
       'command -v gopls >/dev/null || go install golang.org/x/tools/gopls@latest',
-      'command -v typescript-language-server >/dev/null || npm install -g typescript-language-server',
+      'command -v typescript-language-server >/dev/null || npm install -g typescript-language-server'
     }
-  }
+  })
 
   -- Use LuaSnip as snippet provider
-  use {
+  use({
     'L3MON4D3/LuaSnip',
     config = function() require('plugins.luasnip') end,
     requires = 'rafamadriz/friendly-snippets'
-  }
+  })
 
   -- Snippet and completion integration
-  use {
+  use({
     'hrsh7th/nvim-cmp',
     config = function() require('plugins.cmp') end,
     requires = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-buffer',
-      'saadparwaiz1/cmp_luasnip',
+      'saadparwaiz1/cmp_luasnip'
     }
-  }
+  })
 end
 
 packer.startup({
