@@ -283,7 +283,7 @@ M.set_inactive = function(self)
   })
 end
 
--- Build statusline
+-- Make statusline callable
 StatusLine = setmetatable(M, {
   __call = function(self, mode)
     return self['set_' .. mode](self)
