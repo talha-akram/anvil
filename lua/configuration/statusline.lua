@@ -167,7 +167,7 @@ M.get_lsp_status = function()
     return string.format('(%s) ● ', table.concat(client_status, ' '))
   end
 
-  return "◯ "
+  return '◯ '
 end
 
 -- Returns symbolic identifier for current mode
@@ -296,10 +296,10 @@ StatusLine = setmetatable(M, {
 -- for switching between statusline active and inactive variants
 StatusLine:build_palette()
 
-local statusline = augroup("StatusLine", { clear = true })
+local statusline = augroup('StatusLine', { clear = true })
 -- Rebuild statusline pallet on colorscheme change event
-autocmd("ColorScheme", {
-  desc = "rebuild statusline color pallet and highlight groups",
+autocmd('ColorScheme', {
+  desc = 'rebuild statusline color pallet and highlight groups',
   callback = StatusLine.build_palette,
   group = statusline
 })
@@ -308,20 +308,20 @@ autocmd("ColorScheme", {
 -- not using a global status line
 if vim.o.laststatus ~= 3 then
   -- Set statusline to active variant for focused buffer
-  autocmd({ "WinEnter", "BufEnter" }, {
-    desc = "show active statusline with details",
-    callback = function() vim.wo.statusline = "%!v:lua.StatusLine('active')" end,
+  autocmd({ 'WinEnter', 'BufEnter' }, {
+    desc = 'show active statusline with details',
+    callback = function() vim.wo.statusline = '%!v:lua.StatusLine('active')' end,
     group = statusline
   })
   -- Set statusline to inactive variant for buffers without focus
-  autocmd({ "WinLeave", "BufLeave" }, {
-    desc = "show muted statusline without additional details",
-    callback = function() vim.wo.statusline = "%!v:lua.StatusLine('inactive')" end,
+  autocmd({ 'WinLeave', 'BufLeave' }, {
+    desc = 'show muted statusline without additional details',
+    callback = function() vim.wo.statusline = '%!v:lua.StatusLine("inactive")' end,
     group = statusline
   })
 else
   -- Use active varient for global statusline
-  vim.o.statusline = "%!v:lua.StatusLine('active')"
+  vim.o.statusline = '%!v:lua.StatusLine("active")'
 end
 
 

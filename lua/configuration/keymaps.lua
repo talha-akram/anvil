@@ -66,7 +66,7 @@ set_keymap('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true })
 set_keymap('n', 'n', 'nzz', { noremap = true })
 set_keymap('n', 'N', 'Nzz', { noremap = true })
 
--- Close popup menu and compensate cursor shifting one place left
+-- Keep current cursor position while entering and exiting insert mode
 set_keymap('i', '<Esc>', function()
   return vim.fn.pumvisible() == 1 and "<Esc>i<Right>" or "<Right><Esc>"
 end, { noremap = true, expr = true })

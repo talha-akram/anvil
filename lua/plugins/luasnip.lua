@@ -8,7 +8,7 @@ require('luasnip.loaders.from_vscode').lazy_load()
 
 -- Load custom snippets
 local snippet_dir = vim.fn.stdpath('config') .. '/snippets'
-require("luasnip.loaders.from_vscode").lazy_load({ paths = {snippet_dir} })
+require('luasnip.loaders.from_vscode').lazy_load({ paths = {snippet_dir} })
 
 luasnip.filetype_extend('javascriptreact', {'html', 'react'})
 luasnip.filetype_extend('typescriptreact', {'html', 'react-ts'})

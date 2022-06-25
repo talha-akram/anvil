@@ -22,7 +22,7 @@ dapui.setup({
     {
       elements = {
         -- table of ids:string or table of tables( id: string, size:(float | integer > 1) ))
-        { id = 'scopes', size = 0.25, },
+        { id = 'scopes', size = 0.35, },
         { id = 'breakpoints', size = 0.10 },
         { id = 'stacks', size = 0.35 },
         { id = 'watches', size = 0.20 },
