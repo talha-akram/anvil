@@ -5,22 +5,22 @@ local M = {}
 local fn = vim.fn
 local api = vim.api
 local listed = fn.buflisted
-local create_highlight = vim.api.nvim_set_hl
+local create_highlight = api.nvim_set_hl
 local severity = vim.diagnostic.severity
 local get_diagnostics = vim.diagnostic.get
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-local hl_by_name = vim.api.nvim_get_hl_by_name
+local augroup = api.nvim_create_augroup
+local autocmd = api.nvim_create_autocmd
+local hl_by_name = api.nvim_get_hl_by_name
 local highlight = function(group_name, group)
   if group == nil or group_name == nil then
     return
   end
 
-  pcall(create_highlight, 0, group_name, group or 'StatusLineNC')
+  pcall(create_highlight, 0, group_name, group)
 end
 
 
--- retrieve color value of [kind] from highlight group
+-- Retrieve color value of [kind] from highlight group
 ---@param hl_name name of highlight group
 ---@param kind type of value to extract (either `background` or `foreground`)
 local get_color = function(hl_name, kind, default)
@@ -204,11 +204,12 @@ M.get_file_encoding = function()
   return string.format('%s ', vim.o.encoding)
 end
 
--- Accent color to be applied to statusline based on active mode
+-- Apply color to a statusline component using a highlight group
 M.highlight = function(self, group)
   return string.format('%%#%s#', group)
 end
 
+-- List buffer numbers across the statusline as a substitute for tabs
 M.get_buffers = function()
   local buffers = api.nvim_list_bufs()
   local current = api.nvim_get_current_buf()
