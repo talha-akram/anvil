@@ -1,5 +1,5 @@
 # anvil
-A work in progress highly adaptable neovim distribution.
+A highly adaptable neovim distribution.
 
 ## Preview:
 ![anvil preview](/images/anvil.png?raw=true "anvil preview")
