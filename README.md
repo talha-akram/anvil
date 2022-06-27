@@ -1,15 +1,16 @@
 # anvil
-A highly adaptable neovim distribution.
+A highly adaptable Neovim distribution.
 
 ## Preview:
 ![anvil preview](/images/anvil.png?raw=true "anvil preview")
 
 ### Completions
 
+Includes full LSP support and suggestions for snippets
+
 ![anvil completions preview](/images/anvil-completions.png?raw=true "anvil completions preview")
 
-- Include full LSP support
-- Suggestions for snippets
+Anvil uses LuaSnip as the snippet engine, and has support for vscode and LSP snippets out of the box. Adding more snippets is as simple as editing a ![json file](./snippets/javascript.json "link to javascript.json file containing example snippets") file while more advance/smart snippets can be written in Lua using LuaSnip.
 
 ### StatusLine
 
@@ -25,7 +26,7 @@ Awesome StatusLine implemented in lua, without any plugin dependencies. ![check 
 - File encoding, format ant type information
 - File position indicators (current file progress + cursor coordinates)
 
-An accent color is appled to the statusbar depending on current mode. The color is appled to Mode, Current Buffer, file format, and cursor position indicator sections of the statusline.
+An accent color is applied to the statusbar depending on current mode. The color is applied to Mode, Current Buffer, file format, and cursor position indicator sections of the statusline.
 
 ![StatusLine normal mode preview](/images/normal.png?raw=true "StatusLine normal mode preview")
 ![StatusLine insert mode preview](/images/insert.png?raw=true "StatusLine insert mode preview")
@@ -37,6 +38,9 @@ An accent color is appled to the statusbar depending on current mode. The color 
 
 
 ## Directory Structure:
+
+Anvil has a very simple directory structure to make it easy to understand, navigate and extend.
+
 ```
 .
 ├── compiler
