@@ -20,10 +20,10 @@ Awesome StatusLine implemented in lua, without any plugin dependencies. ![check 
 
 - Current mode indicator
 - Current file path including unwritten state and read only indicator
-- Buffer list ( use `<Leader> + b` to show and switch between previous and next buffer using `[b` and `]b`)
+- Buffer list ( use `<Leader> + b` or `[b` and `]b` to quickly switch between buffers)
 - Stats related to diagnostics (number of Errors `E`, Warnings `W`, Information `I` and Hints `H`)
 - Language Server status
-- File encoding, format ant type information
+- File encoding, format and type information
 - File position indicators (current file progress + cursor coordinates)
 
 All this without any patched font madness! works great over ssh and locally.
