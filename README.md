@@ -26,6 +26,8 @@ Awesome StatusLine implemented in lua, without any plugin dependencies. ![check 
 - File encoding, format ant type information
 - File position indicators (current file progress + cursor coordinates)
 
+All this without any patched font madness! works great over ssh and locally.
+
 An accent color is applied to the statusbar depending on current mode. The color is applied to Mode, Current Buffer, file format, and cursor position indicator sections of the statusline.
 
 ![StatusLine normal mode preview](/images/normal.png?raw=true "StatusLine normal mode preview")
