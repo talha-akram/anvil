@@ -1,4 +1,5 @@
 -- Base NeoVim configuration
+require('configuration')
 
 -- Only load plugins when not runing as root
 if (vim.fn.exists('$SUDO_USER') == 0) then
@@ -13,6 +14,16 @@ vim.cmd([[
   endtry
 ]])
 
--- Configure NeoVim
-require('configuration')
+StatusLine:extract_colors({
+  Error = 'DiagnosticSignError',
+  Warn = 'DiagnosticSignWarn',
+  Info = 'DiagnosticSignInfo',
+  Hint = 'DiagnosticSignHint',
+  Insert = 'Question',
+  Replace = 'Label',
+  Select = 'Number',
+  Normal = 'Character',
+  Progress = 'Macro',
+  Status = 'Normal'
+})
 

@@ -4,8 +4,6 @@ local global_options = vim.o
 local defined_options  = {
   -- Prefer dark background
   background     = 'dark',
-  -- Set fish as default shell
-  shell          = 'fish',
   -- Dissable modelines
   modeline       = false,
   -- Restrict existing tab to width of 4 spaces
@@ -33,7 +31,7 @@ local defined_options  = {
   -- Donot use popup menu for completions in command mode
   wildoptions    = 'tagfile',
   -- Auto select the first entry but don't insert
-  completeopt    ='noinsert,menuone,preview',
+  completeopt    = 'noinsert,menuone',
   -- Stop popup menu messages
   shortmess      = 'filnxtToOFc',
   -- Use interactive replace
@@ -101,6 +99,11 @@ end
 -- Use ripgrep as the grep program, if available
 if (fn.executable('rg') == 1) then
     defined_options.grepprg     = 'rg --vimgrep --no-heading --smart-case'
+end
+
+-- Set fish as default shell, if available
+if (fn.executable('fish') == 1) then
+    defined_options.shell = 'fish'
 end
 
 for option, value in pairs(defined_options) do

@@ -1,24 +1,30 @@
 local lsp = require('lspconfig');
+local map = vim.keymap.set
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local on_attach = function()
+local on_attach = function(_client, bufnr)
   local telescope_builtin = require('telescope.builtin');
   local set_keymap = function(lhs, rhs)
-    vim.keymap.set('n', lhs, rhs, { noremap = true })
+    map('n', lhs, rhs, { noremap = true, buffer = 0 })
   end
 
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
   -- Add keybindings for LSP integration
-  set_keymap('<Leader>j', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-  set_keymap('<Leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
-  set_keymap('<Leader>h', '<cmd>lua vim.lsp.buf.hover()<CR>')
-  set_keymap('<Leader>i', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-  set_keymap('<Leader>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  set_keymap('<Leader>td', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  set_keymap('<Leader>r', '<cmd>lua vim.lsp.buf.references()<CR>')
-  set_keymap('<Leader>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-  set_keymap('<Leader>w', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-  set_keymap('<Leader>]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-  set_keymap('<Leader>[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+  local buf = vim.lsp.buf
+  set_keymap('gD', buf.declaration)
+  set_keymap('gd', buf.definition)
+  set_keymap('gt', buf.type_definition)
+  set_keymap('gr', buf.references)
+  set_keymap('<Leader>h', buf.hover)
+  set_keymap('<Leader>i', buf.implementation)
+  set_keymap('<Leader>k', buf.signature_help)
+  set_keymap('<Leader>s', buf.document_symbol)
+  set_keymap('<Leader>w', buf.workspace_symbol)
+
+  set_keymap('g]', vim.diagnostic.goto_next)
+  set_keymap('g[', vim.diagnostic.goto_prev)
 
   set_keymap('<Leader>lr', telescope_builtin.lsp_references)
   set_keymap('<Leader>ls', telescope_builtin.lsp_document_symbols)

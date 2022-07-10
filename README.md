@@ -14,7 +14,7 @@ Anvil uses LuaSnip as the snippet engine, and has support for vscode and LSP sni
 
 ### StatusLine
 
-Awesome StatusLine implemented in lua, without any plugin dependencies. ![check it out!](/lua/configuration/statusline.lua "link to anvil statusline code")
+Awesome StatusLine implemented in Lua, without any plugin dependencies. ![check it out!](/lua/configuration/statusline.lua "link to anvil statusline code")
 
 ![StatusLine preview](/images/statusline.png?raw=true "StatusLine preview")
 

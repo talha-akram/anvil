@@ -1,7 +1,7 @@
 -- Statusline configuration
 -- inspiration: https://elianiva.my.id/post/neovim-lua-statusline
 
-local M = {}
+-- aliases
 local fn = vim.fn
 local api = vim.api
 local listed = fn.buflisted
@@ -11,6 +11,24 @@ local get_diagnostics = vim.diagnostic.get
 local augroup = api.nvim_create_augroup
 local autocmd = api.nvim_create_autocmd
 local hl_by_name = api.nvim_get_hl_by_name
+
+-- defaults
+local M = {}
+local palette = {}
+local colors = {
+  Error = 'DiagnosticSignError',
+  Warn = 'DiagnosticSignWarn',
+  Info = 'DiagnosticSignInfo',
+  Hint = 'DiagnosticSignHint',
+  Insert = 'Question',
+  Replace = 'Label',
+  Select = 'Number',
+  Normal = 'Character',
+  Progress = 'Macro',
+  Status = 'Normal'
+}
+
+-- helper for safely creating a highlight group
 local highlight = function(group_name, group)
   if group == nil or group_name == nil then
     return
@@ -30,14 +48,10 @@ local get_color = function(hl_name, kind, default)
   return { gui = string.format('#%s', hex), cterm = cterm }
 end
 
-
-local palette = {}
-
 -- define highlight groups and build palette from active colorscheme colors
 M.build_palette = function()
   local bg      = get_color('StatusLine', 'background', '#ffffff')
-  local nc      = get_color('StatusLineNC', 'foreground', '#666666')
-  local colors  = {'Red', 'Orange', 'Yellow', 'Green', 'Aqua', 'Blue', 'Purple', 'Normal'}
+  local nc      = get_color('Conceal', 'foreground', '#666666')
 
   palette.Disabled = { ctermfg = nc.cterm, ctermbg = bg.cterm, fg = nc.gui, bg = bg.gui }
   palette.Disabled = setmetatable(
@@ -45,9 +59,9 @@ M.build_palette = function()
     { __tostring = function() return 'StatusLineDisabled' end }
   )
 
-  for _, color in ipairs(colors) do
+  for color, highlight_group in pairs(colors) do
     local group_name = 'StatusLine' .. color
-    local found, fg = pcall(get_color, color, 'foreground', nc.gui)
+    local found, fg = pcall(get_color, highlight_group, 'foreground', nc.gui)
     if found then
       local group = setmetatable(
         { ctermfg = fg.cterm, ctermbg = bg.cterm, fg = fg.gui, bg = bg.gui },
@@ -63,41 +77,42 @@ M.build_palette = function()
   -- default highlight for the statusline
   highlight('StatusLine', palette.Normal)
   -- configure highlight for wild menu (command mode completions)
-  highlight('WildMenu', palette.Aqua)
+  highlight('WildMenu', palette.Progress)
 
   return palette
 end
 
-M.build_palette()
+-- This will create required highlight groups
+M:build_palette()
 
 -- Map accent color for statusline based on active mode
 local color_map = setmetatable({
-  ['n']    = palette.Green,   -- Normal
-  ['no']   = palette.Green,   -- Operator pending
-  ['v']    = palette.Purple,  -- Visual by character (v)
-  ['V']    = palette.Purple,  -- Visual by line (V)
-  ['\022'] = palette.Purple,  -- Visual block wise (CTRL-V)
-  ['s']    = palette.Purple,  -- Select by character (gh)
-  ['S']    = palette.Purple,  -- Select by line (gH)
-  ['\019'] = palette.Purple,  -- Select block wise (g CTRL-H)
-  ['i']    = palette.Blue,    -- Insert
-  ['ic']   = palette.Blue,    -- Insert completion (generic)
-  ['ix']   = palette.Blue,    -- Insert completion (CTRL-X)
-  ['R']    = palette.Orange,  -- Replace
-  ['Rc']   = palette.Orange,  -- Replace completion
-  ['Rv']   = palette.Orange,  -- Replace virtual
-  ['c']    = palette.Yellow,  -- Command-line
-  ['cv']   = palette.Yellow,  -- Execute (gQ)
-  ['ce']   = palette.Yellow,  -- Execute (Q)
-  ['r']    = palette.Yellow,  -- Prompt for enter
-  ['rm']   = palette.Yellow,  -- Read more (-- more -- prompt)
-  ['r?']   = palette.Yellow,  -- Prompt yes/no (confirmation prompt)
-  ['!']    = palette.Red,     -- Shell execution
-  ['t']    = palette.Red,     -- Terminal mode (insert)
-  ['nt']   = palette.Green,   -- Terminal mode (normal)
+  ['n']    = palette.Normal,   -- Normal
+  ['no']   = palette.Normal,   -- Operator pending
+  ['v']    = palette.Select,  -- Select by character (v)
+  ['V']    = palette.Select,  -- Select by line (V)
+  ['\022'] = palette.Select,  -- Select block wise (CTRL-V)
+  ['s']    = palette.Select,  -- Select by character (gh)
+  ['S']    = palette.Select,  -- Select by line (gH)
+  ['\019'] = palette.Select,  -- Select block wise (g CTRL-H)
+  ['i']    = palette.Info,    -- Insert
+  ['ic']   = palette.Info,    -- Insert completion (generic)
+  ['ix']   = palette.Info,    -- Insert completion (CTRL-X)
+  ['R']    = palette.Replace, -- Replace
+  ['Rc']   = palette.Replace, -- Replace completion
+  ['Rv']   = palette.Replace, -- Replace virtual
+  ['c']    = palette.Warn,    -- Command-line
+  ['cv']   = palette.Warn,    -- Execute (gQ)
+  ['ce']   = palette.Warn,    -- Execute (Q)
+  ['r']    = palette.Warn,    -- Prompt for enter
+  ['rm']   = palette.Warn,    -- Read more (-- more -- prompt)
+  ['r?']   = palette.Warn,    -- Prompt yes/no (confirmation prompt)
+  ['!']    = palette.Error,   -- Shell execution
+  ['t']    = palette.Error,   -- Terminal mode (insert)
+  ['nt']   = palette.Insert,   -- Terminal mode (normal)
 }, {
   __index  = function(_, idx)
-    return palette.Green      -- Catch any undefined modes
+    return palette.Insert      -- Catch any undefined modes
   end
 })
 
@@ -105,9 +120,9 @@ local color_map = setmetatable({
 M.mode_map = setmetatable({
   ['n']    = 'N',             -- Normal
   ['no']   = 'N-P',           -- Operator pending
-  ['v']    = 'V',             -- Visual by character
-  ['V']    = 'V-L',           -- Visual by line
-  ['\022'] = 'V-B',           -- Visual block wise, does not work cannot map symbol (^V)
+  ['v']    = 'V',             -- Select by character
+  ['V']    = 'V-L',           -- Select by line
+  ['\022'] = 'V-B',           -- Select block wise, does not work cannot map symbol (^V)
   ['s']    = 'S',             -- Select by character (gh)
   ['S']    = 'S-L',           -- Select by line (gH)
   ['\019'] = 'S-B',           -- Select block wise (g CTRL-H), does not work cannot map symbol (^S)
@@ -233,6 +248,11 @@ M.get_buffers = function()
   }
 end
 
+M.extract_colors = function(self, highlights)
+  colors = highlights
+  self:build_palette()
+end
+
 -- Statusline to be displayed on active windows
 M.set_active = function(self)
   local mode = api.nvim_get_mode().mode
@@ -242,7 +262,7 @@ M.set_active = function(self)
   return table.concat({
     accent_color,
     self:get_current_mode(),
-    self:highlight(palette.Aqua),
+    self:highlight(palette.Progress),
     self:get_file_state(),
     '%<',                                               -- Collapse point for smaller screen sizes
     self:highlight(palette.Disabled),
@@ -251,22 +271,22 @@ M.set_active = function(self)
     buffers.current,
     self:highlight(palette.Disabled),
     buffers.next_bufs,
-    self:highlight(palette.Red),
+    self:highlight(palette.Error),
     format_diagnostics(' E:%s ', severity.ERROR),
-    self:highlight(palette.Orange),
+    self:highlight(palette.Warn),
     format_diagnostics(' W:%s ', severity.WARN),
-    self:highlight(palette.Yellow),
+    self:highlight(palette.Info),
     format_diagnostics(' I:%s ', severity.INFO),
-    self:highlight(palette.Blue),
+    self:highlight(palette.Hint),
     format_diagnostics(' H:%s ', severity.HINT),
     '%=',                                               -- left / right separator
-    self:highlight(palette.Normal),
+    self:highlight(palette.Status),
     self:get_lsp_status(),
     self:get_file_encoding(),
     self:get_file_format(),
     accent_color,
     self:get_file_type(),
-    self:highlight(palette.Aqua),
+    self:highlight(palette.Progress),
     ' --%1p%%-- ',                                      -- Place in file as a percentage
     accent_color,
     ' %l:%c ',                                          -- position of cursor
@@ -291,11 +311,6 @@ StatusLine = setmetatable(M, {
   end,
 })
 
--- Enable StatusLine
--- this will create required highlight group and add the auto commands
--- for switching between statusline active and inactive variants
-StatusLine:build_palette()
-
 local statusline = augroup('StatusLine', { clear = true })
 -- Rebuild statusline pallet on colorscheme change event
 autocmd('ColorScheme', {
@@ -304,6 +319,8 @@ autocmd('ColorScheme', {
   group = statusline
 })
 
+
+-- Enable StatusLine
 -- Setup autocmds to switch between active and inactive variants when
 -- not using a global status line
 if vim.o.laststatus ~= 3 then
@@ -323,5 +340,4 @@ else
   -- Use active varient for global statusline
   vim.o.statusline = '%!v:lua.StatusLine("active")'
 end
-
 

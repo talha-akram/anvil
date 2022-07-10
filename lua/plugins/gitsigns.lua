@@ -2,8 +2,9 @@
 local gitsigns = require('gitsigns')
 
 local on_attach = function()
+  local map = vim.keymap.set
   local set_keymap = function(lhs, rhs)
-    vim.keymap.set('n', lhs, rhs, { noremap = true })
+    map('n', lhs, rhs, { noremap = true })
   end
 
   set_keymap(',gs', gitsigns.stage_hunk)

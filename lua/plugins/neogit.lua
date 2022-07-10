@@ -19,7 +19,7 @@ neogit.setup {
   kind = 'replace',
   signs = {
     section = {'▶', '▼'},
-    item = {'┗', '┣'},
+    item = {'┣', '┗'},
     hunk = {'┃', '━'},
   },
   integrations = {

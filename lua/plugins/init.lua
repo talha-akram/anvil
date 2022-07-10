@@ -44,8 +44,8 @@ local on_startup = function(use)
     'mbbill/undotree',
     cmd = {'UndotreeToggle', 'UndotreeFocus', 'UndotreeHide', 'UndotreeShow'},
     config = function()
-        vim.keymap.set('n', ',r', ':UndotreeToggle<CR>', { noremap = true })
-      end
+      vim.keymap.set('n', ',r', '<CMD>UndotreeToggle<CR>', { noremap = true })
+    end
   })
 
   -- Comment/Uncomment blocks of code using gc
@@ -70,6 +70,7 @@ local on_startup = function(use)
   })
 
   -- Git integration
+  use({ 'rbong/vim-flog', branch = 'v2', requires = 'tpope/vim-fugitive' })
   use({
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end

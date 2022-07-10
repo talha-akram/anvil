@@ -1,9 +1,7 @@
 -- Telescope configuration
+local map = vim.keymap.set
 local telescope = require('telescope')
 local telescope_builtin = require('telescope.builtin')
-local set_keymap = function(lhs, rhs)
-  vim.keymap.set('n', lhs, rhs, { noremap = true })
-end
 
 telescope.setup({
   extensions = {
@@ -19,6 +17,11 @@ telescope.setup({
 telescope.load_extension('fzf')
 -- telescope.load_extension('dap')
 
+
+local set_keymap = function(lhs, rhs)
+  map('n', lhs, rhs, { noremap = true })
+end
+
 set_keymap('<leader>o', telescope_builtin.find_files)
 set_keymap('<leader>b', telescope_builtin.buffers)
 set_keymap('<leader>p', telescope_builtin.commands)
@@ -29,9 +32,10 @@ set_keymap('<F1>',      telescope_builtin.help_tags)
 
 set_keymap('<leader>f', telescope.extensions.live_grep_args.live_grep_args)
 
--- set_keymap('<leader>do', telescope.extensions.dap.commands)
--- set_keymap('<leader>dc', telescope.extensions.dap.configurations)
--- set_keymap('<leader>db', telescope.extensions.dap.list_breakpoints)
--- set_keymap('<leader>dv', telescope.extensions.dap.variables)
--- set_keymap('<leader>df', telescope.extensions.dap.frames)
+-- local dap = telescope.extensions.dap
+-- set_keymap('<leader>do', dap.commands)
+-- set_keymap('<leader>dc', dap.configurations)
+-- set_keymap('<leader>db', dap.list_breakpoints)
+-- set_keymap('<leader>dv', dap.variables)
+-- set_keymap('<leader>df', dap.frames)
 
