@@ -14,6 +14,8 @@ vim.cmd([[
   endtry
 ]])
 
+-- Specify Highlight groups to use for extracting fg color for
+-- statusline components
 StatusLine:extract_colors({
   Error = 'DiagnosticSignError',
   Warn = 'DiagnosticSignWarn',

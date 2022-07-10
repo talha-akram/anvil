@@ -1,5 +1,13 @@
-# anvil
-A highly adaptable Neovim distribution.
+# Anvil
+A highly adaptable Neovim distribution. The goal is to have a minimal Neovim
+configuration providing a great development experience out of the box.
+So instead of spending hours getting the basics to work (LSP, autocomplete,
+snippets, TreeSitter and git etc.) you can focus on customizing Neovim with
+features you need without being overwhelmed by bloat that is endemic to most
+Neovim distributions. Anvil is extremely lightweight, has little to no
+configuration of its own and only adds essential plugins that are needed to
+have a comfortable development experience. For most users, all that should be
+needed is to customize the key bindings and configure a language server.
 
 ## Preview:
 ![anvil preview](/images/anvil.png?raw=true "anvil preview")
@@ -10,11 +18,16 @@ Includes full LSP support and suggestions for snippets
 
 ![anvil completions preview](/images/anvil-completions.png?raw=true "anvil completions preview")
 
-Anvil uses LuaSnip as the snippet engine, and has support for vscode and LSP snippets out of the box. Adding more snippets is as simple as editing a ![json file](./snippets/javascript.json "link to javascript.json file containing example snippets") file while more advance/smart snippets can be written in Lua using LuaSnip.
+Anvil uses LuaSnip as the snippet engine, and has support for vscode and LSP snippets out of the box.
+Adding more snippets is as simple as editing a ![json file](./snippets/javascript.json "link to
+javascript.json file containing example snippets") file while more advance/smart snippets can be written
+in Lua using LuaSnip. omnifunc is set to show LSP completions and completefunc is set to show snippet
+completions while nvim-cmp is configured to show completions from all sources.
 
 ### StatusLine
 
-Awesome StatusLine implemented in Lua, without any plugin dependencies. ![check it out!](/lua/configuration/statusline.lua "link to anvil statusline code")
+Awesome StatusLine implemented in Lua, without any plugin dependencies.
+![check it out!](/lua/configuration/statusline.lua "link to anvil statusline code")
 
 ![StatusLine preview](/images/statusline.png?raw=true "StatusLine preview")
 
@@ -28,7 +41,8 @@ Awesome StatusLine implemented in Lua, without any plugin dependencies. ![check 
 
 All this without any patched font madness! works great over ssh and locally.
 
-An accent color is applied to the statusbar depending on current mode. The color is applied to Mode, Current Buffer, file format, and cursor position indicator sections of the statusline.
+An accent color is applied to the statusbar depending on current mode. The color is applied to Mode,
+Current Buffer, file format, and cursor position indicator sections of the statusline.
 
 ![StatusLine normal mode preview](/images/normal.png?raw=true "StatusLine normal mode preview")
 ![StatusLine insert mode preview](/images/insert.png?raw=true "StatusLine insert mode preview")
@@ -83,7 +97,10 @@ Anvil has a very simple directory structure to make it easy to understand, navig
 ```
 ## Goals
 
-To create a highly extensible neovim configuration that can easily be adapted as an IDE for any programming language via LSP while staying light and as close to vanilla neovim as possible. This distribution aims to be a non intrusive, solid base which the user can easily customize to fit their workflow needs.
+To create a highly extensible neovim configuration that can easily be adapted as an IDE for
+any programming language via LSP while staying light and as close to vanilla neovim as possible.
+This distribution aims to be a non intrusive, solid base which the user can easily customize to
+fit their workflow needs.
 
 ## Contributing
 Found a bug or something is broken?
