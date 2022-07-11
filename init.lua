@@ -26,6 +26,7 @@ StatusLine:extract_colors({
   Select = 'Number',
   Normal = 'Character',
   Progress = 'Macro',
-  Status = 'Normal'
+  Status = 'Normal',
+  Inactive = 'Conceal'
 })
 

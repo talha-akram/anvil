@@ -25,7 +25,8 @@ local colors = {
   Select = 'Number',
   Normal = 'Character',
   Progress = 'Macro',
-  Status = 'Normal'
+  Status = 'Normal',
+  Inactive = 'Conceal'
 }
 
 -- helper for safely creating a highlight group
@@ -43,7 +44,7 @@ end
 ---@param kind type of value to extract (either `background` or `foreground`)
 local get_color = function(hl_name, kind, default)
   local rgb = hl_by_name(hl_name, true)[kind]
-  local cterm = hl_by_name(hl_name, false)[kind]
+  local cterm = hl_by_name(hl_name, false)[kind] or 'Grey'
   local hex = (rgb and bit.tohex(rgb, 6) or default:sub(2))
   return { gui = string.format('#%s', hex), cterm = cterm }
 end
@@ -51,17 +52,10 @@ end
 -- define highlight groups and build palette from active colorscheme colors
 M.build_palette = function()
   local bg      = get_color('StatusLine', 'background', '#ffffff')
-  local nc      = get_color('Conceal', 'foreground', '#666666')
-
-  palette.Disabled = { ctermfg = nc.cterm, ctermbg = bg.cterm, fg = nc.gui, bg = bg.gui }
-  palette.Disabled = setmetatable(
-    { ctermfg = nc.cterm, ctermbg = bg.cterm, fg = nc.gui, bg = bg.gui },
-    { __tostring = function() return 'StatusLineDisabled' end }
-  )
 
   for color, highlight_group in pairs(colors) do
     local group_name = 'StatusLine' .. color
-    local found, fg = pcall(get_color, highlight_group, 'foreground', nc.gui)
+    local found, fg = pcall(get_color, highlight_group, 'foreground', '#666666')
     if found then
       local group = setmetatable(
         { ctermfg = fg.cterm, ctermbg = bg.cterm, fg = fg.gui, bg = bg.gui },
@@ -72,8 +66,6 @@ M.build_palette = function()
     end
   end
 
-  -- statusline highlight for inactive buffers
-  highlight(tostring(palette.Disabled), palette.Disabled)
   -- default highlight for the statusline
   highlight('StatusLine', palette.Normal)
   -- configure highlight for wild menu (command mode completions)
@@ -87,8 +79,8 @@ M:build_palette()
 
 -- Map accent color for statusline based on active mode
 local color_map = setmetatable({
-  ['n']    = palette.Normal,   -- Normal
-  ['no']   = palette.Normal,   -- Operator pending
+  ['n']    = palette.Normal,  -- Normal
+  ['no']   = palette.Normal,  -- Operator pending
   ['v']    = palette.Select,  -- Select by character (v)
   ['V']    = palette.Select,  -- Select by line (V)
   ['\022'] = palette.Select,  -- Select block wise (CTRL-V)
@@ -265,11 +257,11 @@ M.set_active = function(self)
     self:highlight(palette.Progress),
     self:get_file_state(),
     '%<',                                               -- Collapse point for smaller screen sizes
-    self:highlight(palette.Disabled),
+    self:highlight(palette.Inactive),
     buffers.prev_bufs,
     accent_color,
     buffers.current,
-    self:highlight(palette.Disabled),
+    self:highlight(palette.Inactive),
     buffers.next_bufs,
     self:highlight(palette.Error),
     format_diagnostics(' E:%s ', severity.ERROR),
@@ -296,7 +288,7 @@ end
 -- Statusline to be displayed on inactive windows
 M.set_inactive = function(self)
   return table.concat({
-    self:highlight(palette.Disabled),
+    self:highlight(palette.Inactive),
     self:get_file_state(),
     '%=',                                               -- left / right separator
     ' --%1p%%-- ',                                      -- Place in file as a percentage
