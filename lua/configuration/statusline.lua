@@ -20,12 +20,12 @@ local colors = {
   Warn = 'DiagnosticSignWarn',
   Info = 'DiagnosticSignInfo',
   Hint = 'DiagnosticSignHint',
-  Insert = 'Question',
-  Replace = 'Label',
-  Select = 'Number',
   Normal = 'Character',
+  Insert = 'Question',
+  Select = 'Number',
+  Replace = 'Label',
   Progress = 'Macro',
-  Status = 'Normal',
+  Fileinfo = 'Normal',
   Inactive = 'Conceal'
 }
 
@@ -272,7 +272,7 @@ M.set_active = function(self)
     self:highlight(palette.Hint),
     format_diagnostics(' H:%s ', severity.HINT),
     '%=',                                               -- left / right separator
-    self:highlight(palette.Status),
+    self:highlight(palette.Fileinfo),
     self:get_lsp_status(),
     self:get_file_encoding(),
     self:get_file_format(),

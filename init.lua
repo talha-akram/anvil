@@ -21,12 +21,12 @@ StatusLine:extract_colors({
   Warn = 'DiagnosticSignWarn',
   Info = 'DiagnosticSignInfo',
   Hint = 'DiagnosticSignHint',
-  Insert = 'Question',
-  Replace = 'Label',
-  Select = 'Number',
   Normal = 'Character',
+  Insert = 'Question',
+  Select = 'Number',
+  Replace = 'Label',
   Progress = 'Macro',
-  Status = 'Normal',
+  Fileinfo = 'Normal',
   Inactive = 'Conceal'
 })
 
