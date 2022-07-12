@@ -16,17 +16,17 @@ local hl_by_name = api.nvim_get_hl_by_name
 local M = {}
 local palette = {}
 local colors = {
-  Error = 'DiagnosticSignError',
-  Warn = 'DiagnosticSignWarn',
-  Info = 'DiagnosticSignInfo',
-  Hint = 'DiagnosticSignHint',
-  Normal = 'Character',
-  Insert = 'Question',
-  Select = 'Number',
-  Replace = 'Label',
-  Progress = 'Macro',
-  Fileinfo = 'Normal',
-  Inactive = 'Conceal'
+  Error = 'DiagnosticSignError',    -- Number of error messsages
+  Warn = 'DiagnosticSignWarn',      -- Number of warning messages
+  Info = 'DiagnosticSignInfo',      -- Number of information messages
+  Hint = 'DiagnosticSignHint',      -- Number of hint messages
+  Normal = 'Character',             -- Normal mode
+  Insert = 'Question',              -- Insert mode
+  Select = 'Number',                -- Visual mode and selection mode (gh etc.)
+  Replace = 'Label',                -- Replace mode
+  Progress = 'Macro',               -- File name and progress
+  Fileinfo = 'Normal',              -- file encoding and attached language server status
+  Inactive = 'Conceal'              -- Inactive buffersa and windows
 }
 
 -- helper for safely creating a highlight group
