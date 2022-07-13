@@ -22,6 +22,7 @@ local set_keymap = function(lhs, rhs)
   map('n', lhs, rhs, { noremap = true })
 end
 
+set_keymap('<leader>t', telescope_builtin.builtin)
 set_keymap('<leader>o', telescope_builtin.find_files)
 set_keymap('<leader>b', telescope_builtin.buffers)
 set_keymap('<leader>p', telescope_builtin.commands)
