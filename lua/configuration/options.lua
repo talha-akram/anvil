@@ -57,7 +57,7 @@ local defined_options  = {
   -- Show whitespace characters
   list           = true,
   -- Only show tabs and trailing spaces
-  listchars      = 'tab:▶-,trail:●,extends:◣,precedes:◢',
+  listchars      = 'tab:▶-,trail:●,eol:⏎,extends:◣,precedes:◢',
   -- Default search is not case sensitive
   ignorecase     = true,
   -- Search will be case sensitive if uppercase character is entered
@@ -74,6 +74,8 @@ local defined_options  = {
   sidescrolloff  = 5,
   -- Keep folds open by default, they can easily be closed using 'zM'
   foldenable     = false,
+  -- End of file will be restored if missing
+  fixendofline   = true,
 }
 
 -- Enable true colors if supported
@@ -120,4 +122,3 @@ vim.g.python3_host_prog = 'python3'
 
 -- Set Space as the leader key
 vim.g.mapleader = ' '
-
