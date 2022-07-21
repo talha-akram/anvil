@@ -127,6 +127,7 @@ telescope.setup({
     mappings = {
       i = {
         ['<esc>'] = require('telescope.actions').close,
+        ['<C-p>'] = require('telescope.actions.layout').toggle_preview,
       },
     }
   },
