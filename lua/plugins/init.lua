@@ -42,7 +42,6 @@ local on_startup = function(use)
   -- Visualise and control undo history in tree form.
   use({
     'mbbill/undotree',
-    cmd = {'UndotreeToggle', 'UndotreeFocus', 'UndotreeHide', 'UndotreeShow'},
     config = function()
       vim.keymap.set('n', ',r', '<CMD>UndotreeToggle<CR>', { noremap = true })
     end

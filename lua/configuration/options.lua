@@ -57,7 +57,7 @@ local defined_options  = {
   -- Show whitespace characters
   list           = true,
   -- Only show tabs and trailing spaces
-  listchars      = 'tab:▶-,trail:●,eol:⏎,extends:◣,precedes:◢',
+  listchars      = 'tab:▶-,space:·,trail:●,eol:↲,extends:◣,precedes:◢',
   -- Default search is not case sensitive
   ignorecase     = true,
   -- Search will be case sensitive if uppercase character is entered
