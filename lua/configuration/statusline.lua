@@ -211,6 +211,41 @@ M.get_file_encoding = function()
   return string.format('%s ', vim.o.encoding)
 end
 
+-- Indentation settings for current file
+M.get_file_indentation = function(self)
+  local indentation = 'tabs'
+  local characters = vim.o.tabstop
+
+  if vim.o.expandtab then
+    indentation = 'spaces'
+    characters = vim.o.shiftwidth
+  end
+
+  return string.format('%s:%d ', indentation, characters)
+end
+
+-- Interactively switch indentation settings, onclick action of file indentation component
+M.select_indentation = function()
+  vim.ui.select({'tabs', 'spaces'}, {
+    prompt = 'Select character to be used for indentation:',
+    format_item = function(item)
+      return 'Indent using '.. item
+    end,
+  }, function(choice)
+    if choice == nil then return end
+
+    local width = tonumber(fn.input('Enter number of characters per indentation level: '))
+
+    if choice == 'spaces' then
+      vim.o.expandtab = true
+      vim.o.shiftwidth = width or vim.o.shiftwidth
+    else
+      vim.o.expandtab = false
+      vim.o.tabstop = width or vim.o.tabstop
+    end
+   end)
+end
+
 -- Apply color to a statusline component using a highlight group
 M.highlight = function(self, group)
   return string.format('%%#%s#', group)
@@ -274,6 +309,7 @@ M.set_active = function(self)
     '%=',                                               -- left / right separator
     self:highlight(palette.Fileinfo),
     self:get_lsp_status(),
+    self:get_file_indentation(),
     self:get_file_encoding(),
     self:get_file_format(),
     accent_color,

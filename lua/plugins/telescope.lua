@@ -4,6 +4,7 @@ local telescope = require('telescope')
 local telescope_builtin = require('telescope.builtin')
 
 vim.cmd([[
+  highlight link FloatBorder WinSeparator
   highlight link TelescopePromptCounter TelescopeNormal
   highlight link TelescopeSelection TelescopePromptPrefix
 ]])

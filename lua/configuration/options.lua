@@ -6,11 +6,11 @@ local defined_options  = {
   background     = 'dark',
   -- Dissable modelines
   modeline       = false,
-  -- Restrict existing tab to width of 4 spaces
+  -- Set tab width to equal 2 spaces
   tabstop        = 2,
-  -- Use 4 spaces for tabs
+  -- Use 2 spaces for tabs when expanded by default
   shiftwidth     = 2,
-  -- Always expand tabs to spaces
+  -- Expand tabs to spaces by default
   expandtab      = true,
   -- Show line numders
   number         = true,
@@ -57,7 +57,7 @@ local defined_options  = {
   -- Show whitespace characters
   list           = true,
   -- Only show tabs and trailing spaces
-  listchars      = 'tab:▶-,space:·,trail:●,eol:↲,extends:◣,precedes:◢',
+  listchars      = 'tab:╶─╴,lead:·,trail:▒,eol:↲,extends:►,precedes:◄',
   -- Default search is not case sensitive
   ignorecase     = true,
   -- Search will be case sensitive if uppercase character is entered
@@ -112,11 +112,13 @@ for option, value in pairs(defined_options) do
   global_options[option] = value
 end
 
--- Enable filetype detection and use plugins and indentation
+-- Enable filetype detection
+-- use plugins and indentation
 vim.cmd('filetype plugin indent on')
 
 -- Enable highlighting embedded lua code
 vim.g.vimsyn_embed      = 'l'
+
 -- Use Python 3 for plugins
 vim.g.python3_host_prog = 'python3'
 
