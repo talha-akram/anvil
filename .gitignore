@@ -1,4 +1,4 @@
 **/.DS_Store
-plugin/*
+plugin/packer_compiled.lua
 autoload/
 undodir/
