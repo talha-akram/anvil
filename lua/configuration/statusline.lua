@@ -171,10 +171,10 @@ M.get_lsp_status = function()
       end
     end
 
-    return string.format('(%s) ● ', table.concat(client_status, ' '))
+    return string.format(' ● (%s)', table.concat(client_status, ' '))
   end
 
-  return '◯ '
+  return ' ◯ '
 end
 
 -- Returns symbolic identifier for current mode
@@ -221,7 +221,7 @@ M.get_file_indentation = function(self)
     characters = vim.o.shiftwidth
   end
 
-  return string.format('%s:%d ', indentation, characters)
+  return string.format(' %s:%d ', indentation, characters)
 end
 
 -- Interactively switch indentation settings, onclick action of file indentation component
@@ -234,14 +234,17 @@ M.select_indentation = function()
   }, function(choice)
     if choice == nil then return end
 
-    local width = tonumber(fn.input('Enter number of characters per indentation level: '))
-
     if choice == 'spaces' then
       vim.o.expandtab = true
-      vim.o.shiftwidth = width or vim.o.shiftwidth
     else
       vim.o.expandtab = false
-      vim.o.tabstop = width or vim.o.tabstop
+    end
+
+    local width = tonumber(fn.input('Enter number of characters per indentation level: '))
+
+    if width then
+      vim.o.shiftwidth = width
+      vim.o.tabstop = width
     end
    end)
 end
@@ -306,9 +309,12 @@ M.set_active = function(self)
     format_diagnostics(' I:%s ', severity.INFO),
     self:highlight(palette.Hint),
     format_diagnostics(' H:%s ', severity.HINT),
-    '%=',                                               -- left / right separator
     self:highlight(palette.Fileinfo),
     self:get_lsp_status(),
+    '%=',                                               -- left / right separator
+    accent_color,
+    ' %l:%c ',                                          -- position of cursor
+    self:highlight(palette.Fileinfo),
     self:get_file_indentation(),
     self:get_file_encoding(),
     self:get_file_format(),
@@ -316,8 +322,6 @@ M.set_active = function(self)
     self:get_file_type(),
     self:highlight(palette.Progress),
     ' --%1p%%-- ',                                      -- Place in file as a percentage
-    accent_color,
-    ' %l:%c ',                                          -- position of cursor
   })
 end
 
