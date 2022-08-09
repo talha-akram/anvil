@@ -57,7 +57,7 @@ local on_startup = function(use)
     end
   })
 
-  -- Quick fuzzy selection for files and more, see plugin settings.
+  -- Fuzzy selection for files and more, see plugin settings.
   use({
     'nvim-telescope/telescope.nvim',
     config = function() require('plugins.telescope') end,
@@ -101,16 +101,14 @@ local on_startup = function(use)
   })
 
   -- DAP integration
-  -- use({
-  --   'mfussenegger/nvim-dap',
-  --   requires = {
-  --     'nvim-telescope/telescope-dap.nvim',
-  --     'theHamsta/nvim-dap-virtual-text',
-  --     { 'rcarriga/nvim-dap-ui', config = function() require('plugins.dapui') end  },
-  --     { 'leoluz/nvim-dap-go', config = function() require('dap-go').setup() end  },
-  --     { 'suketa/nvim-dap-ruby', config = function() require('dap-ruby').setup() end }
-  --   }
-  -- })
+  use({
+    'mfussenegger/nvim-dap',
+    requires = {
+      'nvim-telescope/telescope-dap.nvim',
+      'theHamsta/nvim-dap-virtual-text',
+      { 'rcarriga/nvim-dap-ui', config = function() require('plugins.dapui') end  },
+    }
+  })
 
   -- LSP intigration
   use({

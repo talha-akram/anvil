@@ -12,12 +12,17 @@ vim.cmd([[
 local themes = {
   popup_list = {
     theme = 'popup_list',
-    border = true,
-    preview = false,
+    previewer = false,
     prompt_title = false,
     results_title = false,
     sorting_strategy = 'ascending',
     layout_strategy = 'center',
+    layout_config = {
+      width = 0.5,
+      height = 0.3,
+      mirror = true,
+      preview_cutoff = 1,
+    },
     borderchars = {
       prompt  = { '─', '│', '─', '│', '┌', '┐', '┤', '└' },
       results = { '─', '│', '─', '│', '├', '┤', '┘', '└' },
@@ -30,7 +35,7 @@ local themes = {
     results_title = false,
     layout_strategy = 'center',
     layout_config = {
-      width = 0.7,
+      width = 0.5,
       height = 0.3,
       mirror = true,
       preview_cutoff = 1,
@@ -43,7 +48,7 @@ local themes = {
   },
   command_pane = {
     theme = 'command_pane',
-    preview = false,
+    previewer = false,
     prompt_title = false,
     results_title = false,
     sorting_strategy = 'descending',
@@ -56,7 +61,6 @@ local themes = {
   },
   ivy_plus = {
     theme = 'ivy_plus',
-    preview = false,
     prompt_title = false,
     results_title = false,
     layout_strategy = 'bottom_pane',
@@ -152,24 +156,24 @@ local set_keymap = function(lhs, rhs)
   map('n', lhs, rhs, { noremap = true })
 end
 
-set_keymap('<leader>t', use_layout(telescope_builtin.builtin, 'popup_list'))
-set_keymap('<leader>o', use_layout(telescope_builtin.find_files, 'popup_list'))
-set_keymap('<leader>b', use_layout(telescope_builtin.buffers, 'popup_extended'))
-set_keymap('<leader>p', use_layout(telescope_builtin.commands, 'command_pane'))
-set_keymap('<leader>g', use_layout(telescope_builtin.git_status, 'popup_extended'))
-set_keymap('<leader>q', use_layout(telescope_builtin.quickfix, 'ivy_plus'))
-set_keymap('<leader>l', use_layout(telescope_builtin.loclist, 'ivy_plus'))
-set_keymap('<F1>',      use_layout(telescope_builtin.help_tags, 'popup_extended'))
+set_keymap('<leader>q', use_layout(telescope_builtin.quickfix,    'ivy_plus'))
+set_keymap('<leader>l', use_layout(telescope_builtin.loclist,     'ivy_plus'))
+set_keymap('<leader>t', use_layout(telescope_builtin.builtin,     'popup_list'))
+set_keymap('<leader>o', use_layout(telescope_builtin.find_files,  'popup_list'))
+set_keymap('<leader>p', use_layout(telescope_builtin.commands,    'command_pane'))
+set_keymap('<leader>b', use_layout(telescope_builtin.buffers,     'popup_extended'))
+set_keymap('<leader>g', use_layout(telescope_builtin.git_status,  'popup_extended'))
+set_keymap('<leader>w', use_layout(telescope_builtin.grep_string, 'popup_extended'))
+set_keymap('<F1>',      use_layout(telescope_builtin.help_tags,   'popup_extended'))
 
 set_keymap(
   '<leader>f',
-  use_layout(telescope.extensions.live_grep_args.live_grep_args, 'popup_extended')
+  use_layout(telescope.extensions.live_grep_args.live_grep_args,  'popup_extended')
 )
 
--- local dap = telescope.extensions.dap
--- set_keymap('<leader>do', dap.commands)
--- set_keymap('<leader>dc', dap.configurations)
--- set_keymap('<leader>db', dap.list_breakpoints)
--- set_keymap('<leader>dv', dap.variables)
--- set_keymap('<leader>df', dap.frames)
-
+local dap = telescope.extensions.dap
+set_keymap('<leader>d',  use_layout(dap.commands,         'popup_list'))
+set_keymap('<leader>dc', use_layout(dap.configurations,   'popup_list'))
+set_keymap('<leader>db', use_layout(dap.list_breakpoints, 'popup_list'))
+set_keymap('<leader>dv', use_layout(dap.variables,        'popup_list'))
+set_keymap('<leader>df', use_layout(dap.frames,           'popup_list'))

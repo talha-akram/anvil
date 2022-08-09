@@ -7,45 +7,43 @@ set_keymap('n',';', ':', options)
 set_keymap('n', '<C-k>', '<C-u>', options)
 set_keymap('n', '<C-j>', '<C-d>', options)
 
--- Copy to & paste from system clipboard
-set_keymap('v', ',y', '"+y', options)
+-- Paste from & copy to system clipboard
 set_keymap('', ',p', '"+p', options)
+set_keymap('v', ',y', '"+y', options)
+set_keymap('n', ',y', '"+y', options)
+-- Yank current line to system clipboard
+set_keymap('n', ',yy', '"+yy', options)
 
 -- Trim trailing whitespace
-set_keymap('n', ',s', ":%s/\\s\\+$//e<CR>")
--- Delete current buffer, (keep window splits)
-set_keymap('n', ',d', ':bd<CR>', options)
+set_keymap('n', ',s', '<CMD>%s/\\s\\+$//e<CR>')
 -- Use ALT + q/l for opening quickfix and loclist
-set_keymap('n', '<A-q>', ':cope<CR>',      options)
-set_keymap('n', '<A-l>', ':cope<CR>',      options)
--- Close Quickfix list
-set_keymap('n', ']Q', ':cla<CR>', options)
--- Close Location list
-set_keymap('n', ',l', ':lcl<CR>', options)
+set_keymap('n', '<A-q>', '<CMD>cope<CR>', options)
+set_keymap('n', '<A-l>', '<CMD>cope<CR>', options)
 -- Fast * list navigation, inspired by tpope/vim-unimpaired
 -- [ / ] -> previous / next, Uppercase Modifier -> First / Last
--- Quickfix list navigation:
-set_keymap('n', ',q', ':ccl<CR>', options)
-set_keymap('n', '[q', ':cpr<CR>', options)
-set_keymap('n', ']q', ':cnex<CR>', options)
-set_keymap('n', '[Q', ':cfir<CR>', options)
+-- Quickfix list navigation<CMD>
+set_keymap('n', '[q', '<CMD>cprev<CR>', options)
+set_keymap('n', ']q', '<CMD>cnext<CR>', options)
+set_keymap('n', '[Q', '<CMD>cfirst<CR>', options)
+set_keymap('n', ']Q', '<CMD>clast<CR>', options)
 -- Location list navigation
-set_keymap('n', '[l', ':lpr<CR>', options)
-set_keymap('n', ']l', ':lne<CR>', options)
-set_keymap('n', '[L', ':lfir<CR>', options)
-set_keymap('n', ']L', ':lla<CR>', options)
+set_keymap('n', '[l', '<CMD>lprev<CR>', options)
+set_keymap('n', ']l', '<CMD>lnext<CR>', options)
+set_keymap('n', '[L', '<CMD>lfirst<CR>', options)
+set_keymap('n', ']L', '<CMD>llast<CR>', options)
 -- Buffer list navigation
-set_keymap('n', '[b', ':bp<CR>', options)
-set_keymap('n', ']b', ':bn<CR>', options)
-set_keymap('n', '[B', ':bf<CR>', options)
-set_keymap('n', ']B', ':bl<CR>', options)
+set_keymap('n', '[b', '<CMD>bprev<CR>', options)
+set_keymap('n', ']b', '<CMD>bnext<CR>', options)
+set_keymap('n', '[B', '<CMD>bfirst<CR>', options)
+set_keymap('n', ']B', '<CMD>blast<CR>', options)
 
--- Yank current line to system clipboard
-set_keymap('n', ',y', '+yy', options)
+-- Delete current buffer
+set_keymap('n', ',c', '<CMD>bd<CR>', options)
+
 -- Close current window
-set_keymap('n', ',c', ':q<CR>', options)
+set_keymap('n', ',q', '<CMD>q<CR>', options)
 -- Write changes made to open files
-set_keymap('n', ',w', ':w<CR>', options)
+set_keymap('n', ',w', '<CMD>w<CR>', options)
 
 -- -- Use ctrl+space for omnifunc
 -- set_keymap('i', '<C-Space>', '<C-x><C-o>', options)
@@ -60,8 +58,8 @@ set_keymap('n', 'k', 'gk', options)
 set_keymap('n', 'J', 'mzJ`z', options)
 
 -- Use Shift + J/K to moves selected lines up/down in visual mode
-set_keymap('v', 'J', ":m '>+1<CR>gv=gv", options)
-set_keymap('v', 'K', ":m '<-2<CR>gv=gv", options)
+set_keymap('v', 'J', "<CMD>m '>+1<CR>gv=gv", options)
+set_keymap('v', 'K', "<CMD>m '<-2<CR>gv=gv", options)
 
 -- Keep current search result centered on the screen
 set_keymap('n', 'n', 'nzz', options)
@@ -69,7 +67,7 @@ set_keymap('n', 'N', 'Nzz', options)
 
 -- Keep current cursor position while entering and exiting insert mode
 set_keymap('i', '<Esc>', function()
-  return vim.fn.pumvisible() == 1 and "<Esc>i<Right>" or "<Right><Esc>"
+  return vim.fn.pumvisible() == 1 and '<Esc>i<Right>' or '<Right><Esc>'
 end, { noremap = true, expr = true })
 
 -- Use <C-w> to move between terminal buffer and other buffers
