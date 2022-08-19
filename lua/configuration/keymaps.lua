@@ -38,7 +38,7 @@ set_keymap('n', '[B', '<CMD>bfirst<CR>', options)
 set_keymap('n', ']B', '<CMD>blast<CR>', options)
 
 -- Delete current buffer
-set_keymap('n', ',c', '<CMD>bd<CR>', options)
+set_keymap('n', ',c', '<CMD>bp<CR>', options)
 
 -- Close current window
 set_keymap('n', ',q', '<CMD>q<CR>', options)

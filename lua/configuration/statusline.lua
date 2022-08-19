@@ -194,7 +194,7 @@ end
 
 -- File's type as identified by neovim.
 M.get_file_type = function()
-  local file_type = vim.bo.filetype:lower()
+  local file_type = vim.bo.filetype
 
   return file_type == ''
     and ' [no ft] '
