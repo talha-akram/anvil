@@ -36,9 +36,11 @@ set_keymap('n', '[b', '<CMD>bprev<CR>', options)
 set_keymap('n', ']b', '<CMD>bnext<CR>', options)
 set_keymap('n', '[B', '<CMD>bfirst<CR>', options)
 set_keymap('n', ']B', '<CMD>blast<CR>', options)
+set_keymap('n', ',b', '<CMD>bprev<CR>', options)
+set_keymap('n', ',n', '<CMD>bnext<CR>', options)
 
 -- Delete current buffer
-set_keymap('n', ',c', '<CMD>bp<CR>', options)
+set_keymap('n', ',c', '<CMD>bdel<CR>', options)
 
 -- Close current window
 set_keymap('n', ',q', '<CMD>q<CR>', options)
