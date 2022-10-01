@@ -215,13 +215,14 @@ end
 M.get_file_indentation = function(self)
   local indentation = 'tabs'
   local characters = vim.o.tabstop
+  local on_click = '%@v:lua.StatusLine.select_indentation@'
 
   if vim.o.expandtab then
     indentation = 'spaces'
     characters = vim.o.shiftwidth
   end
 
-  return string.format(' %s:%d ', indentation, characters)
+  return string.format(' %s%s:%d%s ', on_click, indentation, characters, '%X')
 end
 
 -- Interactively switch indentation settings, onclick action of file indentation component
