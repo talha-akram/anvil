@@ -42,6 +42,8 @@ local defined_options  = {
   lazyredraw     = true,
   -- Use global status line
   laststatus     = 3,
+  -- command height
+  ch             = 0,
   -- Don't show mode as it is already displayrd in status line
   showmode       = false,
   -- Show sign column inside the number column

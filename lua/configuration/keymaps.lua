@@ -8,12 +8,13 @@ set_keymap('n', '<C-k>', '<C-u>', options)
 set_keymap('n', '<C-j>', '<C-d>', options)
 
 -- Paste from & copy to system clipboard
-set_keymap('', ',p', '"+p', options)
+set_keymap('n', ',p', '"+p', options)
 set_keymap('v', ',y', '"+y', options)
 set_keymap('n', ',y', '"+y', options)
+set_keymap('v', '<leader>p', '"_dP', options)
 -- Yank current line to system clipboard
+-- Paste in visual mode and retain past
 set_keymap('n', ',yy', '"+yy', options)
-
 -- Trim trailing whitespace
 set_keymap('n', ',s', '<CMD>%s/\\s\\+$//e<CR>')
 -- Use ALT + q/l for opening quickfix and loclist

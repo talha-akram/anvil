@@ -47,6 +47,9 @@ local on_startup = function(use)
     end
   })
 
+  -- Notes
+  use({ 'phaazon/mind.nvim', config = function() require'mind'.setup() end })
+
   -- Comment/Uncomment blocks of code using gc
   use({
     'b3nj5m1n/kommentary',

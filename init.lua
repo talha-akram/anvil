@@ -8,6 +8,7 @@ end
 
 -- Set colorscheme
 vim.cmd([[
+  let g:everforest_background = 'hard'
   try
     colorscheme everforest
     catch

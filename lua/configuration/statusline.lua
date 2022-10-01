@@ -359,7 +359,7 @@ if vim.o.laststatus ~= 3 then
   -- Set statusline to active variant for focused buffer
   autocmd({ 'WinEnter', 'BufEnter' }, {
     desc = 'show active statusline with details',
-    callback = function() vim.wo.statusline = '%!v:lua.StatusLine('active')' end,
+    callback = function() vim.wo.statusline = '%!v:lua.StatusLine("active")' end,
     group = statusline
   })
   -- Set statusline to inactive variant for buffers without focus
