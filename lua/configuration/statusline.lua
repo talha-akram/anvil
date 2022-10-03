@@ -262,21 +262,28 @@ M.get_buffers = function()
   local prev_bufs = {}
   local next_bufs = {}
 
+
   for _, buf in ipairs(buffers) do
     if listed(buf) == 1 then
+      -- local buffer = string.format('%s(0, %s)@ %s %s', '%@nvim_win_set_buf', buf, buf, '%X')
+      local buffer = string.format('%%%s%s %s', buf, '@v:lua.StatusLine.switch_buffer@', buf, '%X')
       if buf < current then
-        table.insert(prev_bufs, string.format(' %s ', buf))
+        table.insert(prev_bufs, buffer)
       elseif buf > current then
-        table.insert(next_bufs, string.format(' %s ', buf))
+        table.insert(next_bufs, buffer)
       end
     end
   end
 
   return {
     prev_bufs = table.concat(prev_bufs),
-    current = string.format(' %s ', current),
+    current = string.format('%%%s%s %s', current, '@v:lua.StatusLine.switch_buffer@', current, '%X'),
     next_bufs = table.concat(next_bufs),
   }
+end
+
+M.switch_buffer = function(buf)
+  vim.api.nvim_win_set_buf(0, buf)
 end
 
 M.extract_colors = function(self, highlights)
