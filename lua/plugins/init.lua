@@ -1,4 +1,4 @@
--- PLUGIN SETTINGS
+-- Plugins
 -- Configure plugins, plugin specific functions and autocommands are to be
 -- written in the corresponding files (makes debuging and trying out plugins easier)
 
