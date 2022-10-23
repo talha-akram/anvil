@@ -1,6 +1,6 @@
 local lsp = require('lspconfig');
 local map = vim.keymap.set
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local on_attach = function(_client, bufnr)
   local telescope_builtin = require('telescope.builtin');
@@ -47,6 +47,9 @@ lsp.solargraph.setup({ capabilities = capabilities, on_attach = on_attach });
 
 -- Configure LS for Go
 lsp.gopls.setup({ capabilities = capabilities, on_attach = on_attach });
+
+-- Configure LS for Dart
+lsp.dartls.setup({ capabilities = capabilities, on_attach = on_attach });
 
 -- Configure LS for Vue
 lsp.vuels.setup({ capabilities = capabilities, on_attach = on_attach, filetypes = {'vue'} })

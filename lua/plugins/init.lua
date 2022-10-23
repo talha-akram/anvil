@@ -35,6 +35,7 @@ local on_startup = function(use)
   -- Color schemes
   use('sainnhe/everforest')
   use('sainnhe/gruvbox-material')
+  use({ 'kartikp10/noctis.nvim', requires = { 'rktjmp/lush.nvim' } })
 
   -- Ask for the right file to open when file matching name is not found
   use('EinfachToll/DidYouMean')
