@@ -141,7 +141,7 @@ telescope.setup({
       fuzzy = true,                    -- false will only do exact matching
       override_generic_sorter = true,  -- override the generic sorter
       override_file_sorter = true,     -- override the file sorter
-      case_mode = 'smart_case',        -- other options: 'ignore_case' or 'respect_case'
+      case_mode = 'smart_case',        -- options: 'ignore_case', 'respect_case'
     }
   }
 })
@@ -165,11 +165,7 @@ set_keymap('<leader>b', use_layout(telescope_builtin.buffers,     'popup_extende
 set_keymap('<leader>g', use_layout(telescope_builtin.git_status,  'popup_extended'))
 set_keymap('<leader>w', use_layout(telescope_builtin.grep_string, 'popup_extended'))
 set_keymap('<F1>',      use_layout(telescope_builtin.help_tags,   'popup_extended'))
-
-set_keymap(
-  '<leader>f',
-  use_layout(telescope.extensions.live_grep_args.live_grep_args,  'popup_extended')
-)
+set_keymap('<leader>f', use_layout(telescope.extensions.live_grep_args.live_grep_args,  'popup_extended'))
 
 local dap = telescope.extensions.dap
 set_keymap('<leader>d',  use_layout(dap.commands,         'popup_list'))

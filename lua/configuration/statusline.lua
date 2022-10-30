@@ -51,7 +51,7 @@ end
 
 -- define highlight groups and build palette from active colorscheme colors
 M.build_palette = function()
-  local bg      = get_color('StatusLine', 'background', '#ffffff')
+  local bg      = get_color('CursorLine', 'background', '#ffffff')
 
   for color, highlight_group in pairs(colors) do
     local group_name = 'StatusLine' .. color
@@ -171,10 +171,10 @@ M.get_lsp_status = function()
       end
     end
 
-    return string.format(' ● (%s)', table.concat(client_status, ' '))
+    return string.format(' (%s) ', table.concat(client_status, ' '))
   end
 
-  return ' ◯ '
+  return ''
 end
 
 -- Returns symbolic identifier for current mode
@@ -198,7 +198,7 @@ M.get_file_type = function()
 
   return file_type == ''
     and ' [no ft] '
-    or string.format(' %s ', file_type)
+    or string.format('  %s', file_type)
 end
 
 -- File line ending format Unix / Windows
@@ -302,30 +302,30 @@ M.set_active = function(self)
     self:get_current_mode(),
     self:highlight(palette.Progress),
     self:get_file_state(),
+    self:highlight(palette.Error),
+    format_diagnostics(' E:%s', severity.ERROR),
+    self:highlight(palette.Warn),
+    format_diagnostics(' W:%s', severity.WARN),
+    self:highlight(palette.Info),
+    format_diagnostics(' I:%s', severity.INFO),
+    self:highlight(palette.Hint),
+    format_diagnostics(' H:%s', severity.HINT),
+    self:highlight(palette.Fileinfo),
+    self:get_lsp_status(),
+    '%=',                                               -- left / right separator
     '%<',                                               -- Collapse point for smaller screen sizes
+    accent_color,
+    ' %l:%c',                                          -- position of cursor
+    self:highlight(palette.Fileinfo),
+    self:get_file_indentation(),
+    self:get_file_encoding(),
+    self:get_file_format(),
     self:highlight(palette.Inactive),
     buffers.prev_bufs,
     accent_color,
     buffers.current,
     self:highlight(palette.Inactive),
     buffers.next_bufs,
-    self:highlight(palette.Error),
-    format_diagnostics(' E:%s ', severity.ERROR),
-    self:highlight(palette.Warn),
-    format_diagnostics(' W:%s ', severity.WARN),
-    self:highlight(palette.Info),
-    format_diagnostics(' I:%s ', severity.INFO),
-    self:highlight(palette.Hint),
-    format_diagnostics(' H:%s ', severity.HINT),
-    self:highlight(palette.Fileinfo),
-    self:get_lsp_status(),
-    '%=',                                               -- left / right separator
-    accent_color,
-    ' %l:%c ',                                          -- position of cursor
-    self:highlight(palette.Fileinfo),
-    self:get_file_indentation(),
-    self:get_file_encoding(),
-    self:get_file_format(),
     accent_color,
     self:get_file_type(),
     self:highlight(palette.Progress),
