@@ -28,8 +28,8 @@ local defined_options  = {
   wildmenu       = true,
   -- Ignore case when completing in command mode
   wildignorecase = true,
-  -- Donot use popup menu for completions in command mode
-  wildoptions    = 'tagfile',
+  -- Use popup menu for completions in command mode
+  wildoptions    = 'pum',
   -- Auto select the first entry but don't insert
   completeopt    = 'noinsert,menuone',
   -- Stop popup menu messages
