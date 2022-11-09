@@ -1,11 +1,12 @@
 local lsp = require('lspconfig');
-local map = vim.keymap.set
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local diagnostic = vim.diagnostic;
+local map = vim.keymap.set;
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities());
 
 local on_attach = function(_client, bufnr)
   local telescope_builtin = require('telescope.builtin');
-  local set_keymap = function(lhs, rhs)
-    map('n', lhs, rhs, { noremap = true, buffer = 0 })
+  local set_keymap = function(lhs, rhs, mode)
+    map(mode or 'n', lhs, rhs, { noremap = true, buffer = 0 })
   end
 
   -- Enable completion triggered by <c-x><c-o>
@@ -13,19 +14,25 @@ local on_attach = function(_client, bufnr)
 
   -- Add keybindings for LSP integration
   local buf = vim.lsp.buf
+
+  set_keymap('<C-s>', buf.signature_help, 'i')
+
   set_keymap('gD', buf.declaration)
   set_keymap('gd', buf.definition)
   set_keymap('gt', buf.type_definition)
   set_keymap('gr', buf.references)
+
+  set_keymap('K', buf.hover)
+
   set_keymap('<Leader><Leader>', buf.format)
-  set_keymap('<Leader>h', buf.hover)
   set_keymap('<Leader>i', buf.implementation)
   set_keymap('<Leader>k', buf.signature_help)
   set_keymap('<Leader>s', buf.document_symbol)
   set_keymap('<Leader>w', buf.workspace_symbol)
 
-  set_keymap('g]', vim.diagnostic.goto_next)
-  set_keymap('g[', vim.diagnostic.goto_prev)
+  set_keymap('g]', diagnostic.goto_next)
+  set_keymap('g[', diagnostic.goto_prev)
+  set_keymap(',d', diagnostic.open_float)
 
   set_keymap('<Leader>lr', telescope_builtin.lsp_references)
   set_keymap('<Leader>ls', telescope_builtin.lsp_document_symbols)
@@ -35,24 +42,27 @@ local on_attach = function(_client, bufnr)
   set_keymap('<Leader>ltd', telescope_builtin.lsp_type_definitions)
 end
 
--- Configure LS for JavaScript
+-- JavaScript
 lsp.tsserver.setup({
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = {'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx'},
 });
 
--- Configure LS for Ruby
+-- Ruby
 lsp.solargraph.setup({ capabilities = capabilities, on_attach = on_attach });
 
--- Configure LS for Go
+-- Go
 lsp.gopls.setup({ capabilities = capabilities, on_attach = on_attach });
 
--- Configure LS for Dart
+-- Dart
 lsp.dartls.setup({ capabilities = capabilities, on_attach = on_attach });
 
--- Configure LS for Vue
+-- VueJS
 lsp.vuels.setup({ capabilities = capabilities, on_attach = on_attach, filetypes = {'vue'} })
+
+-- Rust
+lsp.rust_analyzer.setup({ capabilities = capabilities, on_attach = on_attach })
 
 -- Add diagnostics to quick-fix list
 do
@@ -65,10 +75,11 @@ do
 end
 
 -- Customize how diagnostics are displayed
+local severity = diagnostic.severity
 vim.diagnostic.config({
   virtual_text = true,
   signs = { priority = 0 },
-  underline = { severity = vim.diagnostic.severity.ERROR },
+  underline = { severity = { severity.WARN, severity.ERROR } },
   update_in_insert = false,
   severity_sort = false,
 })

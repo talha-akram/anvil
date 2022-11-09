@@ -73,7 +73,7 @@ local on_startup = function(use)
   })
 
   -- Git integration
-  use({ 'rbong/vim-flog', branch = 'v2', requires = 'tpope/vim-fugitive' })
+  -- use({ 'rbong/vim-flog', branch = 'v2', requires = 'tpope/vim-fugitive' })
   use({
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end

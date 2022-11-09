@@ -61,7 +61,7 @@ local to_completion = function(snippet)
   }
 end
 
-local snippetfilter = function(line_to_cursor, base)
+local snippet_filter = function(line_to_cursor, base)
   return function(s)
     return not s.hidden and vim.startswith(s.trigger, base) and s.show_condition(line_to_cursor)
   end
@@ -77,7 +77,7 @@ function completefunc(findstart, base)
   end
 
   local snippets = vim.list_extend(vim.list_slice(luasnip.get_snippets('all')), luasnip.get_snippets(vim.bo.filetype))
-  snippets = vim.tbl_filter(snippetfilter(line_to_cursor, base), snippets)
+  snippets = vim.tbl_filter(snippet_filter(line_to_cursor, base), snippets)
   snippets = vim.tbl_map(to_completion, snippets)
   table.sort(snippets, function(s1, s2) return s1.word < s2.word end)
   return snippets

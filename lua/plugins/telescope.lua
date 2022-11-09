@@ -132,6 +132,7 @@ telescope.setup({
     mappings = {
       i = {
         ['<esc>'] = require('telescope.actions').close,
+        ['<C-l>'] = require('telescope.actions').smart_send_to_loclist,
         ['<C-p>'] = require('telescope.actions.layout').toggle_preview,
       },
     }
@@ -147,7 +148,7 @@ telescope.setup({
 })
 
 telescope.load_extension('fzf')
--- telescope.load_extension('dap')
+telescope.load_extension('dap')
 
 local use_layout = function(picker, layout)
   return function() picker(themes[layout]) end

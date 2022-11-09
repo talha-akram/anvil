@@ -55,6 +55,7 @@ local defined_options  = {
   -- Trigger CursorHold event if nothing is typed for the duration
   updatetime     = 1000,
   -- Settings for better diffs
+  -- add when neovim 0.9: is available linematch:60 for better line level diffs
   diffopt        = 'filler,vertical,hiddenoff,foldcolumn:0,algorithm:patience',
   -- Show whitespace characters
   list           = true,
@@ -78,6 +79,8 @@ local defined_options  = {
   foldenable     = false,
   -- End of file will be restored if missing
   fixendofline   = true,
+  -- ** enables searcing recursively for file related actions, like find
+  path           = '.,/usr/include,**',
 }
 
 -- Enable true colors if supported

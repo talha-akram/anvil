@@ -189,7 +189,7 @@ M.get_file_state = function()
   local file_name = (name == '' and '[no name]' or name)
   local read_only = "%{&readonly?' -':''}"
   local modified = "%{&modified?' +':''}"
-  return string.format(' %s%s%s ', file_name, modified, read_only)
+  return string.format('%s%s%s ', file_name, modified, read_only)
 end
 
 -- File's type as identified by neovim.
