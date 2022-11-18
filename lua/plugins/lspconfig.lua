@@ -79,7 +79,6 @@ local severity = diagnostic.severity
 vim.diagnostic.config({
   virtual_text = true,
   signs = { priority = 0 },
-  underline = { severity = { severity.WARN, severity.ERROR } },
   update_in_insert = false,
   severity_sort = false,
 })

@@ -1,4 +1,5 @@
 local set_keymap = vim.keymap.set
+local pumvisible = vim.fn.pumvisible
 local options = { noremap = true }
 
 -- Use semicolon to enter command mode
@@ -70,8 +71,17 @@ set_keymap('n', 'N', 'Nzz', options)
 
 -- Keep current cursor position while entering and exiting insert mode
 set_keymap('i', '<Esc>', function()
-  return vim.fn.pumvisible() == 1 and '<Esc>i<Right>' or '<Right><Esc>'
+  return pumvisible() == 1 and '<Esc>i<Right>' or '<Right><Esc>'
 end, { noremap = true, expr = true })
+
+-- -- Use <Tab> to select next match
+-- set_keymap('i', '<Tab>', function()
+--   return pumvisible() == 1 and '<C-N>' or '<Tab>'
+-- end, { noremap = true, expr = true })
+-- -- Use <S-Tab> to select previous match
+-- set_keymap('i', '<S-Tab>', function()
+--   return pumvisible() == 1 and '<C-P>' or '<S-Tab>'
+-- end, { noremap = true, expr = true })
 
 -- Use <C-w> to move between terminal buffer and other buffers
 set_keymap('t', '<C-w>', '<C-\\><C-n><C-w>', options)
