@@ -82,11 +82,6 @@ local on_startup = function(use)
     'TimUntersberger/neogit',
     config = function() require('plugins.neogit') end,
     cmd = 'Neogit',
-    requires = {
-      'sindrets/diffview.nvim',
-      config = function() require('plugins.diffview') end,
-      requires = 'nvim-lua/plenary.nvim'
-    }
   })
 
   -- REPL integration
