@@ -133,6 +133,7 @@ telescope.setup({
       i = {
         ['<esc>'] = require('telescope.actions').close,
         ['<C-l>'] = require('telescope.actions').smart_send_to_loclist,
+        ['<C-q>'] = require('telescope.actions').smart_send_to_qflist,
         ['<C-p>'] = require('telescope.actions.layout').toggle_preview,
       },
     }

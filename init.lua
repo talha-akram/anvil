@@ -10,7 +10,8 @@ end
 vim.cmd([[
   try
     colorscheme noctis
-    catch
+  catch
+    colorscheme lunaperche
   endtry
 ]])
 
