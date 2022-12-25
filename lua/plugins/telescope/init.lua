@@ -2,80 +2,13 @@
 local map = vim.keymap.set
 local telescope = require('telescope')
 local telescope_builtin = require('telescope.builtin')
+local use_layout = require('plugins.telescope.layouts')
 
 vim.cmd([[
   highlight link FloatBorder WinSeparator
   highlight link TelescopePromptCounter TelescopeNormal
   highlight link TelescopeSelection TelescopePromptPrefix
 ]])
-
-local themes = {
-  popup_list = {
-    theme = 'popup_list',
-    previewer = false,
-    prompt_title = false,
-    results_title = false,
-    sorting_strategy = 'ascending',
-    layout_strategy = 'center',
-    layout_config = {
-      width = 0.5,
-      height = 0.3,
-      mirror = true,
-      preview_cutoff = 1,
-    },
-    borderchars = {
-      prompt  = { '─', '│', '─', '│', '┌', '┐', '┤', '└' },
-      results = { '─', '│', '─', '│', '├', '┤', '┘', '└' },
-      preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-    },
-  },
-  popup_extended = {
-    theme = 'popup_extended',
-    prompt_title = false,
-    results_title = false,
-    layout_strategy = 'center',
-    layout_config = {
-      width = 0.5,
-      height = 0.3,
-      mirror = true,
-      preview_cutoff = 1,
-    },
-    borderchars = {
-      prompt  = { '─', '│', ' ', '│', '┌', '┐', '│', '│' },
-      results = { '─', '│', '─', '│', '├', '┤', '┘', '└' },
-      preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-    },
-  },
-  command_pane = {
-    theme = 'command_pane',
-    previewer = false,
-    prompt_title = false,
-    results_title = false,
-    sorting_strategy = 'descending',
-    layout_strategy = 'bottom_pane',
-    layout_config = {
-      height = 13,
-      preview_cutoff = 1,
-      prompt_position = 'bottom'
-    },
-  },
-  ivy_plus = {
-    theme = 'ivy_plus',
-    prompt_title = false,
-    results_title = false,
-    layout_strategy = 'bottom_pane',
-    layout_config = {
-      height = 13,
-      preview_cutoff = 120,
-      prompt_position = 'bottom'
-    },
-    borderchars = {
-      prompt  = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-      results = { '─', '│', '─', '│', '┌', '┬', '┴', '└' },
-      preview = { '─', '│', ' ', ' ', '─', '┐', '│', ' ' },
-    },
-  },
-}
 
 telescope.setup({
   defaults = {
@@ -151,9 +84,6 @@ telescope.setup({
 telescope.load_extension('fzf')
 telescope.load_extension('dap')
 
-local use_layout = function(picker, layout)
-  return function() picker(themes[layout]) end
-end
 local set_keymap = function(lhs, rhs)
   map('n', lhs, rhs, { noremap = true })
 end
@@ -175,3 +105,5 @@ set_keymap('<leader>dc', use_layout(dap.configurations,   'popup_list'))
 set_keymap('<leader>db', use_layout(dap.list_breakpoints, 'popup_list'))
 set_keymap('<leader>dv', use_layout(dap.variables,        'popup_list'))
 set_keymap('<leader>df', use_layout(dap.frames,           'popup_list'))
+
+return use_layout;
