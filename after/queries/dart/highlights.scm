@@ -1,1 +1,1 @@
-(marker_annotation) @annotation (#match? @annotation "@\w*")
+((marker_annotation) @annotation (#match? @annotation "[@]\\w*"))
