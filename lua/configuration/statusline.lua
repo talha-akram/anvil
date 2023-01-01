@@ -171,7 +171,7 @@ M.get_lsp_status = function()
       end
     end
 
-    return string.format(' (%s) ', table.concat(client_status, ' '))
+    return string.format(' {%s} ', table.concat(client_status, ' '))
   end
 
   return ''

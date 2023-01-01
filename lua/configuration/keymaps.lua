@@ -12,7 +12,7 @@ set_keymap('n', '<C-j>', '<C-d>', options)
 set_keymap('n', ',p', '"+p', options)
 set_keymap('v', ',y', '"+y', options)
 set_keymap('n', ',y', '"+y', options)
-set_keymap('v', '<leader>p', '"_dP', options)
+set_keymap('x', '<leader>p', '"_dP', options)
 -- Yank current line to system clipboard
 -- Paste in visual mode and retain past
 set_keymap('n', ',yy', '"+yy', options)

@@ -9,9 +9,9 @@ end
 -- Set colorscheme
 vim.cmd([[
   try
-    colorscheme noctis
+    colorscheme miramare
   catch
-    colorscheme lunaperche
+    colorscheme habamax
   endtry
 ]])
 

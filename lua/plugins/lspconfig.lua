@@ -1,6 +1,7 @@
 local lsp = require('lspconfig');
 local diagnostic = vim.diagnostic;
 local map = vim.keymap.set;
+local use_layout = require('plugins.telescope.layouts')
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities());
 
 local on_attach = function(_client, bufnr)
@@ -34,12 +35,12 @@ local on_attach = function(_client, bufnr)
   set_keymap('g[', diagnostic.goto_prev)
   set_keymap(',d', diagnostic.open_float)
 
-  set_keymap('<Leader>lr', telescope_builtin.lsp_references)
-  set_keymap('<Leader>ls', telescope_builtin.lsp_document_symbols)
-  set_keymap('<Leader>lw', telescope_builtin.lsp_workspace_symbols)
-  set_keymap('<Leader>li', telescope_builtin.lsp_implementations)
-  set_keymap('<Leader>ld', telescope_builtin.lsp_definitions)
-  set_keymap('<Leader>ltd', telescope_builtin.lsp_type_definitions)
+  set_keymap('<Leader>lr',  use_layout(telescope_builtin.lsp_references, 'ivy_plus'))
+  set_keymap('<Leader>ls',  use_layout(telescope_builtin.lsp_document_symbols, 'ivy_plus'))
+  set_keymap('<Leader>lw',  use_layout(telescope_builtin.lsp_workspace_symbols, 'ivy_plus'))
+  set_keymap('<Leader>li',  use_layout(telescope_builtin.lsp_implementations, 'ivy_plus'))
+  set_keymap('<Leader>ld',  use_layout(telescope_builtin.lsp_definitions, 'ivy_plus'))
+  set_keymap('<Leader>ltd', use_layout(telescope_builtin.lsp_type_definitions, 'ivy_plus'))
 end
 
 -- JavaScript
