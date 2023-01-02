@@ -9,7 +9,7 @@ end
 -- Set colorscheme
 vim.cmd([[
   try
-    colorscheme miramare
+    colorscheme bordo
   catch
     colorscheme habamax
   endtry

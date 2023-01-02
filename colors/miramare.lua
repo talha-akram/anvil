@@ -1,9 +1,9 @@
 local colorscheme = require('colorscheme');
 
 local palette = {
-  bg0           = '#2A2426',  --  Black     - Text
-  bg1           = '#242021',  --  DarkGrey  - CursorLine/Sign
-  bg2           = '#242021',  --  DarkGrey  - Pmenu
+  bg0           = '#242021',  --  Black     - Text
+  bg1           = '#2A2426',  --  DarkGrey  - CursorLine/Sign
+  bg2           = '#2A2426',  --  DarkGrey  - Pmenu
   bg3           = '#242021',  --  DarkGrey  - StatusLine
   bg4           = '#242021',  --  Grey
   bg_red        = '#392f32',  --  DarkRed
