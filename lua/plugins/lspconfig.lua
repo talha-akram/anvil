@@ -44,27 +44,23 @@ local on_attach = function(_client, bufnr)
   set_keymap('<Leader>ltd', use_layout(telescope_builtin.lsp_type_definitions, 'ivy_plus'))
 end
 
--- JavaScript
-lsp.tsserver.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  filetypes = {'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx'},
-});
+-- Language Server Configuration
+local options = { capabilities = capabilities, on_attach = on_attach };
 
--- Ruby
-lsp.solargraph.setup({ capabilities = capabilities, on_attach = on_attach });
+-- Languange Servers we want to enable
+local language_servers = {
+  'tsserver',
+  'solargraph',
+  'gopls',
+  'dartls',
+  'vuels',
+  'rust_analyzer'
+};
 
--- Go
-lsp.gopls.setup({ capabilities = capabilities, on_attach = on_attach });
-
--- Dart
-lsp.dartls.setup({ capabilities = capabilities, on_attach = on_attach });
-
--- VueJS
-lsp.vuels.setup({ capabilities = capabilities, on_attach = on_attach, filetypes = {'vue'} })
-
--- Rust
-lsp.rust_analyzer.setup({ capabilities = capabilities, on_attach = on_attach })
+-- Setup and configure language servers
+for _index, server in ipairs(highlight_groups) do
+  lsp[server].setup(options);
+end
 
 -- Add diagnostics to quick-fix list
 do
