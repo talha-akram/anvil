@@ -22,8 +22,7 @@ local on_attach = function(_client, bufnr)
   set_keymap('gd', buf.definition)
   set_keymap('gt', buf.type_definition)
   set_keymap('gr', buf.references)
-  set_keymap('ga', buf.code_action)
-  set_keymap('ga', buf.code_action, 'v')
+  set_keymap('ga', buf.code_action, {'v', 'n'})
 
   set_keymap('K', buf.hover)
 
