@@ -58,7 +58,7 @@ local language_servers = {
 };
 
 -- Setup and configure language servers
-for _index, server in ipairs(highlight_groups) do
+for _index, server in ipairs(language_servers) do
   lsp[server].setup(options);
 end
 
