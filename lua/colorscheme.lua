@@ -199,6 +199,7 @@ return {
       ['@function.builtin']       = { link='Special' },
       ['@function.macro']         = { link='Macro' },
       ['@parameter']              = { link='Identifier' },
+      ['@punctuation.bracket']    = { link='Special' },
       ['@method']                 = { link='Function' },
       ['@field']                  = { link='Identifier' },
       ['@property']               = { link='Identifier' },
@@ -219,6 +220,22 @@ return {
       ['@preproc']                = { link='PreProc' },
       ['@debug']                  = { link='Debug' },
       ['@tag']                    = { link='Tag' },
+
+      GitSignsCurrentLineBlame    = { link='NonText' },
+      GitSignsAdd                 = { fg=palette.green },
+      GitSignsAddInline           = { fg=palette.green },
+      GitSignsAddLn               = { fg=palette.green },
+      GitSignsAddNr               = { fg=palette.green },
+      GitSignsAddPreview          = { link='DiffAdd' },
+      GitSignsChange              = { fg=palette.blue },
+      GitSignsChangeInline        = { link='DiffChange' },
+      GitSignsChangeLn            = { fg=palette.blue },
+      GitSignsChangeNr            = { fg=palette.blue },
+      GitSignsDelete              = { fg=palette.red },
+      GitSignsDeleteInline        = { fg=palette.red },
+      GitSignsDeleteNr            = { fg=palette.red },
+      GitSignsDeletePreview       = { link='DiffDelete' },
+      GitSignsDeleteVirtLn        = { link='DiffDelete' },
     }
 
     for group, config in pairs(highlight_groups) do

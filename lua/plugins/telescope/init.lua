@@ -45,7 +45,7 @@ telescope.setup({
     prompt_prefix = ' ',
     selection_caret = ' → ',
     entry_prefix = '   ',
-    file_ignore_patterns = {'node_modules'},
+    file_ignore_patterns = {'node_modules', 'build'},
     path_display = { 'truncate' },
     results_title = false,
     prompt_title =false,

@@ -51,7 +51,7 @@ end
 
 -- define highlight groups and build palette from active colorscheme colors
 M.build_palette = function()
-  local bg      = get_color('CursorLine', 'background', '#ffffff')
+  local bg      = get_color('StatusLine', 'background', '#ffffff')
 
   for color, highlight_group in pairs(colors) do
     local group_name = 'StatusLine' .. color

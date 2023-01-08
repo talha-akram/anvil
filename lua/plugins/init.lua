@@ -97,7 +97,6 @@ local on_startup = function(use)
     run = ':TSUpdate',
     requires = {
       'nvim-treesitter/playground',
-      'p00f/nvim-ts-rainbow',
     }
   })
 

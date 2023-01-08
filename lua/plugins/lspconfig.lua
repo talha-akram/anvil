@@ -68,7 +68,7 @@ do
   local default_handler = vim.lsp.handlers[method]
   vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr, config)
     default_handler(err, method, result, client_id, bufnr, config)
-    vim.diagnostic.setloclist({ open = false })
+    vim.diagnostic.setqflist({ open = false })
   end
 end
 
