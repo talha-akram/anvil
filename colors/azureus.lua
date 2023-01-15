@@ -2,26 +2,26 @@
 local colorscheme = require('colorscheme');
 
 local palette = {
-  bg0           = '#1E2931',  --  Black     - Text
-  bg1           = '#223441',  --  DarkGrey  - CursorLine/Sign
-  bg2           = '#1A232A',  --  DarkGrey  - Pmenu
-  bg3           = '#223441',  --  DarkGrey  - StatusLine
-  bg4           = '#12202A',  --  Grey      - Tabline/Winbar
-  bg_red        = '#472B2E',  --  DarkRed
-  bg_green      = '#38463B',  --  DarkGreen
-  bg_blue       = '#153A5B',  --  DarkBlue
-  fg            = '#C6CDD2',  --  White
-  red           = '#BF8FA1',  --  Red
-  orange        = '#B8785B',  --  Red
-  yellow        = '#CEB796',  --  Yellow
-  green         = '#84BEA1',  --  Green
-  cyan          = '#51828B',  --  Cyan
-  blue          = '#608BAE',  --  Blue
-  purple        = '#6F68AC',  --  Magenta
-  grey          = '#4B575F',  --  LightGrey
-  light_grey    = '#637785',  --  LightGrey
-  light_yellow  = '#DAC1A3',  --  Yellow
-  none          = 'NONE',     --  NONE
+  bg0           = '#1E2931',  -- Text
+  bg1           = '#223441',  -- CursorLine/Sign
+  bg2           = '#1A232A',  -- Pmenu
+  bg3           = '#223441',  -- StatusLine
+  bg4           = '#12202A',  -- Tabline/Winbar
+  bg_red        = '#472B2E',
+  bg_green      = '#38463B',
+  bg_blue       = '#153A5B',
+  fg            = '#C6CDD2',
+  red           = '#BF8FA1',
+  orange        = '#B8785B',
+  yellow        = '#CEB796',
+  green         = '#84BEA1',
+  cyan          = '#51828B',
+  blue          = '#608BAE',
+  purple        = '#6F68AC',
+  grey          = '#4B575F',
+  light_grey    = '#637785',
+  light_yellow  = '#DAC1A3',
+  none          = 'NONE',
 };
 
 colorscheme.from_palette(palette, {
