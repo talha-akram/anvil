@@ -125,6 +125,7 @@ return {
       DiagnosticVirtualTextWarn   = { fg=palette.orange, bg=palette.bg },
 
       Annotation                  = { fg=palette.light_yellow, bold=true },
+      Attribute                   = { fg=palette.light_yellow, bold=true },
       Boolean                     = { fg=palette.purple,     bg=palette.none },
       Number                      = { fg=palette.purple,     bg=palette.none },
       Float                       = { fg=palette.purple,     bg=palette.none },
@@ -171,6 +172,7 @@ return {
       diffIndexLine               = { link='Purple' },
 
       ['@annotation']             = { link='Annotation' },
+      ['@attribute']              = { link='Attribute' },
       ['@spell']                  = { link='cleared' },
       ['@error']                  = { link='Error' },
       ['@text']                   = { link='Normal' },
