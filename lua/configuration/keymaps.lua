@@ -42,7 +42,7 @@ set_keymap('n', ',b', '<CMD>bprev<CR>', options)
 set_keymap('n', ',n', '<CMD>bnext<CR>', options)
 
 -- Delete current buffer
-set_keymap('n', ',c', '<CMD>bdel<CR>', options)
+set_keymap('n', ',c', '<CMD>bp|bd #<CR>', options)
 
 -- Close current window
 set_keymap('n', ',q', '<CMD>q<CR>', options)

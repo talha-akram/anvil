@@ -1,25 +1,26 @@
+-- Noctis Uva
 local colorscheme = require('colorscheme');
 
 local palette = {
-  bg0           = '#2f2c49',  --  Black     - Text
-  bg1           = '#292640',  --  DarkGrey  - CursorLine/Sign
-  bg2           = '#292640',  --  DarkGrey  - Pmenu
-  bg3           = '#292640',  --  DarkGrey  - StatusLine
-  bg4           = '#5c5973',  --  Grey      - Tabline/Winbar
-  bg_red        = '#59363c',  --  DarkRed
-  bg_green      = '#263c47',  --  DarkGreen
-  bg_blue       = '#403b62',  --  DarkBlue
-  fg            = '#a9a5c0',  --  White
-  red           = '#df769b',  --  Red
-  orange        = '#e3541c',  --  Red
-  yellow        = '#d5971a',  --  Yellow
-  green         = '#49e9a6',  --  Green
-  cyan          = '#16a3b6',  --  Cyan
-  blue          = '#49ace9',  --  Blue
-  purple        = '#998ef1',  --  Magenta
-  grey          = '#716c93',  --  LightGrey
-  light_grey    = '#c5c2d6',  --  LightGrey
-  light_yellow  = '#e4b781',  --  Yellow
+  bg0           = '#28263E',  --  Black     - Text
+  bg1           = '#333055',  --  DarkGrey  - CursorLine/Sign
+  bg2           = '#232135',  --  DarkGrey  - Pmenu
+  bg3           = '#333055',  --  DarkGrey  - StatusLine
+  bg4           = '#211F3B',  --  Grey      - Tabline/Winbar
+  bg_red        = '#4F2839',  --  DarkRed
+  bg_green      = '#404346',  --  DarkGreen
+  bg_blue       = '#333055',  --  DarkBlue
+  fg            = '#C4C2D4',  --  White
+  red           = '#D17B9A',  --  Red
+  orange        = '#D66D41',  --  Red
+  yellow        = '#E8B985',  --  Yellow
+  green         = '#7BE6AB',  --  Green
+  cyan          = '#4CA1B3',  --  Cyan
+  blue          = '#64AAE4',  --  Blue
+  purple        = '#6d61e3',  --  Magenta
+  grey          = '#56546C',  --  LightGrey
+  light_grey    = '#706C90',  --  LightGrey
+  light_yellow  = '#ddb988',  --  Yellow
   none          = 'NONE',     --  NONE
 };
 

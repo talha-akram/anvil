@@ -1,25 +1,26 @@
+-- Noctis Bordo
 local colorscheme = require('colorscheme');
 
 local palette = {
-  bg0           = '#322a2d',  --  Black     - Text
-  bg1           = '#413036',  --  DarkGrey  - CursorLine/Sign
-  bg2           = '#544349',  --  DarkGrey  - Pmenu
-  bg3           = '#413036',  --  DarkGrey  - StatusLine
-  bg4           = '#715b63',  --  Grey      - Tabline/Winbar
-  bg_red        = '#5f392e',  --  DarkRed
-  bg_green      = '#2d3f37',  --  DarkGreen
-  bg_blue       = '#997582',  --  DarkBlue
-  fg            = '#cbbec2',  --  White
-  red           = '#df769b',  --  Red
-  orange        = '#e3541c',  --  Red
-  yellow        = '#d5971a',  --  Yellow
-  green         = '#49e9a6',  --  Green
-  cyan          = '#16a3b6',  --  Cyan
-  blue          = '#49ace9',  --  Blue
+  bg0           = '#312A2D',  --  Black     - Text
+  bg1           = '#3C2F34',  --  DarkGrey  - CursorLine/Sign
+  bg2           = '#2B2528',  --  DarkGrey  - Pmenu
+  bg3           = '#3C2F34',  --  DarkGrey  - StatusLine
+  bg4           = '#302629',  --  Grey      - Tabline/Winbar
+  bg_red        = '#562C2B',  --  DarkRed
+  bg_green      = '#474738',  --  DarkGreen
+  bg_blue       = '#3C2F34',  --  DarkBlue
+  fg            = '#C9BEC2',  --  White
+  red           = '#D17B9A',  --  Red
+  orange        = '#C5663F',  --  Red
+  yellow        = '#F6C38A',  --  Yellow
+  green         = '#7BE6AB',  --  Green
+  cyan          = '#4CA1B3',  --  Cyan
+  blue          = '#64AAE4',  --  Blue
   purple        = '#7060eb',  --  Magenta
-  grey          = '#8b747c',  --  LightGrey
-  light_grey    = '#bbaab0',  --  LightGrey
-  light_yellow  = '#e4b781',  --  Yellow
+  grey          = '#5C5457',  --  LightGrey
+  light_grey    = '#87757C',  --  LightGrey
+  light_yellow  = '#DDB988',  --  Yellow
   none          = 'NONE',     --  NONE
 };
 

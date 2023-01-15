@@ -95,7 +95,7 @@ set_keymap('<leader>o', use_layout(telescope_builtin.find_files,  'popup_list'))
 set_keymap('<leader>p', use_layout(telescope_builtin.commands,    'command_pane'))
 set_keymap('<leader>b', use_layout(telescope_builtin.buffers,     'popup_extended'))
 set_keymap('<leader>g', use_layout(telescope_builtin.git_status,  'popup_extended'))
-set_keymap('<leader>w', use_layout(telescope_builtin.grep_string, 'popup_extended'))
+set_keymap('<leader>F', use_layout(telescope_builtin.grep_string, 'popup_extended'))
 set_keymap('<F1>',      use_layout(telescope_builtin.help_tags,   'popup_extended'))
 set_keymap('<leader>f', use_layout(telescope.extensions.live_grep_args.live_grep_args,  'popup_extended'))
 

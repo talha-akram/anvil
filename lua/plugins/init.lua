@@ -11,8 +11,8 @@ if (fn.empty(fn.glob(install_path)) > 0) then
   run_sync = fn.system({
     'git',
     'clone',
-    '--depth',
-    '1',
+    '--filter=blob:none',
+    '--depth=1',
     'https://github.com/wbthomason/packer.nvim',
     install_path
   })
@@ -48,15 +48,16 @@ local on_startup = function(use)
   })
 
   -- Notes
-  use({ 'phaazon/mind.nvim', config = function() require'mind'.setup() end })
+  use({ 'phaazon/mind.nvim', config = function() require('mind').setup() end })
 
   -- Comment/Uncomment blocks of code using gc
   use({
-    'b3nj5m1n/kommentary',
+    'numToStr/Comment.nvim',
     config = function()
-      require('kommentary.config').configure_language(
-        'default', { prefer_single_line_comments = true }
-      )
+      require('Comment').setup({
+        ignore = '^$',
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      });
     end
   })
 
@@ -96,6 +97,7 @@ local on_startup = function(use)
     config = function() require('plugins.treesitter') end,
     run = ':TSUpdate',
     requires = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
       'nvim-treesitter/playground',
     }
   })
@@ -127,6 +129,12 @@ local on_startup = function(use)
     config = function() require('plugins.luasnip') end,
     requires = 'rafamadriz/friendly-snippets'
   })
+
+  -- -- Preview colors
+  -- use({
+  --   'norcalli/nvim-colorizer.lua',
+  --   config = function() require('colorizer').setup() end,
+  -- })
 
   -- Snippet and completion integration
   use({
