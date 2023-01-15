@@ -25,8 +25,11 @@ local palette = {
 };
 
 colorscheme.from_palette(palette, {
- Type      = { fg=palette.blue, bold=true },
- Include   = { fg=palette.red, bold=true },
- Keyword   = { fg=palette.orange, bold=true },
- Operator  = { fg=palette.red, bold=true },
-});
+  Type             = { fg=palette.blue,       bold=true },
+  Include          = { fg=palette.red,        bold=true },
+  Keyword          = { fg=palette.orange,     bold=true },
+  Operator         = { fg=palette.red,        bold=true },
+  NonText          = { fg=palette.light_grey, bg=palette.none },
+  Comment          = { fg=palette.grey,       bg=palette.none, italic=true },
+  SpecialComment   = { fg=palette.grey,       bg=palette.none, italic=true },
+})

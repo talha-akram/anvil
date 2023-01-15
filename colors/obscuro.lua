@@ -25,8 +25,8 @@ local palette = {
 };
 
 colorscheme.from_palette(palette, {
- Type      = { fg=palette.blue, bold=true },
- Include   = { fg=palette.red, bold=true },
- Keyword   = { fg=palette.orange, bold=true },
- Operator  = { fg=palette.red, bold=true },
+  Type      = { fg=palette.blue, bold=true },
+  Include   = { fg=palette.red, bold=true },
+  Keyword   = { fg=palette.orange, bold=true },
+  Operator  = { fg=palette.red, bold=true },
 });

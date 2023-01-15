@@ -1,3 +1,4 @@
+-- Miramare
 local colorscheme = require('colorscheme');
 
 local palette = {
