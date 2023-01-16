@@ -9,7 +9,7 @@ end
 -- Set colorscheme
 vim.cmd([[
   try
-    colorscheme bordo
+    colorscheme noctis_bordo
   catch
     colorscheme habamax
   endtry
