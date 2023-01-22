@@ -3,6 +3,8 @@ local fn = vim.fn;
 local install_path = fn.stdpath("data") .. "/lazy/lazy.nvim";
 
 if not vim.loop.fs_stat(install_path) then
+  vim.notify('Installing Plugins... please wait!')
+
   fn.system({
     "git",
     "clone",
