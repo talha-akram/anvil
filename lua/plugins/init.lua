@@ -28,6 +28,7 @@ require('lazy').setup({
   -- Visualise and control undo history in tree form.
   {
     'mbbill/undotree',
+    cmd = 'UndotreeToggle',
     config = function()
       vim.keymap.set('n', ',r', '<CMD>UndotreeToggle<CR>', { noremap = true })
     end
