@@ -9,7 +9,7 @@ if not vim.loop.fs_stat(install_path) then
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
     "--branch=stable", -- latest stable release
-    lazypath,
+    install_path,
   });
 end
 vim.opt.rtp:prepend(install_path);
