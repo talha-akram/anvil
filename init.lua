@@ -11,7 +11,7 @@ vim.cmd([[
   try
     colorscheme noctis_bordo
   catch
-    colorscheme habamax
+    colorscheme miramare
   endtry
 ]])
 
