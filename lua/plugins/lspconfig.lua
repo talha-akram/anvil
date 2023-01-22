@@ -2,7 +2,7 @@ local lsp = require('lspconfig');
 local diagnostic = vim.diagnostic;
 local map = vim.keymap.set;
 local use_layout = require('plugins.telescope.layouts')
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities());
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities());
 
 local on_attach = function(_client, bufnr)
   local telescope_builtin = require('telescope.builtin');
@@ -45,7 +45,10 @@ local on_attach = function(_client, bufnr)
 end
 
 -- Language Server Configuration
-local options = { capabilities = capabilities, on_attach = on_attach };
+local options = {
+  -- capabilities = capabilities,
+  on_attach = on_attach
+};
 
 -- Languange Servers we want to enable
 local language_servers = {

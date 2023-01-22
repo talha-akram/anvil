@@ -49,8 +49,8 @@ set_keymap('n', ',q', '<CMD>q<CR>', options)
 -- Write changes made to open files
 set_keymap('n', ',w', '<CMD>w<CR>', options)
 
--- -- Use ctrl+space for omnifunc
--- set_keymap('i', '<C-Space>', '<C-x><C-o>', options)
+-- Use ctrl+space for omnifunc
+set_keymap('i', '<C-Space>', '<C-x><C-o>', options)
 -- Use alt+space for completefunc
 set_keymap('i', '<A-Space>', '<C-x><C-u>', options)
 

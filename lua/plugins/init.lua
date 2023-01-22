@@ -1,58 +1,41 @@
 -- Plugins
--- Configure plugins, plugin specific functions and autocommands are to be
--- written in the corresponding files (makes debuging and trying out plugins easier)
+local fn = vim.fn;
+local install_path = fn.stdpath("data") .. "/lazy/lazy.nvim";
 
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-local run_sync = false
-
--- Install packer for package management, if missing
-if (fn.empty(fn.glob(install_path)) > 0) then
-  run_sync = fn.system({
-    'git',
-    'clone',
-    '--filter=blob:none',
-    '--depth=1',
-    'https://github.com/wbthomason/packer.nvim',
-    install_path
-  })
-  vim.cmd('packadd packer.nvim')
+if not vim.loop.fs_stat(install_path) then
+  fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  });
 end
+vim.opt.rtp:prepend(install_path);
 
--- Use a protected call to avoid errors on first use
-local status_ok, packer = pcall(require, 'packer')
-if not status_ok then
-  vim.notify('Packer not found, Plugins will not be available!')
-  return
-end
-
--- Add plugins
-local on_startup = function(use)
-
-  -- Set packer to manage itself
-  use('wbthomason/packer.nvim')
-
+require('lazy').setup({
   -- Color schemes
-  use('sainnhe/everforest')
-  use('sainnhe/gruvbox-material')
-  use('talha-akram/noctis.nvim')
+  'sainnhe/everforest',
+  'sainnhe/gruvbox-material',
+  'talha-akram/noctis.nvim',
 
   -- Ask for the right file to open when file matching name is not found
-  use('EinfachToll/DidYouMean')
+  -- 'EinfachToll/DidYouMean',
 
   -- Visualise and control undo history in tree form.
-  use({
+  {
     'mbbill/undotree',
     config = function()
       vim.keymap.set('n', ',r', '<CMD>UndotreeToggle<CR>', { noremap = true })
     end
-  })
+  },
 
   -- Notes
-  use({ 'phaazon/mind.nvim', config = function() require('mind').setup() end })
+  -- { 'phaazon/mind.nvim', config = function() require('mind').setup() end },
 
   -- Comment/Uncomment blocks of code using gc
-  use({
+  {
     'numToStr/Comment.nvim',
     config = function()
       require('Comment').setup({
@@ -60,109 +43,73 @@ local on_startup = function(use)
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
       });
     end
-  })
+  },
 
   -- Fuzzy selection for files and more, see plugin settings.
-  use({
+  {
     'nvim-telescope/telescope.nvim',
     config = function() require('plugins.telescope') end,
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     }
-  })
+  },
 
   -- Git integration
-  -- use({ 'rbong/vim-flog', branch = 'v2', requires = 'tpope/vim-fugitive' })
-  use({
+  -- { 'rbong/vim-flog', branch = 'v2', dependencies = 'tpope/vim-fugitive' })
+  {
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end
-  })
-  use({
+  },
+  {
     'TimUntersberger/neogit',
     config = function() require('plugins.neogit') end,
     cmd = 'Neogit',
-  })
-
-  -- REPL integration
-  use({
-    'rhysd/reply.vim',
-    cmd = {'Repl', 'ReplAuto', 'ReplSend'},
-    config = function() require('plugins.reply') end
-  })
+  },
 
   -- TreeSitter integration
-  use({
+  {
     'nvim-treesitter/nvim-treesitter',
     config = function() require('plugins.treesitter') end,
-    run = ':TSUpdate',
-    requires = {
+    build = ':TSUpdate',
+    dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring',
       'nvim-treesitter/playground',
     }
-  })
+  },
 
   -- DAP integration
-  use({
+  {
     'mfussenegger/nvim-dap',
-    requires = {
+    dependencies = {
       'nvim-telescope/telescope-dap.nvim',
       'theHamsta/nvim-dap-virtual-text',
       { 'rcarriga/nvim-dap-ui', config = function() require('plugins.dapui') end  },
     }
-  })
+  },
 
   -- LSP intigration
-  use({
+  {
     'neovim/nvim-lspconfig',
     config = function() require('plugins.lspconfig') end,
-    run = {
+    build = {
       'command -v solargraph >/dev/null || gem install solargraph',
       'command -v gopls >/dev/null || go install golang.org/x/tools/gopls@latest',
       'command -v typescript-language-server >/dev/null || npm install -g typescript-language-server'
     }
-  })
+  },
 
   -- Use LuaSnip as snippet provider
-  use({
+  {
     'L3MON4D3/LuaSnip',
     config = function() require('plugins.luasnip') end,
-    requires = 'rafamadriz/friendly-snippets'
-  })
+    dependencies = 'rafamadriz/friendly-snippets'
+  },
 
   -- -- Preview colors
-  -- use({
+  -- {
   --   'norcalli/nvim-colorizer.lua',
   --   config = function() require('colorizer').setup() end,
-  -- })
-
-  -- Snippet and completion integration
-  use({
-    'hrsh7th/nvim-cmp',
-    config = function() require('plugins.cmp') end,
-    requires = {
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-nvim-lua',
-      'hrsh7th/cmp-buffer',
-      'saadparwaiz1/cmp_luasnip'
-    }
-  })
-end
-
-packer.startup({
-  on_startup,
-  config = {
-    display = {
-      open_fn = function()
-        return require('packer.util').float({ border = 'single' })
-      end
-    }
-  }
-})
-
-if run_sync then
-  packer.sync()
-  vim.notify('Please restart Neovim now for stabilty')
-end
-
+  -- }
+});
