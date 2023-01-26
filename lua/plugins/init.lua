@@ -29,9 +29,9 @@ require('lazy').setup({
   {
     'mbbill/undotree',
     cmd = 'UndotreeToggle',
-    config = function()
-      vim.keymap.set('n', ',r', '<CMD>UndotreeToggle<CR>', { noremap = true })
-    end
+    keys = {
+      { ',r', '<CMD>UndotreeToggle<CR>', desc = 'Undotree', noremap = true },
+    },
   },
 
   -- Notes
