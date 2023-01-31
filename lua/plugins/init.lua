@@ -22,9 +22,6 @@ require('lazy').setup({
   'sainnhe/gruvbox-material',
   'talha-akram/noctis.nvim',
 
-  -- Ask for the right file to open when file matching name is not found
-  -- 'EinfachToll/DidYouMean',
-
   -- Visualise and control undo history in tree form.
   {
     'mbbill/undotree',
