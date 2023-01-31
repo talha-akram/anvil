@@ -57,7 +57,6 @@ require('lazy').setup({
   },
 
   -- Git integration
-  -- { 'rbong/vim-flog', branch = 'v2', dependencies = 'tpope/vim-fugitive' })
   {
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end
