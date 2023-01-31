@@ -18,7 +18,6 @@ vim.opt.rtp:prepend(install_path);
 
 require('lazy').setup({
   -- Color schemes
-  'sainnhe/everforest',
   'talha-akram/noctis.nvim',
 
   -- Visualise and control undo history in tree form.
