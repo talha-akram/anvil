@@ -291,6 +291,16 @@ M.extract_colors = function(self, highlights)
   self:build_palette()
 end
 
+M.selection = function()
+  if vim.fn.mode():find("[Vv]") == nil then return "" end
+
+  local starts = vim.fn.line('v')
+  local ends = vim.fn.line('.')
+  local count = starts <= ends and ends - starts + 1 or starts - ends + 1
+  local wc = vim.fn.wordcount()
+  return string.format(' (L %s, C %s)', count, wc['visual_chars'])
+end
+
 -- Statusline to be displayed on active windows
 M.set_active = function(self)
   local mode = api.nvim_get_mode().mode
@@ -317,6 +327,7 @@ M.set_active = function(self)
     accent_color,
     ' %l:%c',                                          -- position of cursor
     self:highlight(palette.Fileinfo),
+    self:selection(),
     self:get_file_indentation(),
     self:get_file_encoding(),
     self:get_file_format(),
