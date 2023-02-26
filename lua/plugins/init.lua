@@ -59,11 +59,6 @@ require('lazy').setup({
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end
   },
-  {
-    'TimUntersberger/neogit',
-    config = function() require('plugins.neogit') end,
-    cmd = 'Neogit',
-  },
 
   -- TreeSitter integration
   {

@@ -81,6 +81,8 @@ local defined_options  = {
   fixendofline   = true,
   -- ** enables searcing recursively for file related actions, like find
   path           = '.,/usr/include,**',
+  -- Only savee buffers and current dir in session file
+  sessionoptions = 'buffers,curdir',
 }
 
 -- Enable true colors if supported

@@ -84,10 +84,11 @@ telescope.setup({
 telescope.load_extension('fzf')
 telescope.load_extension('dap')
 
-local set_keymap = function(lhs, rhs)
-  map('n', lhs, rhs, { noremap = true })
+local set_keymap = function(lhs, rhs, mode)
+  map(mode or 'n', lhs, rhs, { noremap = true })
 end
 
+set_keymap('<F1>',      use_layout(telescope_builtin.help_tags,   'popup_extended'))
 set_keymap('<leader>q', use_layout(telescope_builtin.quickfix,    'ivy_plus'))
 set_keymap('<leader>l', use_layout(telescope_builtin.loclist,     'ivy_plus'))
 set_keymap('<leader>t', use_layout(telescope_builtin.builtin,     'popup_list'))
@@ -95,8 +96,7 @@ set_keymap('<leader>o', use_layout(telescope_builtin.find_files,  'popup_list'))
 set_keymap('<leader>p', use_layout(telescope_builtin.commands,    'command_pane'))
 set_keymap('<leader>b', use_layout(telescope_builtin.buffers,     'popup_extended'))
 set_keymap('<leader>g', use_layout(telescope_builtin.git_status,  'popup_extended'))
-set_keymap('<leader>F', use_layout(telescope_builtin.grep_string, 'popup_extended'))
-set_keymap('<F1>',      use_layout(telescope_builtin.help_tags,   'popup_extended'))
+set_keymap('<leader>f', use_layout(telescope_builtin.grep_string, 'popup_extended'), 'v')
 set_keymap('<leader>f', use_layout(telescope.extensions.live_grep_args.live_grep_args,  'popup_extended'))
 
 local dap = telescope.extensions.dap
