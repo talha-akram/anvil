@@ -16,7 +16,7 @@ set_keymap('x', '<leader>p', '"_dP', options)
 -- Yank current line to system clipboard
 set_keymap('n', ',yy', '"+yy', options)
 -- Yank text form cursor to end line to system clipboard
-set_keymap('n', ',Y', '"+Y', options)
+set_keymap('n', ',Y', '"+y$', options)
 -- Trim trailing whitespace
 set_keymap('n', ',s', '<CMD>%s/\\s\\+$//e<CR>')
 -- Use ALT + q/l for opening quickfix and loclist
