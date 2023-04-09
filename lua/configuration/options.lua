@@ -55,8 +55,7 @@ local defined_options  = {
   -- Trigger CursorHold event if nothing is typed for the duration
   updatetime     = 1000,
   -- Settings for better diffs
-  -- add when neovim 0.9: is available linematch:60 for better line level diffs
-  diffopt        = 'filler,vertical,hiddenoff,foldcolumn:0,algorithm:patience',
+  diffopt        = 'filler,vertical,hiddenoff,linematch:60,foldcolumn:0,algorithm:minimal',
   -- Show whitespace characters
   list           = true,
   -- Only show tabs and trailing spaces
