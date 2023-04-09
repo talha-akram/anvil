@@ -50,6 +50,7 @@ local themes = {
   },
   ivy_plus = {
     theme = 'ivy_plus',
+    previewer = false,
     prompt_title = false,
     results_title = false,
     layout_strategy = 'bottom_pane',

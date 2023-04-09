@@ -20,6 +20,21 @@ require('lazy').setup({
   -- Color schemes
   'talha-akram/noctis.nvim',
 
+  -- Search & replace visual selection using CTRL+f
+  {
+    'windwp/nvim-spectre',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('spectre').setup({
+        color_devicons = true,
+        open_cmd = '50vsplit new',
+        vim.keymap.set('v', '<C-f>', function()
+          require('spectre').open_visual({ select_word = true })
+        end)
+      })
+    end
+  },
+
   -- Visualise and control undo history in tree form.
   {
     'mbbill/undotree',
