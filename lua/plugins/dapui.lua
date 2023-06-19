@@ -1,6 +1,7 @@
 local dap = require('dap')
 local dapui = require('dapui')
 
+vim.keymap.set('v', ',dk', dapui.eval)
 
 dap.listeners.after.event_initialized['dapui_config'] = dapui.open
 dap.listeners.before.event_terminated['dapui_config'] = dapui.close
@@ -22,22 +23,27 @@ dapui.setup({
     {
       elements = {
         -- table of ids:string or table of tables( id: string, size:(float | integer > 1) ))
-        { id = 'scopes', size = 0.35, },
-        { id = 'breakpoints', size = 0.10 },
-        { id = 'stacks', size = 0.35 },
-        { id = 'watches', size = 0.20 },
+        -- { id = 'breakpoints', size = 0.10 },
+        -- { id = 'watches', size = 0.10 },
+        { id = 'stacks', size = 0.50 },
+        { id = 'scopes', size = 0.50 },
       },
       size = 40,
-      position = 'left', -- Can be 'left', 'right', 'top', 'bottom'
+      position = 'left',
     },
     {
-      elements = {'repl', 'console'},
+      elements = {'console'},
       size = 10,
-      position = 'bottom', -- Can be 'left', 'right', 'top', 'bottom'
+      position = 'top',
+    },
+    {
+      elements = {'repl'},
+      size = 10,
+      position = 'bottom',
     }
   },
   floating = {
-    border = 'single', -- Border style. Can be 'single', 'double' or 'rounded'
+    border = 'single',
     mappings = {
       close = {'q', '<Esc>'},
     },

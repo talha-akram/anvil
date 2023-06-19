@@ -19,7 +19,7 @@ local defined_options  = {
   -- But only the visual line, not the complete physical line
   -- cursorlineopt  = 'screenline',
   -- Enable mouse interaction
-  mouse          = 'nvi',
+  mouse          = '',
   -- Use English dictionary
   spelllang      = 'en_gb',
   -- Hide buffers with unsaved changes without being prompted
