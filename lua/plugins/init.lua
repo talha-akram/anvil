@@ -44,9 +44,6 @@ require('lazy').setup({
     },
   },
 
-  -- Notes
-  -- { 'phaazon/mind.nvim', config = function() require('mind').setup() end },
-
   -- Comment/Uncomment blocks of code using gc
   {
     'numToStr/Comment.nvim',
