@@ -1,14 +1,13 @@
 -- Telescope configuration
 local map = vim.keymap.set
+local highlight = vim.api.nvim_set_hl
 local telescope = require('telescope')
 local telescope_builtin = require('telescope.builtin')
 local use_layout = require('plugins.telescope.layouts')
 
-vim.cmd([[
-  highlight link FloatBorder WinSeparator
-  highlight link TelescopePromptCounter TelescopeNormal
-  highlight link TelescopeSelection TelescopePromptPrefix
-]])
+highlight(0, 'FloatBorder', { link='WinSeparator' })
+highlight(0, 'TelescopePromptCounter', { link='TelescopeNormal' })
+highlight(0, 'TelescopeSelection', { link='TelescopePromptPrefix' })
 
 telescope.setup({
   defaults = {
