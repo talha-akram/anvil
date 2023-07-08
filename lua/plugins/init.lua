@@ -101,7 +101,7 @@ require('lazy').setup({
     config = function() require('plugins.lspconfig') end,
     build = {
       'command -v solargraph >/dev/null || gem install solargraph',
-      'command -v gopls >/dev/null || go install golang.org/x/tools/gopls@latest',
+      -- 'command -v gopls >/dev/null || go install golang.org/x/tools/gopls@latest',
       'command -v typescript-language-server >/dev/null || npm install -g typescript-language-server'
     }
   },
