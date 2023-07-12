@@ -98,12 +98,7 @@ require('lazy').setup({
   -- LSP intigration
   {
     'neovim/nvim-lspconfig',
-    config = function() require('plugins.lspconfig') end,
-    build = {
-      'command -v solargraph >/dev/null || gem install solargraph',
-      -- 'command -v gopls >/dev/null || go install golang.org/x/tools/gopls@latest',
-      'command -v typescript-language-server >/dev/null || npm install -g typescript-language-server'
-    }
+    config = function() require('plugins.lspconfig') end
   },
 
   -- Use LuaSnip as snippet provider
