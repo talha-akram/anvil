@@ -53,7 +53,8 @@ local options = {
 -- Languange Servers we want to enable
 local language_servers = {
   'tsserver',
-  'solargraph',
+  'rubocop',
+  'ruby_ls',
   'gopls',
   'dartls',
   'vuels',

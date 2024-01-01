@@ -4,6 +4,8 @@ local config = require('nvim-treesitter.configs')
 vim.o.foldmethod  = 'expr'
 vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
 
+vim.g.skip_ts_context_commentstring_module = true
+
 config.setup({
   ensure_installed = {
     'css', 'dockerfile', 'elixir', 'erlang', 'fish', 'html', 'http', 'javascript',
@@ -42,10 +44,6 @@ config.setup({
       goto_node = '<cr>',
       show_help = '?',
     },
-  },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
   },
   indent = {
     enable = true,

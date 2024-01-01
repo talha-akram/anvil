@@ -84,6 +84,12 @@ require('lazy').setup({
     }
   },
 
+  -- Manage language and debug servers
+  {
+    "williamboman/mason.nvim",
+    config = function() require('mason').setup() end,
+  },
+
   -- DAP integration
   {
     'mfussenegger/nvim-dap',
