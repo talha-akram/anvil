@@ -97,6 +97,22 @@ set_keymap('<leader>b', use_layout(telescope_builtin.buffers,     'popup_extende
 set_keymap('<leader>g', use_layout(telescope_builtin.git_status,  'popup_extended'))
 set_keymap('<leader>f', use_layout(telescope_builtin.grep_string, 'popup_extended'), 'v')
 set_keymap('<leader>f', use_layout(telescope.extensions.live_grep_args.live_grep_args,  'popup_extended'))
+set_keymap('<leader>F', use_layout(function(opts)
+  opts.find_command = {
+    'fd',
+    '--type',
+    'f',
+    '--no-ignore',
+    '--hidden',
+    '--follow',
+    '--exclude',
+    '.git',
+    '--exclude',
+    'node_modules'
+  }
+
+  telescope_builtin.find_files(opts)
+end,  'popup_list'))
 
 local dap = telescope.extensions.dap
 set_keymap('<leader>d',  use_layout(dap.commands,         'popup_list'))
