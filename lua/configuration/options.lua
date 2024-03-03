@@ -91,27 +91,28 @@ end
 
 -- Undo file settings
 if (fn.has('persistent_undo')) then
-    defined_options.undodir     = fn.stdpath('config') .. '/undodir/'
-    defined_options.undofile    = true
+  defined_options.undodir     = fn.stdpath('config') .. '/undodir/'
+  defined_options.undofile    = true
 end
 
 -- Dissable some features when running as Root
 if (fn.exists('$SUDO_USER') ~= 0) then
-    defined_options.swapfile    = false
-    defined_options.backup      = false
-    defined_options.writebackup = false
-    defined_options.undofile    = false
-    defined_options.viminfo     = nil
+  defined_options.swapfile    = false
+  defined_options.backup      = false
+  defined_options.writebackup = false
+  defined_options.undofile    = false
+  defined_options.viminfo     = nil
 end
 
 -- Use ripgrep as the grep program, if available
 if (fn.executable('rg') == 1) then
     defined_options.grepprg     = 'rg --vimgrep --no-heading --smart-case'
+    defined_options.grepformat  = table.concat({ '%f:%l:%c:%m', vim.o.grepformat }, ',')
 end
 
 -- Set fish as default shell, if available
 if (fn.executable('fish') == 1) then
-    defined_options.shell = 'fish'
+  defined_options.shell = 'fish'
 end
 
 for option, value in pairs(defined_options) do
