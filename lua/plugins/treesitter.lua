@@ -12,7 +12,7 @@ config.setup({
     'json', 'lua', 'php', 'python', 'regex', 'ruby', 'rust', 'scss', 'svelte',
     'typescript', 'vue', 'yaml', 'markdown', 'bash', 'c', 'cmake', 'comment',
     'cpp', 'dart', 'go', 'jsdoc', 'json5', 'jsonc', 'llvm', 'make', 'ninja',
-    'prisma', 'proto', 'pug', 'swift', 'todotxt', 'toml', 'tsx', 'vim',
+    'prisma', 'proto', 'pug', 'swift', 'todotxt', 'toml', 'tsx', 'vim', 'vimdoc',
   },
   highlight = {
     additional_vim_regex_highlighting = false,
