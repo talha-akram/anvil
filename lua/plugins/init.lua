@@ -97,7 +97,6 @@ require('lazy').setup({
     dependencies = {
       'nvim-telescope/telescope-dap.nvim',
       'theHamsta/nvim-dap-virtual-text',
-      { 'rcarriga/nvim-dap-ui', config = function() require('plugins.dapui') end  },
     }
   },
 
