@@ -54,7 +54,7 @@ local options = {
 local language_servers = {
   'tsserver',
   'rubocop',
-  'ruby_ls',
+  'ruby_lsp',
   'gopls',
   'dartls',
   'vuels',
