@@ -32,7 +32,7 @@ local defined_options  = {
   wildoptions    = 'pum',
   -- Auto select the first entry but don't insert also show additional
   -- information, if available
-  completeopt    = 'noinsert,menuone,preview',
+  completeopt    = 'noinsert,menuone',
   -- Stop popup menu messages
   shortmess      = 'filnxtToOFc',
   -- Use interactive replace
