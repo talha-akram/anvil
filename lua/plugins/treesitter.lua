@@ -13,6 +13,7 @@ config.setup({
     'typescript', 'vue', 'yaml', 'markdown', 'bash', 'c', 'cmake', 'comment',
     'cpp', 'dart', 'go', 'jsdoc', 'json5', 'jsonc', 'llvm', 'make', 'ninja',
     'prisma', 'proto', 'pug', 'swift', 'todotxt', 'toml', 'tsx', 'vim', 'vimdoc',
+    'gitcommit', 'git_rebase',
   },
   highlight = {
     additional_vim_regex_highlighting = false,

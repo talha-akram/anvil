@@ -20,8 +20,8 @@ set_keymap('n', ',Y', '"+y$', options)
 -- Trim trailing whitespace
 set_keymap('n', ',s', '<CMD>%s/\\s\\+$//e<CR>')
 -- Use ALT + q/l for opening quickfix and loclist
-set_keymap('n', '<A-q>', '<CMD>cope<CR>', options)
-set_keymap('n', '<A-l>', '<CMD>cope<CR>', options)
+set_keymap('n', '<A-q>', '<CMD>copen<CR>', options)
+set_keymap('n', '<A-l>', '<CMD>lopen<CR>', options)
 -- Fast * list navigation, inspired by tpope/vim-unimpaired
 -- [ / ] -> previous / next, Uppercase Modifier -> First / Last
 -- Quickfix list navigation<CMD>
@@ -75,15 +75,5 @@ set_keymap('i', '<Esc>', function()
   return pumvisible() == 1 and '<Esc>i<Right>' or '<Right><Esc>'
 end, { noremap = true, expr = true })
 
--- -- Use <Tab> to select next match
--- set_keymap('i', '<Tab>', function()
---   return pumvisible() == 1 and '<C-N>' or '<Tab>'
--- end, { noremap = true, expr = true })
--- -- Use <S-Tab> to select previous match
--- set_keymap('i', '<S-Tab>', function()
---   return pumvisible() == 1 and '<C-P>' or '<S-Tab>'
--- end, { noremap = true, expr = true })
-
 -- Use <C-w> to move between terminal buffer and other buffers
 set_keymap('t', '<C-w>', '<C-\\><C-n><C-w>', options)
-
