@@ -30,8 +30,9 @@ local defined_options  = {
   wildignorecase = true,
   -- Use popup menu for completions in command mode
   wildoptions    = 'pum',
-  -- Auto select the first entry but don't insert
-  completeopt    = 'noinsert,menuone',
+  -- Auto select the first entry but don't insert also show additional
+  -- information, if available
+  completeopt    = 'noinsert,menuone,preview',
   -- Stop popup menu messages
   shortmess      = 'filnxtToOFc',
   -- Use interactive replace
