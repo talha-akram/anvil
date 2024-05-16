@@ -44,17 +44,6 @@ require('lazy').setup({
     },
   },
 
-  -- Comment/Uncomment blocks of code using gc
-  {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup({
-        ignore = '^$',
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      });
-    end
-  },
-
   -- Fuzzy selection for files and more, see plugin settings.
   {
     'nvim-telescope/telescope.nvim',
@@ -78,7 +67,6 @@ require('lazy').setup({
     lazy = false,
     config = function() require('plugins.treesitter') end,
     build = ':TSUpdate',
-    dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
   },
 
   -- Manage language and debug servers
