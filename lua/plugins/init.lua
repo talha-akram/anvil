@@ -78,10 +78,7 @@ require('lazy').setup({
     lazy = false,
     config = function() require('plugins.treesitter') end,
     build = ':TSUpdate',
-    dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      'nvim-treesitter/playground',
-    }
+    dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
   },
 
   -- Manage language and debug servers
