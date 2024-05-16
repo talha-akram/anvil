@@ -4,9 +4,28 @@ local options = { noremap = true }
 
 -- Use semicolon to enter command mode
 set_keymap('n',';', ':', options)
--- Use CTRL + j/k for fast scroll
-set_keymap('n', '<C-k>', '<C-u>', options)
-set_keymap('n', '<C-j>', '<C-d>', options)
+
+-- Make split wider or narrower
+set_keymap('n', '<C-,>', '<C-W><')
+set_keymap('n', '<C-.>', '<C-W>>')
+-- Make split taller or shorter
+set_keymap('n', '<A-,>', '<C-W>+')
+set_keymap('n', '<A-.>', '<C-W>-')
+-- Make splits equal sized
+set_keymap('n', '<A-=>', '<C-W>=')
+
+-- Use CTRL + h/j/k/l for switching between splits
+set_keymap('n', '<C-h>', '<C-w>h', { remap = true })
+set_keymap('n', '<C-j>', '<C-w>j', { remap = true })
+set_keymap('n', '<C-k>', '<C-w>k', { remap = true })
+set_keymap('n', '<C-l>', '<C-w>l', { remap = true })
+
+-- Stay in visual mode after indenting visual selection
+set_keymap('v', '<', '<gv')
+set_keymap('v', '>', '>gv')
+
+-- Clear search highlights
+set_keymap('n', '<C-CR>', function() vim.o.hlsearch = false end)
 
 -- Paste from & copy to system clipboard
 set_keymap('n', ',p', '"+p', options)
