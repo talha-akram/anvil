@@ -19,19 +19,35 @@ set_keymap('n', ',dlp',  function()
 end, options)
 
 
-dap.adapters.dart = {
-  type = "executable",
-  command = "flutter",
-  args = {"debug_adapter"}
+-- Ruby / Rails
+dap.adapters.ruby = {
+  type = 'executable';
+  command = 'readapt';
+  args = {'stdio'};
 }
 
-dap.configurations.dart = {
+dap.configurations.ruby = {
   {
-    type = "dart",
-    request = "launch",
-    name = "Launch Flutter Program",
-    program = "${file}",
-    cwd = "${workspaceFolder}",
-    toolArgs = {"-d", "chrome"}
-  }
+    type = 'ruby';
+    request = 'launch';
+    name = 'Rails';
+    program = 'rdbg';
+    programArgs = {
+      '-O', '-n', '-c', '--', 'bundle', 'exec', 'rails', 'server'
+    };
+    useBundler = true;
+  },
+}
+
+-- Dart / Flutter
+dap.adapters.dart = {
+  type = 'executable',
+  command = vim.fn.stdpath('data')..'/mason/bin/dart-debug-adapter',
+  args = {'dart'}
+}
+
+dap.adapters.flutter = {
+  type = 'executable',
+  command = vim.fn.stdpath('data')..'/mason/bin/dart-debug-adapter',
+  args = {'flutter'}
 }
