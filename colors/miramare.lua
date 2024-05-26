@@ -25,4 +25,6 @@ local palette = {
   none          = 'NONE',
 };
 
+vim.opt.background = 'dark'
+vim.g.colors_name = 'miramare'
 colorscheme.from_palette(palette);
