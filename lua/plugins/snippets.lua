@@ -48,6 +48,17 @@ if available_snippets.contributes and available_snippets.contributes.snippets th
   end
 end
 
+local to_completion = function(name, snippet)
+  local body = table.concat(snippet.body, '\n')
+  return {
+    word      = snippet.prefix,
+    menu      = name,
+    info      = vim.trim(table.concat({ snippet.description or "", "", body }), '\n'),
+    dup       = true,
+    user_data = { type = 'snippet', value = body }
+  }
+end
+
 
 local SNIPPET_REPO = setmetatable({}, {
   __index  = function(cache, filetype)
@@ -56,10 +67,10 @@ local SNIPPET_REPO = setmetatable({}, {
     local custom_snippets = custom_snippet_dir .. filetype .. '.json'
 
     for _i, path in ipairs(KNOWN_FILE_PATHS[filetype]) do
-      vim.tbl_extend('force', snippet_data, import_json(path))
+      snippet_data = vim.tbl_extend('force', snippet_data, import_json(path))
     end
 
-    vim.tbl_extend('force', snippet_data, import_json(custom_snippets))
+    snippet_data = vim.tbl_extend('force', snippet_data, import_json(custom_snippets))
 
     for name, snippet in pairs(snippet_data) do
       table.insert(completion_list, to_completion(name, snippet))
@@ -91,20 +102,9 @@ local extend_filetype = function(filetype, extensions)
   REGISTERED_FILETYPES[filetype] = snippets
 end
 
-local to_completion = function(name, snippet)
-  local body = table.concat(snippet.body, '\n')
-  return {
-    word      = snippet.prefix,
-    menu      = name,
-    info      = vim.trim(table.concat({ snippet.description or "", "", body }), '\n'),
-    dup       = true,
-    user_data = { type = 'snippet', value = body }
-  }
-end
-
 local snippet_filter = function(line_to_cursor, base)
   return function(s)
-    return not s.hidden and vim.startswith(s.trigger, base) and s.show_condition(line_to_cursor)
+    return not s.hidden and vim.startswith(s.prefix, base) and s.show_condition(line_to_cursor)
   end
 end
 
