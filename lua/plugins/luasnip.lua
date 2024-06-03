@@ -110,4 +110,3 @@ luasnip.config.setup({
     },
   },
 })
-
