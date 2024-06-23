@@ -198,7 +198,7 @@ M.get_file_type = function()
 
   return file_type == ''
     and ' [no ft] '
-    or string.format('  %s', file_type)
+    or string.format(' %s', file_type)
 end
 
 -- File line ending format Unix / Windows
@@ -256,30 +256,8 @@ M.highlight = function(self, group)
 end
 
 -- List buffer numbers across the statusline as a substitute for tabs
-M.get_buffers = function()
-  local buffers = api.nvim_list_bufs()
-  local current = api.nvim_get_current_buf()
-  local prev_bufs = {}
-  local next_bufs = {}
-
-
-  for _, buf in ipairs(buffers) do
-    if listed(buf) == 1 then
-      -- local buffer = string.format('%s(0, %s)@ %s %s', '%@nvim_win_set_buf', buf, buf, '%X')
-      local buffer = string.format('%%%s%s %s', buf, '@v:lua.StatusLine.switch_buffer@', buf, '%X')
-      if buf < current then
-        table.insert(prev_bufs, buffer)
-      elseif buf > current then
-        table.insert(next_bufs, buffer)
-      end
-    end
-  end
-
-  return {
-    prev_bufs = table.concat(prev_bufs),
-    current = string.format('%%%s%s %s', current, '@v:lua.StatusLine.switch_buffer@', current, '%X'),
-    next_bufs = table.concat(next_bufs),
-  }
+M.get_current_buffnr = function()
+  return string.format('#%s', api.nvim_get_current_buf())
 end
 
 M.switch_buffer = function(buf)
@@ -305,7 +283,6 @@ end
 M.set_active = function(self)
   local mode = api.nvim_get_mode().mode
   local accent_color = self:highlight(color_map[mode])
-  local buffers = self:get_buffers()
 
   return table.concat({
     accent_color,
@@ -332,12 +309,8 @@ M.set_active = function(self)
     self:get_file_encoding(),
     self:get_file_format(),
     self:highlight(palette.Inactive),
-    buffers.prev_bufs,
     accent_color,
-    buffers.current,
-    self:highlight(palette.Inactive),
-    buffers.next_bufs,
-    accent_color,
+    self:get_current_buffnr(),
     self:get_file_type(),
     self:highlight(palette.Progress),
     ' --%1p%%-- ',                                      -- Place in file as a percentage

@@ -170,6 +170,7 @@ return {
       diffFile                    = { link='Cyan' },
       diffLine                    = { link='Grey' },
       diffIndexLine               = { link='Purple' },
+      -- SnippetTabstop.
 
       ['@annotation']             = { link='Annotation' },
       ['@attribute']              = { link='Attribute' },

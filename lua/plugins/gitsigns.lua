@@ -21,14 +21,15 @@ gitsigns.setup({
   sign_priority = 10,
   update_debounce = 100,
   status_formatter = nil,
-  max_file_length = 40000,
+  max_file_length = 5000,
   current_line_blame_formatter = '      <author>, <author_time:%R> - <summary>',
   signs = {
-    add          = { hl = 'GitSignsAdd',    text = '▕', numhl='GitSignsAddNr',    linehl='GitSignsAddLn'    },
-    change       = { hl = 'GitSignsChange', text = '▕', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
-    changedelete = { hl = 'GitSignsChange', text = '━━', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
-    delete       = { hl = 'GitSignsDelete', text = '▁▁', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
-    topdelete    = { hl = 'GitSignsDelete', text = '▔▔', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
+    untracked    = { text = '┆'  },
+    add          = { text = '▕'  },
+    change       = { text = '▕'  },
+    changedelete = { text = '━━' },
+    delete       = { text = '▁▁' },
+    topdelete    = { text = '▔▔' },
   },
   signcolumn = true,
   numhl      = false,
@@ -53,9 +54,6 @@ gitsigns.setup({
     relative = 'cursor',
     row = 0,
     col = 1
-  },
-  yadm = {
-    enable = false
   },
 })
 

@@ -25,7 +25,7 @@ set_keymap('v', '<', '<gv')
 set_keymap('v', '>', '>gv')
 
 -- Clear search highlights
-set_keymap('n', '<C-CR>', function() vim.o.hlsearch = false end)
+set_keymap('n', '<C-CR>', '<CMD>let @/ = "" <CR>')
 
 -- Paste from & copy to system clipboard
 set_keymap('n', ',p', '"+p', options)
