@@ -102,19 +102,22 @@ local extend_filetype = function(filetype, extensions)
   REGISTERED_FILETYPES[filetype] = snippets
 end
 
-local snippet_filter = function(line_to_cursor, base)
-  return function(s)
-    return not s.hidden and vim.startswith(s.prefix, base) and s.show_condition(line_to_cursor)
+local snippet_filter = function(base)
+  return function(snippet)
+    if not base or base == '' then return true end
+    if not snippet.word or snippet.word == '' then return false end
+
+    return vim.startswith(snippet.word, base)
   end
 end
 
 -- Set 'completefunc' or 'omnifunc' to 'v:lua.completefunc' to get snippet completion.
 function completefunc(findstart, base)
-  local line, col = vim.api.nvim_get_current_line(), vim.api.nvim_win_get_cursor(0)[2]
-  local line_to_cursor = line:sub(1, col)
-
   if findstart == 1 then
-    return vim.fn.match(line_to_cursor, '\\k*$')
+    local line, col = vim.api.nvim_get_current_line(), vim.api.nvim_win_get_cursor(0)[2]
+    local start_of_word = vim.fn.match(line:sub(1, col), '\\k*$')
+
+    return start_of_word
   end
 
   local snippets = REGISTERED_FILETYPES[vim.bo.filetype] or SNIPPET_REPO[vim.bo.filetype]
@@ -122,7 +125,7 @@ function completefunc(findstart, base)
     return {}
   end
 
-  snippets = vim.tbl_filter(snippet_filter(line_to_cursor, base), snippets)
+  snippets = vim.iter(snippets):filter(snippet_filter(base)):totable()
   table.sort(snippets, function(s1, s2) return s1.word < s2.word end)
 
   return snippets

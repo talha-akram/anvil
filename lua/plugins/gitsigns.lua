@@ -21,7 +21,7 @@ gitsigns.setup({
   sign_priority = 10,
   update_debounce = 100,
   status_formatter = nil,
-  max_file_length = 5000,
+  max_file_length = 10000,
   current_line_blame_formatter = '      <author>, <author_time:%R> - <summary>',
   signs = {
     untracked    = { text = '┆'  },
