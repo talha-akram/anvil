@@ -70,11 +70,10 @@ require('lazy').setup({
     config = function() require('plugins.lspconfig') end
   },
 
-  -- Use LuaSnip as snippet provider
+  -- Use snippets provided by friendly-snippets
   {
-    'L3MON4D3/LuaSnip',
-    config = function() require('plugins.luasnip') end,
-    dependencies = 'rafamadriz/friendly-snippets'
+    'rafamadriz/friendly-snippets',
+    config = function() require('plugins.snippets') end,
   },
 
   -- -- Preview colors

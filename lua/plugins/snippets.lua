@@ -157,17 +157,31 @@ autocmd('CompleteDone', {
 })
 
 -- Jump forward if possible
-vim.keymap.set({ 'i', 's' }, '<c-k>', function()
-  return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(-1)
+vim.keymap.set({ 'i', 's' }, '<A-K>', function()
+  return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
 end, options)
 
 -- Jump backward if possible
-vim.keymap.set({ 'i', 's' }, '<c-j>', function()
+vim.keymap.set({ 'i', 's' }, '<A-J>', function()
   return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
 end, options)
 
+-- Expand the current word
+vim.keymap.set({ 'i', 'n', 's' }, '<A-Tab>', function()
+  local word = vim.fn.expand('<cword>')
+  local snippets = REGISTERED_FILETYPES[vim.bo.filetype] or SNIPPET_REPO[vim.bo.filetype]
+
+  if snippets == nil then return end
+
+  for _i, snippet in pairs(snippets) do
+    if snippet.word == word then
+      return vim.snippet.expand(snippet.user_data.value)
+    end
+  end
+end, options)
+
 -- Exit the current snippet
-vim.keymap.set({ 'i', 'n', 's' }, '<c-Esc>', function()
+vim.keymap.set({ 'i', 'n', 's' }, '<A-Esc>', function()
   return vim.snippet.stop()
 end, options)
 
