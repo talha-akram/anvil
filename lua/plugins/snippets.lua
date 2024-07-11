@@ -53,7 +53,7 @@ local to_completion = function(name, snippet)
   return {
     word      = snippet.prefix,
     menu      = name,
-    info      = vim.trim(table.concat({ snippet.description or "", "", body }), '\n'),
+    info      = vim.trim(table.concat({ snippet.description or "", "\n", body }), '\n'),
     dup       = true,
     user_data = { type = 'snippet', value = body }
   }
@@ -115,9 +115,9 @@ end
 function completefunc(findstart, base)
   if findstart == 1 then
     local line, col = vim.api.nvim_get_current_line(), vim.api.nvim_win_get_cursor(0)[2]
-    local start_of_word = vim.fn.match(line:sub(1, col), '\\k*$')
+    local start_of_word = line:sub(1, col):find('["#%-%w]*$')
 
-    return start_of_word
+    return start_of_word - 1
   end
 
   local snippets = REGISTERED_FILETYPES[vim.bo.filetype] or SNIPPET_REPO[vim.bo.filetype]
@@ -140,14 +140,19 @@ autocmd('CompleteDone', {
   desc = 'Expand competed item as a snippet',
   group = expand_snippet,
   callback = function()
-    local item = vim.v.completed_item
-    if not item or not item.user_data or not item.user_data ~= '' then
+    local data = vim.v.completed_item.user_data
+    if (type(data) ~= 'table') or (data.type ~= 'snippet') then
       return
     end
 
-    if item.user_data.type == 'snippet' then
-      vim.snippet.expand(item.user_data.value)
-    end
+    local bufnr, cursor = vim.api.nvim_get_current_buf(), vim.api.nvim_win_get_cursor(0)
+    local row, col = cursor[1], cursor[2]
+    local line = vim.api.nvim_get_current_line()
+    local start = line:sub(1, col):find('["#%-%w]*$')
+    local replacement = line:sub(1, start - 1) .. line:sub(col + 1, -1)
+
+    vim.api.nvim_set_current_line(replacement)
+    vim.snippet.expand(data.value)
   end
 })
 
@@ -162,7 +167,7 @@ vim.keymap.set({ 'i', 's' }, '<c-j>', function()
 end, options)
 
 -- Exit the current snippet
-vim.keymap.set({ 'i', 's' }, '<c-Esc>', function()
+vim.keymap.set({ 'i', 'n', 's' }, '<c-Esc>', function()
   return vim.snippet.stop()
 end, options)
 
