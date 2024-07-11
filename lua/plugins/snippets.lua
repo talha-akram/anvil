@@ -135,24 +135,26 @@ end
 vim.o.completefunc = 'v:lua.completefunc'
 
 -- Expand current snippet
-local expand_snippet = augroup('Snippet-expand', { clear = true })
+local expand_snippet = function(snippet)
+    local line, cursor = vim.api.nvim_get_current_line(), vim.api.nvim_win_get_cursor(0)
+    local word_start, word_end = line:sub(1, cursor[2]):find('["#%-%w]*$')
+    local replacement = line:sub(1, word_start - 1) .. line:sub(word_end + 1, -1)
+
+    vim.api.nvim_set_current_line(replacement)
+    vim.api.nvim_win_set_cursor(0, {cursor[1], word_start - 1})
+    vim.snippet.expand(snippet)
+end
+
 autocmd('CompleteDone', {
   desc = 'Expand competed item as a snippet',
-  group = expand_snippet,
+  group = augroup('Snippet-expand', { clear = true }),
   callback = function()
     local data = vim.v.completed_item.user_data
     if (type(data) ~= 'table') or (data.type ~= 'snippet') then
       return
     end
 
-    local bufnr, cursor = vim.api.nvim_get_current_buf(), vim.api.nvim_win_get_cursor(0)
-    local row, col = cursor[1], cursor[2]
-    local line = vim.api.nvim_get_current_line()
-    local start = line:sub(1, col):find('["#%-%w]*$')
-    local replacement = line:sub(1, start - 1) .. line:sub(col + 1, -1)
-
-    vim.api.nvim_set_current_line(replacement)
-    vim.snippet.expand(data.value)
+    expand_snippet(data.value)
   end
 })
 
@@ -167,15 +169,18 @@ vim.keymap.set({ 'i', 's' }, '<A-J>', function()
 end, options)
 
 -- Expand the current word
-vim.keymap.set({ 'i', 'n', 's' }, '<A-Tab>', function()
-  local word = vim.fn.expand('<cword>')
+vim.keymap.set({ 'i' }, '<A-Tab>', function()
+  local line, col = vim.api.nvim_get_current_line(), vim.api.nvim_win_get_cursor(0)[2]
+  local word_start, word_end = line:sub(1, col):find('["#%-%w]*$')
+  local word = line:sub(word_start, word_end + 1)
   local snippets = REGISTERED_FILETYPES[vim.bo.filetype] or SNIPPET_REPO[vim.bo.filetype]
 
   if snippets == nil then return end
 
   for _i, snippet in pairs(snippets) do
     if snippet.word == word then
-      return vim.snippet.expand(snippet.user_data.value)
+      vim.schedule(function() expand_snippet(snippet.user_data.value) end)
+      return
     end
   end
 end, options)
