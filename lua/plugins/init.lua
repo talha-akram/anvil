@@ -20,6 +20,9 @@ require('lazy').setup({
   -- Color schemes
   'talha-akram/noctis.nvim',
 
+  -- Syntax support for languages which don't have treesitter parsers
+  {'slim-template/vim-slim', ft = "slim"},
+
   -- Visualise and control undo history in tree form.
   {
     'mbbill/undotree',
