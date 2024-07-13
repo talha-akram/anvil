@@ -49,9 +49,19 @@ if available_snippets.contributes and available_snippets.contributes.snippets th
 end
 
 local to_completion = function(name, snippet)
-  local body = table.concat(snippet.body, '\n')
+  local body = snippet.body
+  if type(body) == 'table' then
+    body = table.concat(body, '\n')
+  end
+
+
+  local prefix = snippet.prefix
+  if type(prefix) == 'table' then
+    prefix = prefix[1]
+  end
+
   return {
-    word      = snippet.prefix,
+    word      = prefix,
     menu      = name,
     info      = vim.trim(table.concat({ snippet.description or "", "\n", body }), '\n'),
     dup       = true,
