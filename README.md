@@ -52,49 +52,6 @@ Current Buffer, file format, and cursor position indicator sections of the statu
 ![StatusLine normal mode terminal preview](/images/normal-terminal.png?raw=true "StatusLine normal mode terminal preview")
 ![StatusLine insert mode terminal preview](/images/insert-terminal.png?raw=true "StatusLine insert mode terminal preview p")
 
-
-## Directory Structure:
-
-Anvil has a very simple directory structure to make it easy to understand, navigate and extend.
-
-```
-.
-├── compiler
-│  └── python.vim
-├── images
-│  ├── anvil-completions.png
-│  └── anvil.png
-├── init.lua
-├── LICENSE
-├── lua
-│  ├── configuration
-│  │  ├── autocommands.lua
-│  │  ├── init.lua
-│  │  ├── keymaps.lua
-│  │  ├── options.lua
-│  │  └── statusline.lua
-│  └── plugins
-│     ├── cmp.lua
-│     ├── dapui.lua
-│     ├── diffview.lua
-│     ├── gitsigns.lua
-│     ├── init.lua
-│     ├── lspconfig.lua
-│     ├── luasnip.lua
-│     ├── neogit.lua
-│     ├── reply.lua
-│     ├── telescope.lua
-│     └── treesitter.lua
-├── plugin
-│  └── packer_compiled.lua
-├── README.md
-├── settings
-├── snippets
-│  ├── javascript.json
-│  ├── javascriptreact.json
-│  └── package.json
-└── undodir
-```
 ## Goals
 
 To create a highly extensible neovim configuration that can easily be adapted as an IDE for

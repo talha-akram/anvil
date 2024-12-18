@@ -58,14 +58,14 @@ require('lazy').setup({
   },
 
   -- DAP integration
-  {
-    'mfussenegger/nvim-dap',
-    config = function() require('plugins.dap') end,
-    dependencies = {
-      'nvim-telescope/telescope-dap.nvim',
-      'theHamsta/nvim-dap-virtual-text',
-    }
-  },
+  -- {
+  --   'mfussenegger/nvim-dap',
+  --   config = function() require('plugins.dap') end,
+  --   dependencies = {
+  --     'nvim-telescope/telescope-dap.nvim',
+  --     'theHamsta/nvim-dap-virtual-text',
+  --   }
+  -- },
 
   -- LSP intigration
   {

@@ -81,7 +81,6 @@ telescope.setup({
 })
 
 telescope.load_extension('fzf')
-telescope.load_extension('dap')
 
 local set_keymap = function(lhs, rhs, mode)
   map(mode or 'n', lhs, rhs, { noremap = true })
@@ -113,12 +112,5 @@ set_keymap('<leader>F', use_layout(function(opts)
 
   telescope_builtin.find_files(opts)
 end,  'popup_list'))
-
-local dap = telescope.extensions.dap
-set_keymap('<leader>d',  use_layout(dap.commands,         'popup_list'))
-set_keymap('<leader>dc', use_layout(dap.configurations,   'popup_list'))
-set_keymap('<leader>db', use_layout(dap.list_breakpoints, 'popup_list'))
-set_keymap('<leader>dv', use_layout(dap.variables,        'popup_list'))
-set_keymap('<leader>df', use_layout(dap.frames,           'popup_list'))
 
 return use_layout;

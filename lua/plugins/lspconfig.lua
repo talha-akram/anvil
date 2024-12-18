@@ -12,6 +12,8 @@ local on_attach = function(_client, bufnr)
 
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- Setup tagfunc for symbol navigation
+  vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
 
   -- Add keybindings for LSP integration
   local buf = vim.lsp.buf
@@ -22,7 +24,9 @@ local on_attach = function(_client, bufnr)
   set_keymap('gd', buf.definition)
   set_keymap('gt', buf.type_definition)
   set_keymap('gr', buf.references)
+  set_keymap('grn', buf.rename)
   set_keymap('ga', buf.code_action, {'v', 'n'})
+  set_keymap('=g', buf.format, {'v', 'n'})
 
   set_keymap('K', buf.hover)
 
@@ -45,24 +49,30 @@ local on_attach = function(_client, bufnr)
 end
 
 -- Language Server Configuration
-local options = {
+local common_options = {
   -- capabilities = capabilities,
   on_attach = on_attach
 };
 
 -- Languange Servers we want to enable
 local language_servers = {
-  'tsserver',
-  'rubocop',
-  'ruby_lsp',
-  'gopls',
-  'dartls',
-  'vuels',
-  'rust_analyzer'
+  ts_ls = common_options,
+  rubocop = common_options,
+  ruby_lsp = common_options,
+  gopls = common_options,
+  dartls = common_options,
+  vuels = common_options,
+  rust_analyzer = common_options,
+  coffeesense = {
+    cmd = { 'coffeesense-language-server', '--stdio' },
+    filetypes = { 'coffee', 'vue' },
+    single_file_support = true,
+    on_attach = on_attach
+  },
 };
 
 -- Setup and configure language servers
-for _index, server in ipairs(language_servers) do
+for server, options in pairs(language_servers) do
   lsp[server].setup(options);
 end
 
