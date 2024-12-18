@@ -16,7 +16,7 @@ vim.lsp.start({
   root_dir = vim.fs.root(0, {'Gemfile', 'Gemfile.lock'}),
   root_dir = vim.fs.root(0, {'.rubocop.yml', '.git'}),
   on_attach = options.on_attach,
-  capabilities = capabilities,
+  capabilities = options.capabilities,
 })
 
 local loaded, dap = pcall(require, 'dap')
