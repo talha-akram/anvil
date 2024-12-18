@@ -70,7 +70,7 @@ require('lazy').setup({
   -- LSP intigration
   {
     'neovim/nvim-lspconfig',
-    config = function() require('plugins.lsp') end
+    config = function() require('plugins.lspconfig') end
   },
 
   -- Use snippets provided by friendly-snippets

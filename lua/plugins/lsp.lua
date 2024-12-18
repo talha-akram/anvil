@@ -1,8 +1,6 @@
-local lsp = require('lspconfig');
 local diagnostic = vim.diagnostic;
 local map = vim.keymap.set;
 local use_layout = require('plugins.telescope.layouts')
--- local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities());
 
 local on_attach = function(_client, bufnr)
   local telescope_builtin = require('telescope.builtin');
@@ -48,34 +46,6 @@ local on_attach = function(_client, bufnr)
   set_keymap('<Leader>ltd', use_layout(telescope_builtin.lsp_type_definitions, 'ivy_plus'))
 end
 
--- Language Server Configuration
-local common_options = {
-  -- capabilities = capabilities,
-  on_attach = on_attach
-};
-
--- Languange Servers we want to enable
-local language_servers = {
-  ts_ls = common_options,
-  rubocop = common_options,
-  ruby_lsp = common_options,
-  gopls = common_options,
-  dartls = common_options,
-  vuels = common_options,
-  rust_analyzer = common_options,
-  coffeesense = {
-    cmd = { 'coffeesense-language-server', '--stdio' },
-    filetypes = { 'coffee', 'vue' },
-    single_file_support = true,
-    on_attach = on_attach
-  },
-};
-
--- Setup and configure language servers
-for server, options in pairs(language_servers) do
-  lsp[server].setup(options);
-end
-
 -- Add diagnostics to quick-fix list
 do
   local method = 'textDocument/publishDiagnostics'
@@ -94,4 +64,10 @@ vim.diagnostic.config({
   update_in_insert = false,
   severity_sort = false,
 })
+
+-- Common Language Server Configuration
+return {
+  capabilities = vim.lsp.protocol.make_client_capabilities(),
+  on_attach = on_attach,
+};
 
