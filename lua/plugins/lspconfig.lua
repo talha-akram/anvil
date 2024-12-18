@@ -1,11 +1,9 @@
-local common_options = require('plugins.lsp');
+local common_options = require('configuration.lsp');
 local lsp = require('lspconfig');
 
 -- Languange Servers we want to enable
 local language_servers = {
   ts_ls = common_options,
-  rubocop = common_options,
-  ruby_lsp = common_options,
   gopls = common_options,
   dartls = common_options,
   vuels = common_options,

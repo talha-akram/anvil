@@ -1,3 +1,24 @@
+local options = require('configuration.lsp')
+
+vim.lsp.start({
+  name = 'ruby-lsp',
+  filetypes = {'ruby', 'eruby'},
+  cmd = {'ruby-lsp'},
+  root_dir = vim.fs.root(0, {'Gemfile', 'Gemfile.lock'}),
+  on_attach = options.on_attach,
+  capabilities = capabilities,
+})
+
+vim.lsp.start({
+  name = 'rubocop',
+  filetypes = {'ruby', 'eruby'},
+  cmd = {'bundle', 'exec', 'rubocop', '--lsp'},
+  root_dir = vim.fs.root(0, {'Gemfile', 'Gemfile.lock'}),
+  root_dir = vim.fs.root(0, {'.rubocop.yml', '.git'}),
+  on_attach = options.on_attach,
+  capabilities = capabilities,
+})
+
 local loaded, dap = pcall(require, 'dap')
 if not loaded then return end
 
