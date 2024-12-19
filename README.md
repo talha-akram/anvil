@@ -10,7 +10,7 @@ are needed to have a comfortable development experience. For most users, all
 that should be needed is to customize the key bindings and configure a language server.
 
 ## Preview:
-<img width="1440" alt="anvil" src="https://github.com/user-attachments/assets/12088032-e9bd-4a3d-8d19-08421904fe4f" />
+<img width="1271" alt="anvil preview" src="https://github.com/user-attachments/assets/710967a1-7f6d-4a70-827f-247de3ae982b" />
 
 ### Completions
 
