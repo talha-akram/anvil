@@ -7,13 +7,6 @@ local language_servers = {
   dartls = common_options,
   vuels = common_options,
   rust_analyzer = common_options,
-  coffeesense = {
-    cmd = { 'coffeesense-language-server', '--stdio' },
-    filetypes = { 'coffee', 'vue' },
-    single_file_support = true,
-    on_attach = common_options.on_attach,
-    capabilities = common_options.capabilities,
-  },
 };
 
 -- Setup and configure language servers
