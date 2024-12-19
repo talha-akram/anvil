@@ -3,8 +3,6 @@ local lsp = require('lspconfig');
 
 -- Languange Servers we want to enable
 local language_servers = {
-  ts_ls = common_options,
-  dartls = common_options,
   vuels = common_options,
   rust_analyzer = common_options,
 };
