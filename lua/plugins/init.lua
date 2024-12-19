@@ -57,22 +57,6 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-  -- DAP integration
-  -- {
-  --   'mfussenegger/nvim-dap',
-  --   config = function() require('plugins.dap') end,
-  --   dependencies = {
-  --     'nvim-telescope/telescope-dap.nvim',
-  --     'theHamsta/nvim-dap-virtual-text',
-  --   }
-  -- },
-
-  -- LSP intigration
-  {
-    'neovim/nvim-lspconfig',
-    config = function() require('plugins.lspconfig') end
-  },
-
   -- Use snippets provided by friendly-snippets
   {
     'rafamadriz/friendly-snippets',
