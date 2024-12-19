@@ -10,50 +10,37 @@ have a comfortable development experience. For most users, all that should be
 needed is to customize the key bindings and configure a language server.
 
 ## Preview:
-![anvil preview](/images/anvil.png?raw=true "anvil preview")
+<img width="1440" alt="anvil" src="https://github.com/user-attachments/assets/12088032-e9bd-4a3d-8d19-08421904fe4f" />
 
 ### Completions
 
-Includes full LSP support and suggestions for snippets
+#### `<A-Space>` opens completions for available snippets where as `<C-Space>` open code completions
 
-![anvil completions preview](/images/anvil-completions.png?raw=true "anvil completions preview")
+<img width="966" alt="image" src="https://github.com/user-attachments/assets/bcda39dd-7fd7-4836-b514-2220e94de375" />
 
-Anvil uses LuaSnip as the snippet engine, and has support for vscode and LSP snippets out of the box.
-Adding more snippets is as simple as editing a ![json file](./snippets/javascript.json "link to
-javascript.json file containing example snippets") file while more advance/smart snippets can be written
-in Lua using LuaSnip. omnifunc is set to show LSP completions and completefunc is set to show snippet
-completions while nvim-cmp is configured to show completions from all sources.
+The completions are powered by the LSP and the snippets are provided by `friendly-snippets`. Additionally custom snippets can be added under `snippets/${FILE_TYPE}.json`which will get loaded automatically and become available for that file type. The snippets are defined using the LSP snippet definition format and will override any matching snippet from `friendly-snippets`.
 
 ### StatusLine
-
 Awesome StatusLine implemented in Lua, without any plugin dependencies.
-![check it out!](/lua/configuration/statusline.lua "link to anvil statusline code")
+- Current mode indicator.
+- Current file path including unwritten state and read only indicator.
+- Stats related to diagnostics (number of Errors `E`, Warnings `W`, Information `I` and Hints `H`).
+- Attached Language Servers.
+- Cursor position (including selected characters and line count in visual mode).
+- File indentation and encoding information.
+- Buffer number information.
+- File type.
+- Scroll position.
 
-![StatusLine preview](/images/statusline.png?raw=true "StatusLine preview")
+All this without using any patched fonts, works great over ssh and locally and looks great everywhere!
 
-- Current mode indicator
-- Current file path including unwritten state and read only indicator
-- Buffer list ( use `<Leader> + b` or `[b` and `]b` to quickly switch between buffers)
-- Stats related to diagnostics (number of Errors `E`, Warnings `W`, Information `I` and Hints `H`)
-- Language Server status
-- File encoding, format and type information
-- File position indicators (current file progress + cursor coordinates)
+#### StatusLine preview
 
-All this without any patched font madness! works great over ssh and locally.
+<img width="1216" alt="image" src="https://github.com/user-attachments/assets/5e37fde3-ea61-4a03-9adb-6c9b1eb6ffe8" />
 
-An accent color is applied to the statusbar depending on current mode. The color is applied to Mode,
-Current Buffer, file format, and cursor position indicator sections of the statusline.
-
-![StatusLine normal mode preview](/images/normal.png?raw=true "StatusLine normal mode preview")
-![StatusLine insert mode preview](/images/insert.png?raw=true "StatusLine insert mode preview")
-![StatusLine replace mode preview](/images/replace.png?raw=true "StatusLine replace mode preview")
-![StatusLine visual mode preview](/images/visual.png?raw=true "StatusLine visual mode preview")
-![StatusLine command mode preview](/images/command.png?raw=true "StatusLine command mode preview")
-![StatusLine normal mode terminal preview](/images/normal-terminal.png?raw=true "StatusLine normal mode terminal preview")
-![StatusLine insert mode terminal preview](/images/insert-terminal.png?raw=true "StatusLine insert mode terminal preview p")
+An accent color is applied to the StatusBar depending on current mode. The accent color is only applied to the mode indicatior, cursor position, buffer number and file type information.
 
 ## Goals
-
 To create a highly extensible neovim configuration that can easily be adapted as an IDE for
 any programming language via LSP while staying light and as close to vanilla neovim as possible.
 This distribution aims to be a non intrusive, solid base which the user can easily customize to
