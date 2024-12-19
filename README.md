@@ -1,6 +1,7 @@
 # Anvil
 A highly adaptable Neovim distribution. The goal is to have a minimal Neovim
 configuration providing a great development experience out of the box.
+Anvil favours building on top of native features over adding plugins.
 So instead of spending hours getting the basics to work (LSP, autocomplete,
 snippets, TreeSitter and git etc.) you can focus on customizing Neovim with
 features you need without being overwhelmed by bloat that is endemic to most
