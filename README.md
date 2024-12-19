@@ -14,7 +14,7 @@ that should be needed is to customize the key bindings and configure a language 
 
 ### Completions
 
-#### `<A-Space>` opens completions for available snippets where as `<C-Space>` open code completions
+#### `<A-Space>` opens completions for available snippets where as `<C-Space>` opens code completions
 
 <img width="966" alt="image" src="https://github.com/user-attachments/assets/bcda39dd-7fd7-4836-b514-2220e94de375" />
 
@@ -38,11 +38,11 @@ All this without using any patched fonts, works great over ssh and locally and l
 
 <img width="1216" alt="image" src="https://github.com/user-attachments/assets/5e37fde3-ea61-4a03-9adb-6c9b1eb6ffe8" />
 
-An accent color is applied to the StatusBar depending on current mode. The accent color is only applied to the mode indicatior, cursor position, buffer number and file type information.
+An accent color is applied to the StatusBar depending on current mode. The accent color is only applied to the mode indicator, cursor position, buffer number and file type information.
 
 ## Goals
-To create a highly extensible neovim configuration that can easily be adapted as an IDE for
-any programming language via LSP while staying light and as close to vanilla neovim as possible.
+To create a highly extensible Neovim configuration that can easily be adapted as an IDE for
+any programming language via LSP while staying light and as close to vanilla Neovim as possible.
 This distribution aims to be a non intrusive, solid base which the user can easily customize to
 fit their workflow needs.
 
@@ -51,4 +51,4 @@ Found a bug or something is broken?
 Have a suggestion or feature you want added?
 Please open an issue.
 
-Want to contribute? Awesome! please make a pull request.
+Want to contribute? Awesome! Please make a pull request.
