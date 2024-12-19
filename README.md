@@ -2,13 +2,12 @@
 A highly adaptable Neovim distribution. The goal is to have a minimal Neovim
 configuration providing a great development experience out of the box.
 Anvil favours building on top of native features over adding plugins.
-So instead of spending hours getting the basics to work (LSP, autocomplete,
-snippets, TreeSitter and git etc.) you can focus on customizing Neovim with
-features you need without being overwhelmed by bloat that is endemic to most
-Neovim distributions. Anvil is extremely lightweight, has little to no
-configuration of its own and only adds essential plugins that are needed to
-have a comfortable development experience. For most users, all that should be
-needed is to customize the key bindings and configure a language server.
+So instead of spending hours getting the basics to work or navigating through
+a huge mess of plugins, you can focus on customizing Neovim with
+features you need without being overwhelmed. Anvil is extremely lightweight,
+has little to no configuration of its own and only adds essential plugins that
+are needed to have a comfortable development experience. For most users, all
+that should be needed is to customize the key bindings and configure a language server.
 
 ## Preview:
 <img width="1440" alt="anvil" src="https://github.com/user-attachments/assets/12088032-e9bd-4a3d-8d19-08421904fe4f" />
