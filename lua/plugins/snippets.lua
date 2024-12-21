@@ -169,17 +169,17 @@ autocmd('CompleteDone', {
 })
 
 -- Jump forward if possible
-vim.keymap.set({ 'i', 's' }, '<A-K>', function()
+set_keymap({ 'i', 's' }, '<A-K>', function()
   return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
 end, options)
 
 -- Jump backward if possible
-vim.keymap.set({ 'i', 's' }, '<A-J>', function()
+set_keymap({ 'i', 's' }, '<A-J>', function()
   return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
 end, options)
 
 -- Expand the current word
-vim.keymap.set({ 'i' }, '<A-Tab>', function()
+set_keymap({ 'i' }, '<A-Tab>', function()
   local line, col = vim.api.nvim_get_current_line(), vim.api.nvim_win_get_cursor(0)[2]
   local word_start, word_end = line:sub(1, col):find('["#%-%w]*$')
   local word = line:sub(word_start, word_end + 1)
@@ -196,7 +196,7 @@ vim.keymap.set({ 'i' }, '<A-Tab>', function()
 end, options)
 
 -- Exit the current snippet
-vim.keymap.set({ 'i', 'n', 's' }, '<A-Esc>', function()
+set_keymap({ 'i', 'n', 's' }, '<A-Esc>', function()
   return vim.snippet.stop()
 end, options)
 
