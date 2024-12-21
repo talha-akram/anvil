@@ -1,27 +1,29 @@
 local options = require('configuration.lsp')
 
-vim.lsp.start({
-  name = 'gopls',
-  filetypes = {'go', 'gomod', 'gowork', 'gotmpl'},
-  cmd = {'gopls'},
-  root_dir = vim.fs.root(0, {'go.mod', '.git'}),
-  settings = {
-    gopls = {
-      analyses = {
-        unusedparams = true,
-        nilness = true,
-      },
-      staticcheck = true,
-      usePlaceholders = true,
-      gofumpt = true,
-    },
-  },
-  on_attach = options.on_attach,
-  capabilities = options.capabilities,
-})
-
 -- Do not expand tabs to spaces in go files
 vim.bo.expandtab = false
+
+if (vim.fn.executable('gopls') == 1) then
+  vim.lsp.start({
+    name = 'gopls',
+    filetypes = {'go', 'gomod', 'gowork', 'gotmpl'},
+    cmd = {'gopls'},
+    root_dir = vim.fs.root(0, {'go.mod', '.git'}),
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+          nilness = true,
+        },
+        staticcheck = true,
+        usePlaceholders = true,
+        gofumpt = true,
+      },
+    },
+    on_attach = options.on_attach,
+    capabilities = options.capabilities,
+  })
+end
 
 -- setup dap adapters and configuration for go
 local loaded, dap = pcall(require, 'dap')
