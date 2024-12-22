@@ -72,8 +72,15 @@ picker.setup({
     cwd   = nil,
 
     match   = nil,
-    show    = nil,
     preview = nil,
+    show    = function(buf_id, items, query, opts)
+      picker.default_show(
+        buf_id,
+        items,
+        query,
+        vim.tbl_deep_extend('force', { show_icons = false, icons = {} }, opts or {})
+      )
+    end,
 
     choose        = nil,
     choose_marked = nil,
@@ -127,6 +134,7 @@ registry.git_status = function()
     }
   }, {
     source = {
+      name = 'Git Status',
       preview = function(bufnr, item)
         local file = vim.trim(item):match('%s+(.+)')
         -- get diff and show
