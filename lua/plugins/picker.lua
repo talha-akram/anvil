@@ -167,12 +167,16 @@ registry.find = function()
 
   vim.cmd([[normal! "xy]])
 
+  local selection = vim.fn.getreg('"')
+
   vim.fn.setreg('"', register)
   vim.fn.winrestview(view)
   vim.api.nvim_win_set_cursor(0, cursor)
 
-  local selection = vim.fn.getreg('"')
-  builtin.grep({ pattern = selection })
+  builtin.grep(
+    { pattern = selection },
+    { source = { name = string.format('Grep (%s)', selection) } }
+  )
 end
 
 registry.all_files = function()
@@ -188,6 +192,10 @@ registry.all_files = function()
       '.git',
       '--exclude',
       'node_modules'
+    }
+  }, {
+    source = {
+      name = 'All Files',
     }
   })
 end
