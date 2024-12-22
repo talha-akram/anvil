@@ -11,7 +11,7 @@ vim.keymap.set('n', 'dd', function()
   vim.fn.setqflist(qfall, 'r')
 
   -- Reopen quickfix window to refresh the list
-  vim.cmd('copen')
+  vim.cmd.copen()
 
   -- If not at the end of the list, stay at the same index, otherwise, go one up.
   local new_idx = curqfidx < #qfall and curqfidx or math.max(curqfidx - 1, 1)
@@ -33,12 +33,11 @@ vim.keymap.set('x', 'd', function()
   -- Remove entries from the quickfix list
   for index = from, to, 1 do
     table.remove(qf_list, index)
-    log_to_file(string.format("removed: %s", index))
   end
 
   -- Replace the quickfix list with the updated list
-  vim.fn.setqflist(qf_list, "r")
+  vim.fn.setqflist(qf_list, 'r')
 
   -- Refresh the quickfix window
-  vim.cmd("copen")
+  vim.cmd.copen()
 end, {buffer = true})

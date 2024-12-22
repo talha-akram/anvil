@@ -21,7 +21,10 @@ require('lazy').setup({
   'talha-akram/noctis.nvim',
 
   -- Syntax support for languages which don't have treesitter parsers
-  {'slim-template/vim-slim', ft = "slim"},
+  {
+    'slim-template/vim-slim',
+    ft = "slim",
+  },
 
   -- Visualise and control undo history in tree form.
   {
@@ -32,21 +35,17 @@ require('lazy').setup({
     },
   },
 
-  -- Fuzzy selection for files and more, see plugin settings.
+  -- Fuzzy selection for files and more, see plugin settings for keymaps.
   {
-    'nvim-telescope/telescope.nvim',
-    config = function() require('plugins.telescope') end,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-live-grep-args.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
-    }
+    'echasnovski/mini.pick',
+    version = false,
+    config = function() require('plugins.picker') end,
   },
 
   -- Git integration
   {
     'lewis6991/gitsigns.nvim',
-    config = function() require('plugins.gitsigns') end
+    config = function() require('plugins.gitsigns') end,
   },
 
   -- TreeSitter integration
@@ -63,7 +62,7 @@ require('lazy').setup({
     config = function() require('plugins.snippets') end,
   },
 
-  -- -- Preview colors
+  -- -- Preview colors (useful for developing themes)
   -- {
   --   'norcalli/nvim-colorizer.lua',
   --   config = function() require('colorizer').setup() end,

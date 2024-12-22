@@ -7,12 +7,13 @@ local on_attach = function()
     map('n', lhs, rhs, { noremap = true })
   end
 
-  set_keymap(',gs', gitsigns.stage_hunk)
-  set_keymap(',gu', gitsigns.undo_stage_hunk)
-  set_keymap(',gb', gitsigns.blame_line)
-  set_keymap('[g',  gitsigns.prev_hunk)
-  set_keymap(']g',  gitsigns.next_hunk)
-  set_keymap(',g',  gitsigns.preview_hunk)
+  set_keymap(',gs',       gitsigns.stage_hunk)
+  set_keymap(',gu',       gitsigns.undo_stage_hunk)
+  set_keymap(',gb',       gitsigns.blame_line)
+  set_keymap('[g',        gitsigns.prev_hunk)
+  set_keymap(']g',        gitsigns.next_hunk)
+  set_keymap(',g',        gitsigns.preview_hunk)
+  set_keymap('<A-g>',     gitsigns.diffthis)
   set_keymap('<leader>=', gitsigns.toggle_deleted)
 end
 

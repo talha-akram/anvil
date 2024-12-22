@@ -54,4 +54,3 @@ config.setup({
   },
   sync_install = false,
 })
-
