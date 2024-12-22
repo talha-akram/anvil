@@ -161,22 +161,17 @@ registry.git_status = function()
 end
 
 registry.find = function()
-  local start_pos = vim.fn.getpos("'<")
-  local end_pos = vim.fn.getpos("'>")
+  local register = vim.fn.getreg('"')
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local view = vim.fn.winsaveview()
 
-  -- Extract line and column numbers (1-based indexing)
-  local start_line, start_col = start_pos[2], start_pos[3]
-  local end_line, end_col = end_pos[2], end_pos[3]
+  vim.cmd([[normal! "xy]])
 
-  -- Retrieve the lines of text in the selection
-  local lines = vim.fn.getline(start_line, end_line)
+  vim.fn.setreg('"', register)
+  vim.fn.winrestview(view)
+  vim.api.nvim_win_set_cursor(0, cursor)
 
-  -- Adjust the first and last lines to respect column boundaries
-  lines[1] = string.sub(lines[1], start_col)
-  lines[#lines] = string.sub(lines[#lines], 1, end_col)
-
-  -- Join the lines into a single string
-  local selection = table.concat(lines, '\n')
+  local selection = vim.fn.getreg('"')
   builtin.grep({ pattern = selection })
 end
 
