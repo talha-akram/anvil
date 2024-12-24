@@ -7,6 +7,23 @@ local set_keymap = function(lhs, rhs, mode)
   map(mode or 'n', lhs, rhs, { noremap = true })
 end
 
+local parsed_matches = function()
+  local list = {}
+  local matches = picker.get_picker_matches().all
+
+  for _, match in ipairs(matches) do
+    local path, lnum, col, search = string.match(match, '(.-)%z(%d+)%z(%d+)%z%s*(.+)')
+
+    table.insert(list, {
+      filename = path or match,
+      lnum = lnum or 1,
+      col = col or 1,
+      text = path and string.format('%s [%s:%s]  %s', path, lnum, col, search) or match,
+    })
+  end
+
+  return list
+end
 
 picker.setup({
   delay = {
@@ -22,7 +39,7 @@ picker.setup({
     choose_in_split   = '<C-s>',
     choose_in_tabpage = '<C-t>',
     choose_in_vsplit  = '<C-v>',
-    choose_marked     = '<A-CR>',
+    choose_marked     = '<C-CR>',
 
     delete_char       = '<BS>',
     delete_char_right = '<S-BS>',
@@ -43,22 +60,27 @@ picker.setup({
 
     scroll_up         = '<C-u>',
     scroll_down       = '<C-d>',
-    scroll_left       = '<C-h>',
-    scroll_right      = '<C-l>',
+    scroll_left       = '<C-b>',
+    scroll_right      = '<C-f>',
 
     stop              = '<Esc>',
 
-    toggle_info     = '<S-Tab>',
-    toggle_preview  = '<Tab>',
+    toggle_info       = '<S-Tab>',
+    toggle_preview    = '<Tab>',
 
-    -- smart_send_to_loclist = {
-    --   char = '<A-l>',
-    --   func = function() 'smart_send_to_loclist' end,
-    -- },
-    -- smart_send_to_loclist = {
-    --   char = '<A-q>',
-    --   func = function() 'smart_send_to_loclist' end,
-    -- },
+    send_to_loclist   = {
+      char = '<C-l>',
+      func = function()
+        vim.fn.setloclist(parsed_matches(), 'r')
+      end,
+    },
+
+    send_to_loclist   = {
+      char = '<C-q>',
+      func = function()
+        vim.fn.setqflist(parsed_matches(), 'r')
+      end,
+    },
   },
 
   options = {
@@ -120,11 +142,16 @@ picker.setup({
 
 registry.registry = function()
   local items = vim.tbl_keys(MiniPick.registry)
+
   table.sort(items)
-  local source = {items = items, name = 'Registry', choose = function() end}
-  local chosen_picker_name = MiniPick.start({ source = source })
-  if chosen_picker_name == nil then return end
-  return MiniPick.registry[chosen_picker_name]()
+
+  local selected = picker.start({
+    source = { items = items, name = 'Registry' }
+  })
+
+  if selected == nil then return end
+
+  return picker.registry[selected]()
 end
 
 registry.git_status = function()
