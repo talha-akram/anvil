@@ -25,121 +25,6 @@ local parsed_matches = function()
   return list
 end
 
-picker.setup({
-  delay = {
-    async = 10,
-    busy = 30,
-  },
-
-  mappings = {
-    caret_left        = '<Left>',
-    caret_right       = '<Right>',
-
-    choose            = '<CR>',
-    choose_in_split   = '<C-s>',
-    choose_in_tabpage = '<C-t>',
-    choose_in_vsplit  = '<C-v>',
-    choose_marked     = '<C-CR>',
-
-    delete_char       = '<BS>',
-    delete_char_right = '<S-BS>',
-    delete_left       = '<A-BS>',
-    delete_word       = '<C-w>',
-
-    mark              = '<C-x>',
-    mark_all          = '<C-a>',
-
-    move_start        = '<C-g>',
-    move_down         = '<C-n>',
-    move_up           = '<C-p>',
-
-    paste             = '<C-p>',
-
-    refine            = '<C-Space>',
-    refine_marked     = '<M-Space>',
-
-    scroll_up         = '<C-u>',
-    scroll_down       = '<C-d>',
-    scroll_left       = '<C-b>',
-    scroll_right      = '<C-f>',
-
-    stop              = '<Esc>',
-
-    toggle_info       = '<S-Tab>',
-    toggle_preview    = '<Tab>',
-
-    send_to_loclist   = {
-      char = '<C-l>',
-      func = function()
-        vim.fn.setloclist(parsed_matches(), 'r')
-      end,
-    },
-
-    send_to_loclist   = {
-      char = '<C-q>',
-      func = function()
-        vim.fn.setqflist(parsed_matches(), 'r')
-      end,
-    },
-  },
-
-  options = {
-    content_from_bottom = false,
-    use_cache = false,
-  },
-
-  source = {
-    items = nil,
-    name  = nil,
-    cwd   = nil,
-
-    match   = nil,
-    preview = nil,
-    show    = function(buf_id, items, query, opts)
-      picker.default_show(
-        buf_id,
-        items,
-        query,
-        vim.tbl_deep_extend('force', { show_icons = false, icons = {} }, opts or {})
-      )
-    end,
-
-    choose        = nil,
-    choose_marked = nil,
-  },
-
-  -- Window related options
-  window = {
-    config = function()
-      local width = vim.o.columns
-      local height = vim.o.lines
-
-      local win_width = math.floor(width * 0.5)
-      local win_height = math.floor(height * 0.3)
-
-      local col = math.floor((width - win_width) / 2)
-      -- center prompt: height * (50% + 30%)
-      -- center window: height * [50% + (30% / 2)]
-      local bottom_edge = math.floor(height * 0.65)
-
-      return {
-        width = win_width,
-        height = win_height,
-        col = col,
-        row = bottom_edge,
-        style = 'minimal',
-        border = 'single',
-      }
-    end,
-
-    -- String to use as cursor in prompt
-    prompt_cursor = '▏',
-
-    -- String to use as prefix in prompt
-    prompt_prefix = ' ',
-  },
-})
-
 registry.registry = function()
   local items = vim.tbl_keys(MiniPick.registry)
 
@@ -256,3 +141,118 @@ set_keymap('<leader>g', registry.git_status)
 set_keymap('<leader>p', registry.registry)
 set_keymap('<leader>q', registry.quickfix)
 set_keymap('<leader>l', registry.loclist)
+
+picker.setup({
+  delay = {
+    async = 10,
+    busy = 30,
+  },
+
+  mappings = {
+    caret_left        = '<Left>',
+    caret_right       = '<Right>',
+
+    choose            = '<CR>',
+    choose_in_split   = '<C-s>',
+    choose_in_tabpage = '<C-t>',
+    choose_in_vsplit  = '<C-v>',
+    choose_marked     = '<C-CR>',
+
+    delete_char       = '<BS>',
+    delete_char_right = '<S-BS>',
+    delete_left       = '<A-BS>',
+    delete_word       = '<C-w>',
+
+    mark              = '<C-x>',
+    mark_all          = '<C-a>',
+
+    move_start        = '<C-g>',
+    move_down         = '<C-n>',
+    move_up           = '<C-p>',
+
+    paste             = '<C-p>',
+
+    refine            = '<C-Space>',
+    refine_marked     = '<M-Space>',
+
+    scroll_up         = '<C-u>',
+    scroll_down       = '<C-d>',
+    scroll_left       = '<C-b>',
+    scroll_right      = '<C-f>',
+
+    stop              = '<Esc>',
+
+    toggle_info       = '<S-Tab>',
+    toggle_preview    = '<Tab>',
+
+    send_to_loclist   = {
+      char = '<C-l>',
+      func = function()
+        vim.fn.setloclist(parsed_matches(), 'r')
+      end,
+    },
+
+    send_to_loclist   = {
+      char = '<C-q>',
+      func = function()
+        vim.fn.setqflist(parsed_matches(), 'r')
+      end,
+    },
+  },
+
+  options = {
+    content_from_bottom = false,
+    use_cache = false,
+  },
+
+  source = {
+    items = nil,
+    name  = nil,
+    cwd   = nil,
+
+    match   = nil,
+    preview = nil,
+    show    = function(buf_id, items, query, opts)
+      picker.default_show(
+        buf_id,
+        items,
+        query,
+        vim.tbl_deep_extend('force', { show_icons = false, icons = {} }, opts or {})
+      )
+    end,
+
+    choose        = nil,
+    choose_marked = nil,
+  },
+
+  -- Window related options
+  window = {
+    config = function()
+      local width = vim.o.columns
+      local height = vim.o.lines
+
+      local win_width = math.floor(width * 0.5)
+      local win_height = math.floor(height * 0.3)
+
+      local col = math.floor((width - win_width) / 2)
+      -- center prompt: height * (50% + 30%)
+      -- center window: height * [50% + (30% / 2)]
+      local bottom_edge = math.floor(height * 0.65)
+
+      return {
+        width = win_width,
+        height = win_height,
+        col = col,
+        row = bottom_edge,
+        style = 'minimal',
+        border = 'single',
+      }
+    end,
+
+    -- String to use as cursor in prompt
+    prompt_cursor = '▏',
+
+    -- String to use as prefix in prompt
+    prompt_prefix = ' ',
+  },
+})
