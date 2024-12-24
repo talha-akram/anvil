@@ -26,7 +26,7 @@ local parsed_matches = function()
 end
 
 registry.registry = function()
-  local items = vim.tbl_keys(MiniPick.registry)
+  local items = vim.tbl_keys(picker.registry)
 
   table.sort(items)
 
