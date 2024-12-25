@@ -2,6 +2,23 @@ local picker = require('mini.pick')
 local builtin = picker.builtin
 local registry = picker.registry
 local map = vim.keymap.set
+local highlight = vim.api.nvim_set_hl
+
+highlight(0, 'FloatBorder',           { link='Normal' })
+highlight(0, 'MiniPickBorder',        { link='Normal' })
+highlight(0, 'MiniPickBorderBusy',    { link='Normal' })
+highlight(0, 'MiniPickBorderText',    { link='Normal' })
+highlight(0, 'MiniPickCursor',        { link='Question'})
+highlight(0, 'MiniPickIconDirectory', { link='Normal' })
+highlight(0, 'MiniPickIconFile',      { link='Normal' })
+highlight(0, 'MiniPickNormal',        { link='Normal' })
+highlight(0, 'MiniPickHeader',        { link='Title' })
+highlight(0, 'MiniPickMatchCurrent',  { link='CursorLine' })
+highlight(0, 'MiniPickMatchMarked',   { link='Question' })
+highlight(0, 'MiniPickMatchRanges',   { link='Title' })
+highlight(0, 'MiniPickPreviewLine',   { link='Normal' })
+highlight(0, 'MiniPickPreviewRegion', { link='Normal' })
+highlight(0, 'MiniPickPrompt',        { link='Question' })
 
 local set_keymap = function(lhs, rhs, mode)
   map(mode or 'n', lhs, rhs, { noremap = true })
@@ -228,29 +245,36 @@ picker.setup({
   -- Window related options
   window = {
     config = function()
-      local width = vim.o.columns
-      local height = vim.o.lines
+      local height, width, starts, ends
+      local win_width = vim.o.columns
+      local win_height = vim.o.lines
 
-      local win_width = math.floor(width * 0.5)
-      local win_height = math.floor(height * 0.3)
-
-      local col = math.floor((width - win_width) / 2)
-      -- center prompt: height * (50% + 30%)
-      -- center window: height * [50% + (30% / 2)]
-      local bottom_edge = math.floor(height * 0.65)
+      if win_height <= 25 then
+        height = math.min(win_height, 18)
+        width = win_width
+        starts = 1
+        ends = win_height
+      else
+        width = math.floor(win_width * 0.5) -- 50%
+        height = math.floor(win_height * 0.3) -- 30%
+        starts = math.floor((win_width - width) / 2)
+        -- center prompt: height * (50% + 30%)
+        -- center window: height * [50% + (30% / 2)]
+        ends = math.floor(win_height * 0.65)
+      end
 
       return {
-        width = win_width,
-        height = win_height,
-        col = col,
-        row = bottom_edge,
+        col = starts,
+        row = ends,
+        height = height,
+        width = width,
         style = 'minimal',
-        border = 'single',
+        border = { '┌', '─', '┐', '│', '┘', '─', '└', '│' },
       }
     end,
 
     -- String to use as cursor in prompt
-    prompt_cursor = '▏',
+    prompt_cursor = '|',
 
     -- String to use as prefix in prompt
     prompt_prefix = ' ',

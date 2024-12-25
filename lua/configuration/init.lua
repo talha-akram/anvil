@@ -11,4 +11,3 @@ require('configuration.autocommands')
 
 -- Set custom keymaps (nvim >= 0.7)
 require('configuration.keymaps')
-

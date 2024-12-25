@@ -1,16 +1,16 @@
 -- Plugins
 local fn = vim.fn;
-local install_path = fn.stdpath("data") .. "/lazy/lazy.nvim";
+local install_path = fn.stdpath('data') .. '/lazy/lazy.nvim';
 
 if not vim.loop.fs_stat(install_path) then
   vim.notify('Installing Plugins... please wait!')
 
   fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
     install_path,
   });
 end
@@ -23,7 +23,7 @@ require('lazy').setup({
   -- Syntax support for languages which don't have treesitter parsers
   {
     'slim-template/vim-slim',
-    ft = "slim",
+    ft = 'slim',
   },
 
   -- Visualise and control undo history in tree form.
