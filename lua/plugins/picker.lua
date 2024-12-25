@@ -4,21 +4,19 @@ local registry = picker.registry
 local map = vim.keymap.set
 local highlight = vim.api.nvim_set_hl
 
-highlight(0, 'FloatBorder',           { link='Normal' })
-highlight(0, 'MiniPickBorder',        { link='Normal' })
-highlight(0, 'MiniPickBorderBusy',    { link='Normal' })
-highlight(0, 'MiniPickBorderText',    { link='Normal' })
-highlight(0, 'MiniPickCursor',        { link='Question'})
-highlight(0, 'MiniPickIconDirectory', { link='Normal' })
-highlight(0, 'MiniPickIconFile',      { link='Normal' })
-highlight(0, 'MiniPickNormal',        { link='Normal' })
+highlight(0, 'MiniPickBorder',        { link='Pmenu' })
+highlight(0, 'MiniPickBorderBusy',    { link='Pmenu' })
+highlight(0, 'MiniPickBorderText',    { link='Pmenu' })
+highlight(0, 'MiniPickIconDirectory', { link='Pmenu' })
+highlight(0, 'MiniPickIconFile',      { link='Pmenu' })
+highlight(0, 'MiniPickNormal',        { link='Pmenu' })
 highlight(0, 'MiniPickHeader',        { link='Title' })
-highlight(0, 'MiniPickMatchCurrent',  { link='CursorLine' })
-highlight(0, 'MiniPickMatchMarked',   { link='Question' })
+highlight(0, 'MiniPickMatchCurrent',  { link='PmenuThumb' })
+highlight(0, 'MiniPickMatchMarked',   { link='FloatTitle' })
 highlight(0, 'MiniPickMatchRanges',   { link='Title' })
-highlight(0, 'MiniPickPreviewLine',   { link='Normal' })
-highlight(0, 'MiniPickPreviewRegion', { link='Normal' })
-highlight(0, 'MiniPickPrompt',        { link='Question' })
+highlight(0, 'MiniPickPreviewLine',   { link='Pmenu' })
+highlight(0, 'MiniPickPreviewRegion', { link='Pmenu' })
+highlight(0, 'MiniPickPrompt',        { link='Pmenu' })
 
 local set_keymap = function(lhs, rhs, mode)
   map(mode or 'n', lhs, rhs, { noremap = true })
@@ -75,7 +73,7 @@ registry.git_status = function()
           end
         end
 
-        vim.fn.jobstart({'git','diff', file}, {
+        vim.fn.jobstart({'git','diff', 'HEAD', file}, {
           stdout_buffered = true,
           on_stdout = append_data,
           on_stderr = append_data,
@@ -269,7 +267,7 @@ picker.setup({
         height = height,
         width = width,
         style = 'minimal',
-        border = { '┌', '─', '┐', '│', '┘', '─', '└', '│' },
+        border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
       }
     end,
 

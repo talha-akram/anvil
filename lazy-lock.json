@@ -3,8 +3,8 @@
   "gitsigns.nvim": { "branch": "main", "commit": "5f808b5e4fef30bd8aca1b803b4e555da07fc412" },
   "lazy.nvim": { "branch": "main", "commit": "7e6c863bc7563efbdd757a310d17ebc95166cef3" },
   "mini.pick": { "branch": "main", "commit": "42dc6e1c90eacf80b34ea80be267ec8ac93aaf89" },
-  "noctis.nvim": { "branch": "main", "commit": "eb0432973ea385dfb303fc1de973e52a7a8713b4" },
-  "nvim-treesitter": { "branch": "master", "commit": "caba7ef3556079dec03407bcbb290ddc688ea06e" },
+  "noctis.nvim": { "branch": "main", "commit": "2a637c3bd82d7adf20f5e1aae31906e65528e4dd" },
+  "nvim-treesitter": { "branch": "master", "commit": "ac6a72a6f83218216948e898362f09029b8035dc" },
   "undotree": { "branch": "master", "commit": "78b5241191852ffa9bb5da5ff2ee033160798c3b" },
   "vim-slim": { "branch": "master", "commit": "a0a57f75f20a03d5fa798484743e98f4af623926" }
 }
