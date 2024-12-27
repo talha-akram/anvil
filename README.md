@@ -13,15 +13,21 @@ that should be needed is to customize the key bindings and configure a language 
 <img width="1271" alt="anvil preview" src="https://github.com/user-attachments/assets/710967a1-7f6d-4a70-827f-247de3ae982b" />
 
 ### Completions
+#### `<A-Space>` opens completions for available snippets where as `<C-Space>` open code completions
 
-#### `<A-Space>` opens completions for available snippets where as `<C-Space>` opens code completions
-
-<img width="966" alt="image" src="https://github.com/user-attachments/assets/bcda39dd-7fd7-4836-b514-2220e94de375" />
+<img width="1262" alt="image" src="https://github.com/user-attachments/assets/d6e99dea-58ee-4c4b-a03a-64cedfd45827" />
 
 The completions are powered by the LSP and the snippets are provided by `friendly-snippets`. Additionally custom snippets can be added under `snippets/${FILE_TYPE}.json`which will get loaded automatically and become available for that file type. The snippets are defined using the LSP snippet definition format and will override any matching snippet from `friendly-snippets`.
 
-### StatusLine
-Awesome StatusLine implemented in Lua, without any plugin dependencies.
+### Fast minimal picker using MiniPick:
+Anvil uses [mini.pick](https://github.com/echasnovski/mini.pick) as the default fuzzy finder and general purpose list picker, primarily due to how easy it is to extend with functionality, ease of use, performance, small size and zero dependencies on other plugins / extensions.
+
+![image](https://github.com/user-attachments/assets/a36d5696-0b6a-4185-b6f5-0db4ac68bef9)
+
+Have a look at [lua/plugins/picker.lua](https://github.com/talha-akram/anvil/blob/master/lua/plugins/picker.lua) to see what is available and to use as a reference to help in building your own custom pickers.
+
+### Status Line
+An easy to modify Status Line written in Lua shows detailed information related to your opened buffer:
 - Current mode indicator.
 - Current file path including unwritten state and read only indicator.
 - Stats related to diagnostics (number of Errors `E`, Warnings `W`, Information `I` and Hints `H`).
