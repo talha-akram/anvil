@@ -185,7 +185,7 @@ picker.setup({
     move_down         = '<C-n>',
     move_up           = '<C-p>',
 
-    paste             = '<C-p>',
+    paste             = '<A-p>',
 
     refine            = '<C-Space>',
     refine_marked     = '<M-Space>',
