@@ -207,7 +207,7 @@ picker.setup({
       end,
     },
 
-    send_to_loclist   = {
+    send_to_qflist    = {
       char = '<C-q>',
       func = function()
         vim.fn.setqflist(parsed_matches(), 'r')
