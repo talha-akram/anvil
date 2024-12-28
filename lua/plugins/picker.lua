@@ -118,7 +118,11 @@ registry.all_files = function()
       '--exclude',
       '.git',
       '--exclude',
-      'node_modules'
+      'node_modules',
+      '--exclude',
+      'build',
+      '--exclude',
+      'tmp',
     }
   }, {
     source = {
