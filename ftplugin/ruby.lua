@@ -7,7 +7,7 @@ if (vim.fn.executable('ruby-lsp') == 1) then
     cmd = {'ruby-lsp'},
     root_dir = vim.fs.root(0, {'Gemfile', 'Gemfile.lock'}),
     on_attach = options.on_attach,
-    capabilities = capabilities,
+    capabilities = options.capabilities,
   })
 end
 
