@@ -102,7 +102,7 @@ registry.find = function()
 
   builtin.grep(
     { pattern = selection },
-    { source = { name = string.format('Grep (%s)', selection) } }
+    { source = { name = string.format('Grep "%s"', selection) } }
   )
 end
 
@@ -279,6 +279,6 @@ picker.setup({
     prompt_cursor = '|',
 
     -- String to use as prefix in prompt
-    prompt_prefix = ' ',
+    prompt_prefix = '',
   },
 })
