@@ -207,7 +207,7 @@ picker.setup({
     send_to_loclist   = {
       char = '<C-l>',
       func = function()
-        vim.fn.setloclist(parsed_matches(), 'r')
+        vim.fn.setloclist(0, parsed_matches(), 'r')
       end,
     },
 
