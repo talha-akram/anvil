@@ -1,9 +1,11 @@
 -- nvim-treesitter configuration
 local config = require('nvim-treesitter.configs')
+local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+local query = vim.treesitter.query
+local query_types = { 'folds', 'highlights', 'indents', 'injections', 'locals' }
 
 vim.o.foldmethod  = 'expr'
 vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
-
 vim.g.skip_ts_context_commentstring_module = true
 
 config.setup({
@@ -54,3 +56,29 @@ config.setup({
   },
   sync_install = false,
 })
+
+-- Configure slim support
+local slim_parser = vim.fn.stdpath('data') .. '/lazy/tree-sitter-slim'
+
+vim.filetype.add({
+  extension = {
+    slim = 'slim',
+  },
+})
+
+parser_config.slim = {
+  install_info = {
+    url = slim_parser,
+    files = {'src/parser.c', 'src/scanner.c'},
+  },
+  filetype = 'slim',
+}
+
+-- ToDo: Need to figureout why this is notot working
+for _, query_type in ipairs(query_types) do
+  local query_file = string.format('%s/queries/%s.scm', slim_parser, query_type)
+
+  if vim.fn.filereadable(query_file) == 1 then
+    query.set('slim', query_type, table.concat(vim.fn.readfile(query_file), '\n'))
+  end
+end
