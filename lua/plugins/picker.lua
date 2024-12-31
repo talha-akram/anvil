@@ -47,12 +47,8 @@ local parsed_matches = function()
 end
 
 registry.registry = function()
-  local items = vim.tbl_keys(picker.registry)
-
-  table.sort(items)
-
   local selected = picker.start({
-    source = { items = items, name = 'Registry' }
+    source = { items = vim.tbl_keys(picker.registry), name = 'Registry' }
   })
 
   if selected == nil then return end
