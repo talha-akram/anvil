@@ -196,20 +196,13 @@ picker.setup({
 
     scroll_up         = '<C-u>',
     scroll_down       = '<C-d>',
-    scroll_left       = '<C-b>',
-    scroll_right      = '<C-f>',
+    scroll_left       = '<C-h>',
+    scroll_right      = '<C-l>',
 
     stop              = '<Esc>',
 
     toggle_info       = '<S-Tab>',
     toggle_preview    = '<Tab>',
-
-    send_to_loclist   = {
-      char = '<C-l>',
-      func = function()
-        vim.fn.setloclist(0, parsed_matches(), 'r')
-      end,
-    },
 
     send_to_qflist    = {
       char = '<C-q>',
