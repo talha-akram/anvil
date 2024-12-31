@@ -32,7 +32,7 @@ local parsed_matches = function()
     else
       local path, lnum, col, search = string.match(match, '(.-)%z(%d+)%z(%d+)%z%s*(.+)')
       local text = path and string.format('%s [%s:%s]  %s', path, lnum, col, search)
-      local filename =  path or string.match(match, '^%s*%S%S%s+(.+)')
+      local filename =  path or vim.trim(match):match('%s+(.+)')
 
       table.insert(list, {
         filename = filename or match,
