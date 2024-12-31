@@ -26,14 +26,22 @@ local parsed_matches = function()
   local list = {}
   local matches = picker.get_picker_matches().all
 
-  for _, match in ipairs(matches) do
+  for _, matched in ipairs(matches) do
+    local match = matched
+    local text = matched
+    if type(matched) == 'table' then
+      match = matched.filename or matched.text
+      text = matched.text
+    end
+
     local path, lnum, col, search = string.match(match, '(.-)%z(%d+)%z(%d+)%z%s*(.+)')
+    text = path and string.format('%s [%s:%s]  %s', path, lnum, col, search) or text
 
     table.insert(list, {
       filename = path or match,
       lnum = lnum or 1,
       col = col or 1,
-      text = path and string.format('%s [%s:%s]  %s', path, lnum, col, search) or match,
+      text = text,
     })
   end
 
