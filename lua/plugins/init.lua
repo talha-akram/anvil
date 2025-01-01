@@ -19,9 +19,11 @@ vim.opt.rtp:prepend(install_path);
 require('lazy').setup({
   -- Color schemes
   'talha-akram/noctis.nvim',
-
-  -- Syntax support for languages
-  { 'https://gitlab.com/theoreichel/tree-sitter-slim', ft = 'slim' },
+  -- -- Preview colors (useful for developing themes)
+  -- {
+  --   'norcalli/nvim-colorizer.lua',
+  --   config = function() require('colorizer').setup() end,
+  -- }
 
   -- Visualise and control undo history in tree form.
   {
@@ -45,9 +47,13 @@ require('lazy').setup({
     config = function() require('plugins.gitsigns') end,
   },
 
-  -- TreeSitter integration
+  -- TreeSitter configurations for nvim
   {
     'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      -- Support for languages which are yet to be included
+      'https://gitlab.com/theoreichel/tree-sitter-slim',
+    },
     lazy = false,
     config = function() require('plugins.treesitter') end,
     build = ':TSUpdate',
@@ -58,10 +64,4 @@ require('lazy').setup({
     'rafamadriz/friendly-snippets',
     config = function() require('plugins.snippets') end,
   },
-
-  -- -- Preview colors (useful for developing themes)
-  -- {
-  --   'norcalli/nvim-colorizer.lua',
-  --   config = function() require('colorizer').setup() end,
-  -- }
 });
