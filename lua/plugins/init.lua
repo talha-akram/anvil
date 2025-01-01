@@ -19,11 +19,12 @@ vim.opt.rtp:prepend(install_path);
 require('lazy').setup({
   -- Color schemes
   'talha-akram/noctis.nvim',
+
   -- -- Preview colors (useful for developing themes)
   -- {
   --   'norcalli/nvim-colorizer.lua',
   --   config = function() require('colorizer').setup() end,
-  -- }
+  -- },
 
   -- Visualise and control undo history in tree form.
   {
