@@ -4,6 +4,9 @@ local registry = picker.registry
 local map = vim.keymap.set
 local highlight = vim.api.nvim_set_hl
 
+-- Use mini.pick as the default picker
+vim.ui.select = picker.ui_select
+
 highlight(0, 'MiniPickBorder',        { link='Pmenu' })
 highlight(0, 'MiniPickBorderBusy',    { link='Pmenu' })
 highlight(0, 'MiniPickBorderText',    { link='Pmenu' })
