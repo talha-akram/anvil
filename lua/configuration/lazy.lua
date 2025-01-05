@@ -26,8 +26,7 @@ require('lazy').setup({
   -- Load plugin spec files
   { import = 'plugins' },
 
-  -- Other plugins
-  --
+  -- Other plugins ------------------------------------------------------------
   -- Color schemes
   'talha-akram/noctis.nvim',
   -- -- Preview colors (useful for developing themes)

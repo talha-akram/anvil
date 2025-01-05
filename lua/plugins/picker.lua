@@ -11,8 +11,8 @@ highlight(0, 'MiniPickNormal',        { link='Pmenu' })
 highlight(0, 'MiniPickHeader',        { link='Title' })
 highlight(0, 'MiniPickMatchCurrent',  { link='PmenuThumb' })
 highlight(0, 'MiniPickMatchMarked',   { link='FloatTitle' })
-highlight(0, 'MiniPickMatchRanges',   { link='Title' })
-highlight(0, 'MiniPickPreviewLine',   { link='PmenuThumb' })
+highlight(0, 'MiniPickMatchRanges',   { link='FloatTitle' })
+highlight(0, 'MiniPickPreviewLine',   { link='CursorLine' })
 highlight(0, 'MiniPickPreviewRegion', { link='PmenuThumb' })
 highlight(0, 'MiniPickPrompt',        { link='Pmenu' })
 
@@ -20,142 +20,138 @@ local set_keymap = function(lhs, rhs, mode)
   map(mode or 'n', lhs, rhs, { noremap = true })
 end
 
-local build_pickers = function(picker)
-  return {
-    registry = function()
-      local selected = picker.start({
-        source = { items = vim.tbl_keys(picker.registry), name = 'Registry' }
-      })
+local short_path = function(path)
+  return vim.startswith(path, cwd) and path:sub(cwd:len() + 1) or vim.fn.fnamemodify(path, ':~')
+end
 
-      if selected == nil then return end
+local pickers =  {
+  registry = function()
+    local picker = require('mini.pick')
+    local selected = picker.start({
+      source = { items = vim.tbl_keys(picker.registry), name = 'Registry' }
+    })
 
-      return picker.registry[selected]()
-    end,
-    git_status = function()
-      local selection = picker.builtin.cli({
-        command = {
-          'git', 'status', '-s'
-        }
-      }, {
-        source = {
-          name = 'Git Status',
-          preview = function(bufnr, item)
-            local file = vim.trim(item):match('%s+(.+)')
-            -- get diff and show
-            local append_data = function(_, data)
-              if data then
-                vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, data)
-                vim.api.nvim_buf_set_option(bufnr, 'filetype', 'diff')
-                vim.api.nvim_buf_set_option(bufnr, 'modifiable', false)
-              end
+    if selected == nil then return end
+
+    return picker.registry[selected]()
+  end,
+  git_status = function()
+    local selection = require('mini.pick').builtin.cli({
+      command = {
+        'git', 'status', '-s'
+      }
+    }, {
+      source = {
+        name = 'Git Status',
+        preview = function(bufnr, item)
+          local file = vim.trim(item):match('%s+(.+)')
+          -- get diff and show
+          local append_data = function(_, data)
+            if data then
+              vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, data)
+              vim.api.nvim_buf_set_option(bufnr, 'filetype', 'diff')
+              vim.api.nvim_buf_set_option(bufnr, 'modifiable', false)
             end
-
-            vim.fn.jobstart({'git','diff', 'HEAD', file}, {
-              stdout_buffered = true,
-              on_stdout = append_data,
-              on_stderr = append_data,
-            })
           end
-        }
-      })
 
-      if selection then
-        vim.cmd.edit(vim.trim(selection):match('%s+(.+)'))
-      end
-    end,
-    find = function()
-      local register = vim.fn.getreg('"')
-      local cursor = vim.api.nvim_win_get_cursor(0)
-      local view = vim.fn.winsaveview()
+          vim.fn.jobstart({'git','diff', 'HEAD', file}, {
+            stdout_buffered = true,
+            on_stdout = append_data,
+            on_stderr = append_data,
+          })
+        end
+      }
+    })
 
-      vim.cmd([[normal! "xy]])
+    if selection then
+      vim.cmd.edit(vim.trim(selection):match('%s+(.+)'))
+    end
+  end,
+  find = function()
+    local register = vim.fn.getreg('"')
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local view = vim.fn.winsaveview()
 
-      local selection = vim.fn.getreg('"')
+    vim.cmd([[normal! "xy]])
 
-      vim.fn.setreg('"', register)
-      vim.fn.winrestview(view)
-      vim.api.nvim_win_set_cursor(0, cursor)
+    local selection = vim.fn.getreg('"')
 
-      builtin.grep(
-        { pattern = selection },
-        { source = { name = string.format('Grep "%s"', selection) } }
-      )
-    end,
-    all_files = function()
-      picker.builtin.cli({
-        command = {
-          'fd',
-          '--type',
-          'f',
-          '--no-ignore',
-          '--hidden',
-          '--follow',
-          '--exclude',
-          '.git',
-          '--exclude',
-          'node_modules',
-          '--exclude',
-          'build',
-          '--exclude',
-          'tmp',
-        }
-      }, {
-        source = {
-          name = 'All Files',
-        }
-      })
-    end,
-    quickfix = function()
-      picker.start({
-        source = {
-          items = vim.fn.getqflist(),
-          name = 'Quickfix List'
-        }
-      })
-    end,
-    loclist = function()
-      picker.start({
-        source = {
-          items = vim.fn.getloclist(0),
-          name = 'Location List'
-        }
-      })
-    end,
-  }
-end
+    vim.fn.setreg('"', register)
+    vim.fn.winrestview(view)
+    vim.api.nvim_win_set_cursor(0, cursor)
 
-local setup_pickers = function(picker)
-  local builtin = picker.builtin
-  local registry = picker.registry
-  local pickers = build_pickers(picker)
-
-  -- Use mini.pick as the default picker
-  vim.ui.select = picker.ui_select
-
-  for key, fn in pairs(pickers) do
-    registry[key] = fn
-  end
-
-  -- Bind keys enabling quick access to pickers
-  set_keymap('<F1>',      builtin.help)
-  set_keymap('<leader>,', builtin.resume)
-  set_keymap('<leader>o', builtin.files)
-  set_keymap('<leader>b', builtin.buffers)
-  set_keymap('<leader>f', builtin.grep_live)
-  set_keymap('<leader>f', registry.find, 'v')
-  set_keymap('<leader>F', registry.all_files)
-  set_keymap('<leader>g', registry.git_status)
-  set_keymap('<leader>p', registry.registry)
-  set_keymap('<leader>q', registry.quickfix)
-  set_keymap('<leader>l', registry.loclist)
-end
+    builtin.grep(
+      { pattern = selection },
+      { source = { name = string.format('Grep "%s"', selection) } }
+    )
+  end,
+  all_files = function()
+    require('mini.pick').builtin.cli({
+      command = {
+        'fd',
+        '--type',
+        'f',
+        '--no-ignore',
+        '--hidden',
+        '--follow',
+        '--exclude',
+        '.git',
+        '--exclude',
+        'node_modules',
+        '--exclude',
+        'build',
+        '--exclude',
+        'tmp',
+      }
+    }, {
+      source = {
+        name = 'All Files',
+      }
+    })
+  end,
+  quickfix = function()
+    require('mini.pick').start({
+      source = {
+        items = vim.fn.getqflist(),
+        name = 'Quickfix List'
+      }
+    })
+  end,
+  loclist = function()
+    require('mini.pick').start({
+      source = {
+        items = vim.fn.getloclist(0),
+        name = 'Location List'
+      }
+    })
+  end,
+}
 
 return {
   'echasnovski/mini.pick',
   version = false,
   opts = function()
     local picker = require('mini.pick')
-    setup_pickers(picker)
+
+    -- Add custom pickers to registry
+    pickers = vim.tbl_extend('force', pickers, picker.builtin)
+    picker.registry = pickers
+
+    -- Use mini.pick as the default picker
+    vim.ui.select = picker.ui_select
+
+    -- Bind keys enabling quick access to pickers
+    set_keymap('<F1>',      pickers.help)
+    set_keymap('<leader>,', pickers.resume)
+    set_keymap('<leader>o', pickers.files)
+    set_keymap('<leader>b', pickers.buffers)
+    set_keymap('<leader>f', pickers.grep_live)
+    set_keymap('<leader>f', pickers.find, 'v')
+    set_keymap('<leader>F', pickers.all_files)
+    set_keymap('<leader>g', pickers.git_status)
+    set_keymap('<leader>p', pickers.registry)
+    set_keymap('<leader>q', pickers.quickfix)
+    set_keymap('<leader>l', pickers.loclist)
 
     return {
       delay = {
