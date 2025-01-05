@@ -124,16 +124,19 @@ local build_pickers = function(picker)
   }
 end
 
-local setup_regestry = function(picker)
+local setup_pickers = function(picker)
   local builtin = picker.builtin
   local registry = picker.registry
   local pickers = build_pickers(picker)
+
+  -- Use mini.pick as the default picker
+  vim.ui.select = picker.ui_select
 
   for key, fn in pairs(pickers) do
     registry[key] = fn
   end
 
-
+  -- Bind keys enabling quick access to pickers
   set_keymap('<F1>',      builtin.help)
   set_keymap('<leader>,', builtin.resume)
   set_keymap('<leader>o', builtin.files)
@@ -152,10 +155,7 @@ return {
   version = false,
   opts = function()
     local picker = require('mini.pick')
-    setup_regestry(picker)
-
-    -- Use mini.pick as the default picker
-    vim.ui.select = picker.ui_select
+    setup_pickers(picker)
 
     return {
       delay = {

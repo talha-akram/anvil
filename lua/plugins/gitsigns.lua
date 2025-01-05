@@ -4,23 +4,21 @@ local set_keymap = function(lhs, rhs)
   map('n', lhs, rhs, { noremap = true })
 end
 
-local on_attach = function()
-  local gitsigns = require('gitsigns')
-
-  set_keymap(',gs',       gitsigns.stage_hunk)
-  set_keymap(',gu',       gitsigns.undo_stage_hunk)
-  set_keymap(',gb',       gitsigns.blame_line)
-  set_keymap('[g',        gitsigns.prev_hunk)
-  set_keymap(']g',        gitsigns.next_hunk)
-  set_keymap(',g',        gitsigns.preview_hunk)
-  set_keymap('<A-g>',     gitsigns.diffthis)
-  set_keymap('<leader>=', gitsigns.toggle_deleted)
-end
-
 return {
   'lewis6991/gitsigns.nvim',
   opts = {
-    on_attach = on_attach,
+    on_attach = function()
+      local gitsigns = require('gitsigns')
+
+      set_keymap(',gs',       gitsigns.stage_hunk)
+      set_keymap(',gu',       gitsigns.undo_stage_hunk)
+      set_keymap(',gb',       gitsigns.blame_line)
+      set_keymap('[g',        gitsigns.prev_hunk)
+      set_keymap(']g',        gitsigns.next_hunk)
+      set_keymap(',g',        gitsigns.preview_hunk)
+      set_keymap('<A-g>',     gitsigns.diffthis)
+      set_keymap('<leader>=', gitsigns.toggle_deleted)
+    end,
     sign_priority = 10,
     update_debounce = 100,
     status_formatter = nil,

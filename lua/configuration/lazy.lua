@@ -18,14 +18,22 @@ end
 vim.opt.rtp:prepend(install_path);
 
 require('lazy').setup({
+  change_detection = {
+    enabled = false,
+    notify = false,
+  },
+
   -- Load plugin spec files
   { import = 'plugins' },
 
+  -- Other plugins
+  --
   -- Color schemes
   'talha-akram/noctis.nvim',
-
-  change_detection = {
-    enabled = false,
-    notify = true,
-  },
+  -- -- Preview colors (useful for developing themes)
+  -- {
+  --   'norcalli/nvim-colorizer.lua',
+  --   enabled = false,
+  --   config = true,
+  -- },
 });
