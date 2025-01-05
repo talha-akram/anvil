@@ -1,4 +1,4 @@
--- Gitsigns configuration
+-- Git integration
 local gitsigns = require('gitsigns')
 
 local on_attach = function()
