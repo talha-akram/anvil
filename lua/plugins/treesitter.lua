@@ -17,6 +17,7 @@ return {
     vim.filetype.add({
       extension = {
         slim = 'slim',
+        coffee = 'coffeescript',
       },
     })
   end,

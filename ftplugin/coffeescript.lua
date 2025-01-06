@@ -1,6 +1,6 @@
 local options = require('configuration.lsp')
 
-if (vim.fn.executable('coffeesense') == 1) then
+if (vim.fn.executable('coffeesense-language-server') == 1) then
   vim.lsp.start({
     name = 'coffeesense',
     cmd = {'coffeesense-language-server', '--stdio'},
