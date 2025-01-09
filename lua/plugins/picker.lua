@@ -80,7 +80,7 @@ local pickers =  {
     vim.fn.winrestview(view)
     vim.api.nvim_win_set_cursor(0, cursor)
 
-    builtin.grep(
+    require('mini.pick').builtin.grep(
       { pattern = selection },
       { source = { name = string.format('Grep "%s"', selection) } }
     )
