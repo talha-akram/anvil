@@ -1,8 +1,8 @@
 local options = require('configuration.lsp');
 
-if (vim.fn.executable('vuels') == 1) then
+if (vim.fn.executable('vls') == 1) then
   vim.lsp.start({
-    name = 'vuels'
+    name = 'vuels',
     cmd = {'vls'},
     filetypes = {'vue'},
     root_dir = vim.fs.root(0, {'package.json', 'vue.config.js'}),
