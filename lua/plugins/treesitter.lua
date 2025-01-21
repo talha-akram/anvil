@@ -1,10 +1,6 @@
 -- TreeSitter configurations for nvim
 return {
   'nvim-treesitter/nvim-treesitter',
-  dependencies = {
-    -- Support for languages which are yet to be included
-    'https://gitlab.com/theoreichel/tree-sitter-slim',
-  },
   lazy = false,
   build = ':TSUpdate',
   main = 'nvim-treesitter.configs',
@@ -22,16 +18,6 @@ return {
     })
   end,
   opts = function()
-    local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-
-    parser_config.slim = {
-      install_info = {
-        url = vim.fn.stdpath('data') .. '/lazy/tree-sitter-slim',
-        files = {'src/parser.c', 'src/scanner.c'},
-      },
-      filetype = 'slim',
-    }
-
     return {
       ensure_installed = {
         'css', 'dockerfile', 'elixir', 'erlang', 'fish', 'html', 'http', 'javascript',
