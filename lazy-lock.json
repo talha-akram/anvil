@@ -1,10 +1,10 @@
 {
   "friendly-snippets": { "branch": "main", "commit": "efff286dd74c22f731cdec26a70b46e5b203c619" },
   "gitgraph.nvim": { "branch": "main", "commit": "01e466b32c346a165135dd47d42f1244eca06572" },
-  "gitsigns.nvim": { "branch": "main", "commit": "ac38d7860b258ec07085d8d1931e1a487bcee21d" },
-  "lazy.nvim": { "branch": "main", "commit": "7e6c863bc7563efbdd757a310d17ebc95166cef3" },
-  "mini.pick": { "branch": "main", "commit": "c71983579d1ea86158d3285a36d3a1688c75bae7" },
+  "gitsigns.nvim": { "branch": "main", "commit": "8b00147519d6f8353867d5d0b55f587306b0cfb6" },
+  "lazy.nvim": { "branch": "main", "commit": "e5e9bf48211a13d9ee6c1077c88327c49c1ab4a0" },
+  "mini.pick": { "branch": "main", "commit": "93a9975d94b39b287183f95191431db13ae82c44" },
   "noctis.nvim": { "branch": "main", "commit": "a1b31827dec585d6bb35292f97b8951712ed9312" },
-  "nvim-treesitter": { "branch": "master", "commit": "07bd1b53bf465e42d53253b48b7437892d6c45e8" },
+  "nvim-treesitter": { "branch": "master", "commit": "2cade9e3d105732b794bc37e7cb2dc53b1cf99dc" },
   "undotree": { "branch": "master", "commit": "2556c6800b210b2096b55b66e74b4cc1d9ebbe4f" }
 }

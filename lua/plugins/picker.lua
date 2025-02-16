@@ -125,6 +125,36 @@ local pickers =  {
       }
     })
   end,
+  oldfiles = function()
+    local items = {}
+    local cwd = vim.fn.getcwd()
+    -- Ensure cwd has a trailing slash
+    cwd = cwd:sub(-1) == '/' and cwd or (cwd .. '/')
+
+    for _, path in ipairs(vim.v.oldfiles) do
+      local normal_path = nil
+      if vim.startswith(path, cwd) then
+        -- Use ./ as cwd prefix
+        normal_path = '.'.. path:sub(cwd:len())
+      else
+        -- Use ~ as home directory prefix
+        normal_path = vim.fn.fnamemodify(path, ':~')
+      end
+
+      table.insert(items, normal_path)
+    end
+
+    local selection = require('mini.pick').start({
+      source = {
+        items = items,
+        name = 'Recent Files'
+      }
+    })
+
+    if selection then
+      vim.cmd.edit(vim.trim(selection):match('%s+(.+)'))
+    end
+  end,
 }
 
 return {
@@ -142,6 +172,7 @@ return {
 
     -- Bind keys enabling quick access to pickers
     set_keymap('<F1>',      pickers.help)
+    set_keymap(',o',        pickers.oldfiles)
     set_keymap('<leader>,', pickers.resume)
     set_keymap('<leader>o', pickers.files)
     set_keymap('<leader>b', pickers.buffers)
