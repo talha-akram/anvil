@@ -167,9 +167,6 @@ return {
     pickers = vim.tbl_extend('force', pickers, picker.builtin)
     picker.registry = pickers
 
-    -- Use mini.pick as the default picker
-    vim.ui.select = picker.ui_select
-
     -- Bind keys enabling quick access to pickers
     set_keymap('<F1>',      pickers.help)
     set_keymap(',o',        pickers.oldfiles)
@@ -312,7 +309,7 @@ return {
         end,
 
         -- String to use as cursor in prompt
-        prompt_cursor = '|',
+        prompt_caret = '|',
 
         -- String to use as prefix in prompt
         prompt_prefix = '',

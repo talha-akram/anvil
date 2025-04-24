@@ -150,7 +150,7 @@ end
 
 -- Language server status and progress messages
 M.get_lsp_status = function()
-  local clients = vim.lsp.buf_get_clients()
+  local clients = vim.lsp.get_clients({ buffer = 0 })
   if (#clients > 0) then
     local client_status = {}
 

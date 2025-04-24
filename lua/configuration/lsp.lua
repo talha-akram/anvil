@@ -47,7 +47,7 @@ end
 
 -- Customize how diagnostics are displayed
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text = { current_line = true },
   signs = { priority = 0 },
   update_in_insert = false,
   severity_sort = false,
