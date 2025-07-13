@@ -50,7 +50,6 @@ local pickers =  {
             if data then
               vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, data)
               vim.api.nvim_buf_set_option(bufnr, 'filetype', 'diff')
-              vim.api.nvim_buf_set_option(bufnr, 'modifiable', false)
             end
           end
 
@@ -58,6 +57,7 @@ local pickers =  {
             stdout_buffered = true,
             on_stdout = append_data,
             on_stderr = append_data,
+            vim.api.nvim_buf_set_option(bufnr, 'modifiable', false)
           })
         end
       }
