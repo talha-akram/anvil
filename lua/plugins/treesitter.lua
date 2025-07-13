@@ -1,9 +1,9 @@
 -- TreeSitter configurations for nvim
 return {
   'nvim-treesitter/nvim-treesitter',
+  branch = 'main',
   lazy = false,
   build = ':TSUpdate',
-  main = 'nvim-treesitter.configs',
   init = function()
     vim.o.foldmethod  = 'expr'
     vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
