@@ -25,4 +25,3 @@ StatusLine:extract_colors({
   Fileinfo = 'Normal',
   Inactive = 'Conceal'
 })
-

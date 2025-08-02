@@ -89,7 +89,7 @@ return {
       Conditional                 = { fg=palette.red,        bg=palette.none, bold=true },
       Constant                    = { fg=palette.cyan,       bg=palette.none, bold=true },
       Cursor                      = { fg=palette.none,       bg=palette.none, reverse=true },
-      CursorColumn                = { fg=palette.none,       bg=palette.bg1 },
+      CursorColumn                = { fg=palette.none,       bg=palette.bg0 },
       CursorIM                    = { fg=palette.none,       bg=palette.fg },
       CursorLine                  = { fg=palette.none,       bg=palette.bg1 },
       CursorLineNr                = { fg=palette.fg,         bg=palette.bg1 },
@@ -153,7 +153,7 @@ return {
       Include                     = { fg=palette.purple,     bg=palette.none, italic=true },
       Keyword                     = { fg=palette.red,        bg=palette.none, italic=true },
       Label                       = { fg=palette.orange,     bg=palette.none },
-      LineNr                      = { fg=palette.grey,       bg=palette.bg1 },
+      LineNr                      = { fg=palette.grey,       bg=palette.bg0 },
       Macro                       = { fg=palette.cyan,       bg=palette.none },
       MatchParen                  = { fg=palette.none,       bg=palette.none, bold=true, underline=true },
       ModeMsg                     = { fg=palette.fg,         bg=palette.none, bold=true },
@@ -220,9 +220,9 @@ return {
       ['@comment']                            = { link='Comment' },       -- line and block comments
       ['@comment.documentation']              = { link='Comment' },       -- comments documenting code
       ['@comment.error']                      = { link='DiagnosticUnderlineError' }, -- error-type comments (e.g. ERROR, FIXME, DEPRECATED)
-      ['@comment.note']                       = { link='DiagnosticUnderlineInfo' },  -- note-type comments (e.g. NOTE, INFO, XXX)
-      ['@comment.todo']                       = { link='DiagnosticFloatingHint' },   -- todo-type comments (e.g. TODO, WIP)
-      ['@comment.warning']                    = { link='DiagnosticUnderlineWarn' },  -- warning-type comments (e.g. WARNING, FIX, HACK)
+      ['@comment.note']                       = { link='DiagnosticInfo' },  -- note-type comments (e.g. NOTE, INFO, XXX)
+      ['@comment.todo']                       = { link='DiagnosticHint' },   -- todo-type comments (e.g. TODO, WIP)
+      ['@comment.warning']                    = { link='DiagnosticWarn' },  -- warning-type comments (e.g. WARNING, FIX, HACK)
       ['@conditional']                        = { link='Conditional' },
       ['@constant']                           = { link='Constant' },      -- constant identifiers
       ['@constant.builtin']                   = { link='Special' },       -- built-in constant values
@@ -240,7 +240,7 @@ return {
       ['@float']                              = { link='Float' },
       ['@function']                           = { link='Function' },      -- function definitions
       ['@function.builtin']                   = { link='Special' },       -- built-in functions
-      ['@function.call']                      = { link='Function' },      -- function calls
+      ['@function.call']                      = { link='Green' },         -- function calls
       ['@function.macro']                     = { link='Macro' },         -- preprocessor macros
       ['@function.method']                    = { link='Function' },      -- method definitions
       ['@function.method.call']               = { link='Function' },      -- method calls
@@ -248,18 +248,18 @@ return {
       ['@keyword']                            = { link='Keyword' },       -- keywords not fitting into specific categories
       ['@keyword.conditional']                = { link='Conditional' },   -- keywords related to conditionals (e.g. if, else)
       ['@keyword.conditional.ternary']        = { link='Conditional' },   -- ternary operator (e.g. ?, :)
-      -- ['@keyword.coroutine']                  = { link='' },              -- keywords related to coroutines (e.g. go in Go, async/await in Python)
-      -- ['@keyword.debug']                      = { link='' },              -- keywords related to debugging
-      -- ['@keyword.directive']                  = { link='' },              -- various preprocessor directives and shebangs
-      -- ['@keyword.directive.define']           = { link='' },              -- preprocessor definition directives
-      -- ['@keyword.exception']                  = { link='' },              -- keywords related to exceptions (e.g. throw, catch)
-      -- ['@keyword.function']                   = { link='' },              -- keywords that define a function (e.g. func in Go, def in Python)
-      -- ['@keyword.import']                     = { link='' },              -- keywords for including modules (e.g. import, from in Python)
-      -- ['@keyword.modifier']                   = { link='' },              -- keywords defining type modifiers (e.g. const, static, public)
-      -- ['@keyword.operator']                   = { link='' },              -- operators that are English words (e.g. and, or)
-      -- ['@keyword.repeat']                     = { link='' },              -- keywords related to loops (e.g. for, while)
-      -- ['@keyword.return']                     = { link='' },              -- keywords like return and yield
-      -- ['@keyword.type']                       = { link='' },              -- keywords defining composite types (e.g. struct, enum)
+      ['@keyword.coroutine']                  = { link='Keyword' },       -- keywords related to coroutines (e.g. go in Go, async/await in Python)
+      ['@keyword.debug']                      = { link='Keyword' },       -- keywords related to debugging
+      ['@keyword.directive']                  = { link='Keyword' },       -- various preprocessor directives and shebangs
+      ['@keyword.directive.define']           = { link='Keyword' },       -- preprocessor definition directives
+      ['@keyword.exception']                  = { link='Keyword' },       -- keywords related to exceptions (e.g. throw, catch)
+      ['@keyword.function']                   = { link='Keyword' },       -- keywords that define a function (e.g. func in Go, def in Python)
+      ['@keyword.import']                     = { link='Keyword' },       -- keywords for including modules (e.g. import, from in Python)
+      ['@keyword.modifier']                   = { link='Keyword' },       -- keywords defining type modifiers (e.g. const, static, public)
+      ['@keyword.operator']                   = { link='Keyword' },       -- operators that are English words (e.g. and, or)
+      ['@keyword.repeat']                     = { link='Keyword' },       -- keywords related to loops (e.g. for, while)
+      ['@keyword.return']                     = { link='Keyword' },       -- keywords like return and yield
+      ['@keyword.type']                       = { link='Keyword' },       -- keywords defining composite types (e.g. struct, enum)
       ['@label']                              = { link='Label' },         -- GOTO and other labels (e.g. label: in C), including heredoc labels
       -- ['@lsp']                                = { link='' },
       -- ['@lsp.mod.deprecated']                 = { link='' },
