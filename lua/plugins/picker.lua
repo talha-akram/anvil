@@ -157,10 +157,46 @@ local pickers =  {
       vim.cmd.edit(vim.trim(selection):match('%s+(.+)'))
     end
   end,
+  hl_groups = function()
+    local pick = require('mini.pick')
+    local ns_id = vim.api.nvim_create_namespace('MiniExtraPickers')
+
+    -- Construct items
+    local group_data = vim.split(vim.api.nvim_exec('highlight', true), '\n')
+    local items = {}
+    for _, l in ipairs(group_data) do
+      local group = l:match('^(%S+)')
+      if group ~= nil then table.insert(items, group) end
+    end
+
+    local show = function(buf_id, items_to_show, query)
+      vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, items_to_show)
+      pcall(vim.api.nvim_buf_clear_namespace, buf_id, ns_id, 0, -1)
+      -- Highlight line with highlight group of its item
+      for i = 1, #items_to_show do
+        local opts = { end_row = i, end_col = 0, hl_mode = 'blend', hl_group = items_to_show[i], priority = 300 }
+        vim.api.nvim_buf_set_extmark(buf_id, ns_id, i - 1, 0, opts)
+      end
+    end
+
+    -- Define source
+    local preview = function(buf_id, item)
+      local lines = vim.split(vim.api.nvim_exec('hi ' .. item, true), '\n')
+      vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
+    end
+
+    local choose = function(item)
+      local hl_def = vim.split(vim.api.nvim_exec('hi ' .. item, true), '\n')[1]
+      hl_def = hl_def:gsub('^(%S+)%s+xxx%s+', '%1 ')
+      vim.schedule(function() vim.fn.feedkeys(':hi ' .. hl_def, 'n') end)
+    end
+
+    return pick.start({ source = { items = items, name = 'Highlight groups', show = show, preview = preview, choose = choose } })
+  end,
 }
 
 return {
-  'echasnovski/mini.pick',
+  'nvim-mini/mini.pick',
   version = false,
   opts = function()
     local picker = require('mini.pick')

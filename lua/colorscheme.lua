@@ -4,39 +4,39 @@ return {
   from_palette = function(palette, override)
     local highlight_groups = {
 
-      -- Black
-      Blue                        = { fg=palette.blue,       bg=palette.none },
+      Black                       = { fg=palette.black,      bg=palette.none },
       -- Brown
-      Cyan                        = { fg=palette.cyan,       bg=palette.none },
+      -- SlateBlue
       -- DarkBlue
-      -- DarkCyan
-      -- DarkGray
-      -- DarkGreen
-      -- DarkMagenta
-      -- DarkRed
-      -- DarkYellow
-      Fg                          = { fg=palette.fg,         bg=palette.none },
-      Green                       = { fg=palette.green,      bg=palette.none },
-      Grey                        = { fg=palette.grey,       bg=palette.none },
+      Blue                        = { fg=palette.blue,       bg=palette.none },
       -- LightBlue
+      -- DarkCyan
+      Cyan                        = { fg=palette.cyan,       bg=palette.none },
       -- LightCyan
-      -- LightGray
-      -- LightGreen
-      -- LightMagenta
-      -- LightRed
-      -- LightYellow
+      -- DarkMagenta
       -- Magenta
+      -- LightMagenta
+      Fg                          = { fg=palette.fg,         bg=palette.none },
+      White                       = { fg=palette.white,      bg=palette.none },
+      Green                       = { fg=palette.green,      bg=palette.none },
+      -- DarkGray
+      Grey                        = { fg=palette.grey,       bg=palette.none },
+      -- LightGray
       Orange                      = { fg=palette.orange,     bg=palette.none },
       OrangeItalic                = { fg=palette.orange,     bg=palette.none, italic=true },
       Purple                      = { fg=palette.purple,     bg=palette.none },
       PurpleItalic                = { fg=palette.purple,     bg=palette.none, italic=true },
+      -- DarkRed
       Red                         = { fg=palette.red,        bg=palette.none },
+      LightRed                    = { fg=palette.light_red,  bg=palette.none },
       RedItalic                   = { fg=palette.red,        bg=palette.none, italic=true },
-      -- SeaGreen
-      -- SlateBlue
       -- Violet
-      -- White
+      -- DarkYellow
       Yellow                      = { fg=palette.yellow,     bg=palette.none },
+      -- LightYellow
+      -- DarkGreen
+      -- SeaGreen
+      -- LightGreen
 
       RedSign                     = { fg=palette.red,        bg=palette.bg1 },
       OrangeSign                  = { fg=palette.orange,     bg=palette.bg1 },
@@ -81,20 +81,20 @@ return {
 
       Annotation                  = { fg=palette.light_yellow, bold=true },
       Attribute                   = { fg=palette.light_yellow, bold=true },
-      Boolean                     = { fg=palette.purple,     bg=palette.none },
+      Boolean                     = { fg=palette.orange,     bg=palette.none },
       Character                   = { fg=palette.green,      bg=palette.none },
       ColorColumn                 = { fg=palette.none,       bg=palette.bg1 },
       Comment                     = { fg=palette.light_grey, bg=palette.none, italic=true },
-      Conceal                     = { fg=palette.grey,       bg=palette.none },
-      Conditional                 = { fg=palette.red,        bg=palette.none, bold=true },
-      Constant                    = { fg=palette.cyan,       bg=palette.none, bold=true },
+      Conceal                     = { link='Black' },
+      Conditional                 = { fg=palette.light_red,  bg=palette.none, bold=true },
+      Constant                    = { fg=palette.cyan,       bg=palette.none },
       Cursor                      = { fg=palette.none,       bg=palette.none, reverse=true },
       CursorColumn                = { fg=palette.none,       bg=palette.bg0 },
       CursorIM                    = { fg=palette.none,       bg=palette.fg },
       CursorLine                  = { fg=palette.none,       bg=palette.bg1 },
       CursorLineNr                = { fg=palette.fg,         bg=palette.bg1 },
       Debug                       = { fg=palette.yellow,     bg=palette.none },
-      Define                      = { fg=palette.purple,     bg=palette.none, italic=true },
+      Define                      = { fg=palette.light_red,  bg=palette.none },
       Delimiter                   = { fg=palette.fg,         bg=palette.none },
 
       -- DiagnosticDeprecated        = { link='' },
@@ -146,12 +146,12 @@ return {
       Float                       = { fg=palette.purple,     bg=palette.none },
       FoldColumn                  = { fg=palette.grey,       bg=palette.bg1 },
       Folded                      = { fg=palette.grey,       bg=palette.bg1 },
-      Function                    = { fg=palette.green,      bg=palette.none, bold=true },
+      Function                    = { fg=palette.green,      bg=palette.none },
       Identifier                  = { fg=palette.blue,       bg=palette.none },
       Ignore                      = { fg=palette.grey,       bg=palette.none },
       IncSearch                   = { fg=palette.none,       bg=palette.none, reverse=true },
-      Include                     = { fg=palette.purple,     bg=palette.none, italic=true },
-      Keyword                     = { fg=palette.red,        bg=palette.none, italic=true },
+      Include                     = { fg=palette.light_red,        bg=palette.none, italic=true },
+      Keyword                     = { fg=palette.light_red,        bg=palette.none, italic=true },
       Label                       = { fg=palette.orange,     bg=palette.none },
       LineNr                      = { fg=palette.grey,       bg=palette.bg0 },
       Macro                       = { fg=palette.cyan,       bg=palette.none },
@@ -170,8 +170,8 @@ return {
       PreProc                     = { fg=palette.purple,     bg=palette.none, italic=true },
       Question                    = { fg=palette.yellow,     bg=palette.none },
       QuickFixLine                = { fg=palette.blue,       bg=palette.bg1 },
-      Repeat                      = { fg=palette.red,        bg=palette.none, bold=true },
-      Search                      = { fg=palette.bg0,        bg=palette.red },
+      Repeat                      = { fg=palette.light_red,        bg=palette.none, bold=true },
+      Search                      = { fg=palette.bg0,        bg=palette.light_red },
       SignColumn                  = { fg=palette.fg,         bg=palette.bg0 },
       SnippetTabstop              = { link='Visual' },
       Special                     = { fg=palette.yellow,     bg=palette.none },
@@ -182,7 +182,7 @@ return {
       SpellCap                    = { fg=palette.yellow,     bg=palette.none, undercurl=true, sp=palette.yellow },
       SpellLocal                  = { fg=palette.blue,       bg=palette.none, undercurl=true, sp=palette.blue },
       SpellRare                   = { fg=palette.purple,     bg=palette.none, undercurl=true, sp=palette.purple },
-      Statement                   = { fg=palette.red,        bg=palette.none, italic=true },
+      Statement                   = { fg=palette.red,        bg=palette.none },
       StatusLine                  = { fg=palette.fg,         bg=palette.bg3 },
       StatusLineNC                = { fg=palette.grey,       bg=palette.bg1 },
       StatusLineTerm              = { fg=palette.fg,         bg=palette.bg3 },
@@ -200,7 +200,7 @@ return {
       ToolbarButton               = { fg=palette.fg,         bg=palette.bg0, bold=true },
       ToolbarLine                 = { fg=palette.none,       bg=palette.grey },
       Type                        = { fg=palette.yellow,     bg=palette.none, bold=true },
-      Typedef                     = { fg=palette.red,        bg=palette.none, italic=true },
+      Typedef                     = { fg=palette.light_red,        bg=palette.none, italic=true },
       Underlined                  = { fg=palette.none,       bg=palette.none, underline=true },
       VertSplit                   = { fg=palette.light_grey, bg=palette.none },
       Visual                      = { fg=palette.bg0,        bg=palette.light_yellow },
@@ -240,7 +240,7 @@ return {
       ['@float']                              = { link='Float' },
       ['@function']                           = { link='Function' },      -- function definitions
       ['@function.builtin']                   = { link='Special' },       -- built-in functions
-      ['@function.call']                      = { link='Green' },         -- function calls
+      ['@function.call']                      = { link='Function' },         -- function calls
       ['@function.macro']                     = { link='Macro' },         -- preprocessor macros
       ['@function.method']                    = { link='Function' },      -- method definitions
       ['@function.method.call']               = { link='Function' },      -- method calls
@@ -333,10 +333,9 @@ return {
       ['@string.escape']                      = { link='SpecialChar' },   -- escape sequences
       -- ['@string.regexp']                      = { link='' },              -- regular expressions
       ['@string.special']                     = { link='SpecialChar' },   -- other special strings (e.g. dates)
-      -- ['@string.special.path']                = { link='' },              -- filenames
-      -- ['@string.special.symbol']              = { link='' },              -- symbols or atoms
-      -- ['@string.special.url']                 = { link='' },              -- URIs (e.g. hyperlinks)
-      -- ['@string.special.url']                 = { link='' },
+      ['@string.special.path']                = { link='Identifier' },              -- filenames
+      ['@string.special.symbol']              = { link='Identifier' },              -- symbols or atoms
+      ['@string.special.url']                 = { link='helpURL' },              -- URIs (e.g. hyperlinks)
       ['@structure']                          = { link='Structure' },
       ['@tag']                                = { link='Tag' },           -- XML-style tag names (e.g. in XML, HTML, etc.)
       -- ['@tag.attribute']                      = { link='' },              -- XML-style tag attributes
