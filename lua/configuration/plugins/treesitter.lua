@@ -3,7 +3,6 @@ return {
   src = 'https://github.com/nvim-treesitter/nvim-treesitter',
   version = 'main',
   data = {
-    build_cmd = 'TSUpdate',
     setup = function()
       local languages = {
         'css', 'dockerfile', 'elixir', 'erlang', 'fish', 'html', 'http', 'javascript',

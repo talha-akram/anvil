@@ -16,17 +16,12 @@ vim.pack.add({
 },{
   load = function(plug)
     local data = plug.spec.data or {}
+    local setup = data.setup
 
     vim.cmd.packadd(plug.spec.name)
 
-    local setup = data.setup
     if setup ~= nil and type(setup) == 'function' then
       setup()
-    end
-
-    local build_cmd = data.build_cmd
-    if build_cmd  ~= nil and type(build_cmd) == 'string' then
-      vim.cmd(build_cmd)
     end
   end
 });
