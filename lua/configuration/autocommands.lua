@@ -30,6 +30,6 @@ autocmd('FileType', {
 local highlight_yank = augroup('HighlightYank', { clear = true })
 autocmd('TextYankPost', {
   desc = 'highlight yanked text',
-  callback = function() vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 50 }) end,
+  callback = function() vim.hl.on_yank({ higroup = 'IncSearch', timeout = 50 }) end,
   group = highlight_yank
 })
