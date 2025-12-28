@@ -220,7 +220,7 @@ return {
       set_keymap('<leader>q', pickers.quickfix)
       set_keymap('<leader>l', pickers.loclist)
 
-      return {
+      picker.setup({
         delay = {
           async = 10,
           busy = 30,
@@ -353,7 +353,7 @@ return {
           -- String to use as prefix in prompt
           prompt_prefix = '',
         },
-      }
+      })
     end,
   }
 }
