@@ -2,7 +2,6 @@
 vim.keymap.set('i', '<A-Space>', '<C-x><C-u>', { noremap = true, desc = 'Snippets' });
 
 return {
-  name = 'friendly-snippets',
   src = 'https://github.com/rafamadriz/friendly-snippets',
   data = {
     setup = function() require('configuration.snippets') end,

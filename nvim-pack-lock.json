@@ -4,10 +4,6 @@
       "rev": "572f5660cf05f8cd8834e096d7b4c921ba18e175",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
-    "gitsigns": {
-      "rev": "130beacf8a51f00aede9c31064c749136679a321",
-      "src": "https://github.com/lewis6991/gitsigns.nvim"
-    },
     "gitsigns.nvim": {
       "rev": "130beacf8a51f00aede9c31064c749136679a321",
       "src": "https://github.com/lewis6991/gitsigns.nvim"

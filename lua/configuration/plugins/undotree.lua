@@ -1,6 +1,5 @@
 -- Visualise and control undo history in tree form.
 return {
-  name = 'undotree',
   src = 'https://github.com/mbbill/undotree',
   data = {
     setup = function()

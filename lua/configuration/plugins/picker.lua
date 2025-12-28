@@ -196,7 +196,6 @@ local pickers =  {
 }
 
 return {
-  name = 'mini.pick',
   src = 'https://github.com/nvim-mini/mini.pick',
   data = {
     setup = function()

@@ -5,7 +5,6 @@ local set_keymap = function(lhs, rhs)
 end
 
 return {
-  name = 'gitsigns',
   src = 'https://github.com/lewis6991/gitsigns.nvim',
   data = {
     setup = function()
