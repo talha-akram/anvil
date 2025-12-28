@@ -16,14 +16,6 @@
       "rev": "0c56dc3ef9b15e9659ce09331fdc82449349701b",
       "src": "https://github.com/nvim-mini/mini.pick"
     },
-    "noctis.nvim": {
-      "rev": "a1b31827dec585d6bb35292f97b8951712ed9312",
-      "src": "https://github.com/talha-akram/noctis.nvim"
-    },
-    "nvim-colorizer.lua": {
-      "rev": "a065833f35a3a7cc3ef137ac88b5381da2ba302e",
-      "src": "https://github.com/norcalli/nvim-colorizer.lua"
-    },
     "nvim-treesitter": {
       "rev": "36fcb4a4238928f0b627e1ab84ade0acc1facc2c",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
