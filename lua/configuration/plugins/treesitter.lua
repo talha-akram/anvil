@@ -24,6 +24,8 @@ return {
       require('nvim-treesitter').install(languages)
 
       vim.api.nvim_create_autocmd('FileType', {
+        desc = "Enable Treesitter",
+        group = vim.api.nvim_create_augroup("enable_treesitter", {}),
         pattern = languages,
         callback = function()
           vim.treesitter.start()
