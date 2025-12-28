@@ -45,7 +45,7 @@ local palette = {
 };
 
 vim.opt.background = 'dark'
-vim.g.colors_name = 'miramare'
+vim.g.colors_name = 'concoctis-neo'
 colorscheme.from_palette(palette, {
   Type             = { fg=palette.blue,       bold=true },
   Include          = { fg=palette.red,        bold=true },

@@ -4,9 +4,9 @@ require('configuration')
 -- Set colorscheme
 vim.cmd([[
   try
-    colorscheme miramare
+    colorscheme concoctis-neo
   catch
-    colorscheme miramare
+    colorscheme concoctis-neo
   endtry
 ]])
 
