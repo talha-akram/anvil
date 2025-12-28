@@ -2,8 +2,12 @@ local fn = vim.fn
 local global_options = vim.o
 
 local defined_options  = {
+  -- Use autocompletion
+  autocomplete   = false,
   -- Prefer dark background
   background     = 'dark',
+  -- Use confirm
+  confirm        = true,
   -- Dissable modelines
   modeline       = false,
   -- Set tab width to equal 2 spaces
@@ -32,7 +36,7 @@ local defined_options  = {
   wildoptions    = 'pum',
   -- Auto select the first entry but don't insert also show additional
   -- information, if available
-  completeopt    = 'noinsert,menuone,popup',
+  completeopt    = 'fuzzy,noinsert,menuone,popup',
   -- Stop popup menu messages
   shortmess      = 'filnxtToOFc',
   -- Use interactive replace

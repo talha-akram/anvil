@@ -196,162 +196,164 @@ local pickers =  {
 }
 
 return {
-  'nvim-mini/mini.pick',
-  version = false,
-  opts = function()
-    local picker = require('mini.pick')
+  name = 'mini.pick',
+  src = 'https://github.com/nvim-mini/mini.pick',
+  data = {
+    setup = function()
+      local picker = require('mini.pick')
 
-    -- Add custom pickers to registry
-    pickers = vim.tbl_extend('force', pickers, picker.builtin)
-    picker.registry = pickers
+      -- Add custom pickers to registry
+      pickers = vim.tbl_extend('force', pickers, picker.builtin)
+      picker.registry = pickers
 
-    -- Bind keys enabling quick access to pickers
-    set_keymap('<F1>',      pickers.help)
-    set_keymap(',o',        pickers.oldfiles)
-    set_keymap('<leader>,', pickers.resume)
-    set_keymap('<leader>o', pickers.files)
-    set_keymap('<leader>b', pickers.buffers)
-    set_keymap('<leader>f', pickers.grep_live)
-    set_keymap('<leader>f', pickers.find, 'v')
-    set_keymap('<leader>F', pickers.all_files)
-    set_keymap('<leader>g', pickers.git_status)
-    set_keymap('<leader>p', pickers.registry)
-    set_keymap('<leader>q', pickers.quickfix)
-    set_keymap('<leader>l', pickers.loclist)
+      -- Bind keys enabling quick access to pickers
+      set_keymap('<F1>',      pickers.help)
+      set_keymap(',o',        pickers.oldfiles)
+      set_keymap('<leader>,', pickers.resume)
+      set_keymap('<leader>o', pickers.files)
+      set_keymap('<leader>b', pickers.buffers)
+      set_keymap('<leader>f', pickers.grep_live)
+      set_keymap('<leader>f', pickers.find, 'v')
+      set_keymap('<leader>F', pickers.all_files)
+      set_keymap('<leader>g', pickers.git_status)
+      set_keymap('<leader>p', pickers.registry)
+      set_keymap('<leader>q', pickers.quickfix)
+      set_keymap('<leader>l', pickers.loclist)
 
-    return {
-      delay = {
-        async = 10,
-        busy = 30,
-      },
+      return {
+        delay = {
+          async = 10,
+          busy = 30,
+        },
 
-      mappings = {
-        caret_left        = '<Left>',
-        caret_right       = '<Right>',
+        mappings = {
+          caret_left        = '<Left>',
+          caret_right       = '<Right>',
 
-        choose            = '<CR>',
-        choose_in_split   = '<C-s>',
-        choose_in_tabpage = '<C-t>',
-        choose_in_vsplit  = '<C-v>',
-        choose_marked     = '<C-CR>',
+          choose            = '<CR>',
+          choose_in_split   = '<C-s>',
+          choose_in_tabpage = '<C-t>',
+          choose_in_vsplit  = '<C-v>',
+          choose_marked     = '<C-CR>',
 
-        delete_char       = '<BS>',
-        delete_char_right = '<S-BS>',
-        delete_left       = '<A-BS>',
-        delete_word       = '<C-w>',
+          delete_char       = '<BS>',
+          delete_char_right = '<S-BS>',
+          delete_left       = '<A-BS>',
+          delete_word       = '<C-w>',
 
-        mark              = '<C-x>',
-        mark_all          = '<C-a>',
+          mark              = '<C-x>',
+          mark_all          = '<C-a>',
 
-        move_start        = '<C-g>',
-        move_down         = '<C-n>',
-        move_up           = '<C-p>',
+          move_start        = '<C-g>',
+          move_down         = '<C-n>',
+          move_up           = '<C-p>',
 
-        paste             = '<A-p>',
+          paste             = '<A-p>',
 
-        refine            = '<C-Space>',
-        refine_marked     = '<M-Space>',
+          refine            = '<C-Space>',
+          refine_marked     = '<M-Space>',
 
-        scroll_up         = '<C-u>',
-        scroll_down       = '<C-d>',
-        scroll_left       = '<C-h>',
-        scroll_right      = '<C-l>',
+          scroll_up         = '<C-u>',
+          scroll_down       = '<C-d>',
+          scroll_left       = '<C-h>',
+          scroll_right      = '<C-l>',
 
-        stop              = '<Esc>',
+          stop              = '<Esc>',
 
-        toggle_info       = '<S-Tab>',
-        toggle_preview    = '<Tab>',
+          toggle_info       = '<S-Tab>',
+          toggle_preview    = '<Tab>',
 
-        send_to_qflist    = {
-          char = '<C-q>',
-          func = function()
-            local list = {}
-            local matches = picker.get_picker_matches().all
+          send_to_qflist    = {
+            char = '<C-q>',
+            func = function()
+              local list = {}
+              local matches = picker.get_picker_matches().all
 
-            for _, match in ipairs(matches) do
-              if type(match) == 'table' then
-                table.insert(list, match)
-              else
-                local path, lnum, col, search = string.match(match, '(.-)%z(%d+)%z(%d+)%z%s*(.+)')
-                local text = path and string.format('%s [%s:%s]  %s', path, lnum, col, search)
-                local filename =  path or vim.trim(match):match('%s+(.+)')
+              for _, match in ipairs(matches) do
+                if type(match) == 'table' then
+                  table.insert(list, match)
+                else
+                  local path, lnum, col, search = string.match(match, '(.-)%z(%d+)%z(%d+)%z%s*(.+)')
+                  local text = path and string.format('%s [%s:%s]  %s', path, lnum, col, search)
+                  local filename =  path or vim.trim(match):match('%s+(.+)')
 
-                table.insert(list, {
-                  filename = filename or match,
-                  lnum = lnum or 1,
-                  col = col or 1,
-                  text = text or match,
-                })
+                  table.insert(list, {
+                    filename = filename or match,
+                    lnum = lnum or 1,
+                    col = col or 1,
+                    text = text or match,
+                  })
+                end
               end
+
+              vim.fn.setqflist(list, 'r')
+            end,
+          },
+        },
+
+        options = {
+          content_from_bottom = false,
+          use_cache = false,
+        },
+
+        source = {
+          items = nil,
+          name  = nil,
+          cwd   = nil,
+
+          match   = nil,
+          preview = nil,
+          show    = function(buf_id, items, query, opts)
+            picker.default_show(
+              buf_id,
+              items,
+              query,
+              vim.tbl_deep_extend('force', { show_icons = false, icons = {} }, opts or {})
+            )
+          end,
+
+          choose        = nil,
+          choose_marked = nil,
+        },
+
+        -- Window related options
+        window = {
+          config = function()
+            local height, width, starts, ends
+            local win_width = vim.o.columns
+            local win_height = vim.o.lines
+
+            if win_height <= 25 then
+              height = math.min(win_height, 18)
+              width = win_width
+              starts = 1
+              ends = win_height
+            else
+              width = math.floor(win_width * 0.5) -- 50%
+              height = math.floor(win_height * 0.3) -- 30%
+              starts = math.floor((win_width - width) / 2)
+              -- center prompt: height * (50% + 30%)
+              -- center window: height * [50% + (30% / 2)]
+              ends = math.floor(win_height * 0.65)
             end
 
-            vim.fn.setqflist(list, 'r')
+            return {
+              col = starts,
+              row = ends,
+              height = height,
+              width = width,
+              style = 'minimal',
+              border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+            }
           end,
+
+          -- String to use as cursor in prompt
+          prompt_caret = '|',
+
+          -- String to use as prefix in prompt
+          prompt_prefix = '',
         },
-      },
-
-      options = {
-        content_from_bottom = false,
-        use_cache = false,
-      },
-
-      source = {
-        items = nil,
-        name  = nil,
-        cwd   = nil,
-
-        match   = nil,
-        preview = nil,
-        show    = function(buf_id, items, query, opts)
-          picker.default_show(
-            buf_id,
-            items,
-            query,
-            vim.tbl_deep_extend('force', { show_icons = false, icons = {} }, opts or {})
-          )
-        end,
-
-        choose        = nil,
-        choose_marked = nil,
-      },
-
-      -- Window related options
-      window = {
-        config = function()
-          local height, width, starts, ends
-          local win_width = vim.o.columns
-          local win_height = vim.o.lines
-
-          if win_height <= 25 then
-            height = math.min(win_height, 18)
-            width = win_width
-            starts = 1
-            ends = win_height
-          else
-            width = math.floor(win_width * 0.5) -- 50%
-            height = math.floor(win_height * 0.3) -- 30%
-            starts = math.floor((win_width - width) / 2)
-            -- center prompt: height * (50% + 30%)
-            -- center window: height * [50% + (30% / 2)]
-            ends = math.floor(win_height * 0.65)
-          end
-
-          return {
-            col = starts,
-            row = ends,
-            height = height,
-            width = width,
-            style = 'minimal',
-            border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          }
-        end,
-
-        -- String to use as cursor in prompt
-        prompt_caret = '|',
-
-        -- String to use as prefix in prompt
-        prompt_prefix = '',
-      },
-    }
-  end,
+      }
+    end,
+  }
 }
