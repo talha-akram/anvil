@@ -15,5 +15,7 @@ require('configuration.keymaps')
 -- Only load plugins when not runing as root
 if (vim.fn.exists('$SUDO_USER') == 0) then
   -- Enable Plugins
-  require('configuration.plugins')
+  if vim.fn.has("nvim-0.12") == 1 then
+    require('configuration.plugins')
+  end
 end
