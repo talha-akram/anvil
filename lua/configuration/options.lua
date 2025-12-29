@@ -3,7 +3,7 @@ local global_options = vim.o
 
 local defined_options  = {
   -- Use autocompletion
-  autocomplete   = false,
+  -- autocomplete   = false,
   -- Prefer dark background
   background     = 'dark',
   -- Use confirm
