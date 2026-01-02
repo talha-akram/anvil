@@ -1,5 +1,4 @@
 -- Statusline
--- inspiration: https://elianiva.my.id/post/neovim-lua-statusline
 
 -- aliases
 local fn = vim.fn
