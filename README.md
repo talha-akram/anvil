@@ -1,5 +1,5 @@
 # Anvil
-A highly adaptable Neovim distribution. The goal is to have a minimal Neovim configuration providing a great development experience out of the box. Anvil favours building on top of native features over adding plugins. So instead of spending hours getting the basics to work or navigating through a huge mess of plugins, you can focus on customizing Neovim with features you need without being overwhelmed. Anvil is extremely lightweight, has little to no configuration of its own and only adds essential plugins that are needed to have a comfortable development experience. For most users, all that should be needed is to customize the key bindings and configure a language server.
+My very light neovim personal developement environment (PDE) that provides a great development experience out of the box with minimal dependence on [plugins](https://github.com/talha-akram/anvil/blob/master/lua/configuration/plugins/init.lua).
 
 ## Preview:
 ![anvil preview](https://github.com/user-attachments/assets/710967a1-7f6d-4a70-827f-247de3ae982b)
@@ -12,14 +12,14 @@ A highly adaptable Neovim distribution. The goal is to have a minimal Neovim con
 The completions are powered by the LSP and the snippets are provided by `friendly-snippets`. Additionally custom snippets can be added under `snippets/${FILE_TYPE}.json`which will get loaded automatically and become available for that file type. The snippets are defined using the LSP snippet definition format and will override any matching snippet from `friendly-snippets`.
 
 ### Fast minimal picker using [mini.pick](https://github.com/echasnovski/mini.pick):
-Anvil uses [mini.pick](https://github.com/echasnovski/mini.pick) as the default fuzzy finder and general purpose list picker, primarily due to how easy it is to extend with functionality, ease of use, performance, small size and zero dependencies on other plugins / extensions.
+Anvil uses [mini.pick](https://github.com/echasnovski/mini.pick) as the default fuzzy finder and general purpose list picker.
 
 ![completion preview](https://github.com/user-attachments/assets/978b0aca-2dba-4fb8-85fc-f193cb246a8f)
 
-Have a look at [lua/plugins/picker.lua](https://github.com/talha-akram/anvil/blob/master/lua/plugins/picker.lua) to see what is available and to use as a reference to help in building your own custom pickers.
+To see what is available, checkout [lua/configuration/plugins/picker.lua](https://github.com/talha-akram/anvil/blob/master/lua/configuration/plugins/picker.lua).
 
 ### Status Line
-An easy to modify Status Line written in Lua shows detailed information related to your opened buffer:
+A simple yet informative Status Line that does not require any patched fonts, includes:
 - Current mode indicator.
 - Current file path including unwritten state and read only indicator.
 - Stats related to diagnostics (number of Errors `E`, Warnings `W`, Information `I` and Hints `H`).
@@ -30,22 +30,5 @@ An easy to modify Status Line written in Lua shows detailed information related 
 - File type.
 - Scroll position.
 
-All this without using any patched fonts, works great over ssh and locally and looks great everywhere!
-
-#### Status Line preview
+#### Preview
 ![Status Line preview](https://github.com/user-attachments/assets/5e37fde3-ea61-4a03-9adb-6c9b1eb6ffe8)
-
-An accent color is applied to the Status Bar depending on current mode. The accent color is only applied to the mode indicator, cursor position, buffer number and file type information.
-
-## Goals
-To create a highly extensible Neovim configuration that can easily be adapted as an IDE for
-any programming language via LSP while staying light and as close to vanilla Neovim as possible.
-This distribution aims to be a non intrusive, solid base which the user can easily customize to
-fit their workflow needs.
-
-## Contributing
-Found a bug or something is broken?
-Have a suggestion or feature you want added?
-Please open an issue.
-
-Want to contribute? Awesome! Please make a pull request.
