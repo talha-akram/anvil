@@ -1,6 +1,7 @@
 local gitsigns = require('configuration.plugins.gitsigns');
 local picker = require('configuration.plugins.picker');
 local snippets = require('configuration.plugins.friendly-snippets');
+local textobjects = require('configuration.plugins.textobjects');
 local treesitter = require('configuration.plugins.treesitter');
 local undotree = require('configuration.plugins.undotree');
 
@@ -11,6 +12,7 @@ vim.pack.add({
   gitsigns,
   picker,
   snippets,
+  textobjects,
   treesitter,
   undotree,
 },{

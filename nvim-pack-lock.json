@@ -17,6 +17,11 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
+    "nvim-treesitter-textobjects": {
+      "rev": "ecd03f5811eb5c66d2fa420b79121b866feecd82",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+      "version": "'main'"
+    },
     "undotree": {
       "rev": "0f1c9816975b5d7f87d5003a19c53c6fd2ff6f7f",
       "src": "https://github.com/mbbill/undotree"
