@@ -3,6 +3,7 @@ My very light neovim personal developement environment (PDE) that provides a gre
 
 ## Preview:
 ![anvil preview](https://github.com/user-attachments/assets/710967a1-7f6d-4a70-827f-247de3ae982b)
+Color scheme: [noctis_bordo](https://github.com/talha-akram/noctis.nvim?tab=readme-ov-file#noctis-bordo)
 
 ### Completions
 #### `<A-Space>` opens completions for available snippets where as `<C-Space>` open code completions

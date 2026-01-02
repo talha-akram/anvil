@@ -16,7 +16,7 @@ return {
 
       local move = require('nvim-treesitter-textobjects.move');
       local swap = require('nvim-treesitter-textobjects.swap');
-      local keys = {
+      local keymaps = {
         {
           { 'n', 'x', 'o' },
           '[f',
@@ -43,25 +43,25 @@ return {
         },
         {
           { 'n', 'x', 'o' },
-          '[a',
+          '[p',
           function() move.goto_previous_start('@parameter.outer', 'textobjects') end,
           { desc = 'prev argument' },
         },
         {
           { 'n', 'x', 'o' },
-          ']a',
+          ']p',
           function() move.goto_next_start('@parameter.outer', 'textobjects') end,
           { desc = 'next argument' },
         },
         {
           { 'n', 'x', 'o' },
-          '[A',
+          '[P',
           function() move.goto_previous_end('@parameter.outer', 'textobjects') end,
           { desc = 'prev argument end' },
         },
         {
           { 'n', 'x', 'o' },
-          ']A',
+          ']P',
           function() move.goto_next_end('@parameter.outer', 'textobjects') end,
           { desc = 'next argument end' },
         },
@@ -103,7 +103,7 @@ return {
         },
       }
 
-      for index, map in ipairs(keys) do
+      for _index, map in ipairs(keymaps) do
         vim.keymap.set(unpack(map))
       end
     end,
