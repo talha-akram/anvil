@@ -59,7 +59,7 @@ return {
           if not vim.tbl_contains(already_installed, parser_name) then
             -- Install parser
             vim.notify("Installing parser for " .. parser_name, vim.log.levels.INFO)
-            treesitter.install({ parser_name }):await(start_ts)
+            require('nvim-treesitter').install({ parser_name }):await(start_ts)
             return
           end
 

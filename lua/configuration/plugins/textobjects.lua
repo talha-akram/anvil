@@ -12,10 +12,15 @@ return {
         swap = {
           enable = true,
         },
+        select = {
+          enable = true,
+          lookahead = true,
+        },
       });
 
       local move = require('nvim-treesitter-textobjects.move');
       local swap = require('nvim-treesitter-textobjects.swap');
+      local select = require('nvim-treesitter-textobjects.select');
       local keymaps = {
         {
           { 'n', 'x', 'o' },
@@ -101,11 +106,47 @@ return {
           function() swap.swap_previous('@parameter.inner') end,
           { desc = 'swap prev argument' },
         },
-      }
+        {
+          { 'n', 'x', 'o' },
+          'vif',
+          function() select.select_textobject('@function.inner', 'textobjects') end,
+          { desc = 'select inside function' },
+        },
+        {
+          { 'n', 'x', 'o' },
+          'vaf',
+          function() select.select_textobject('@function.outer', 'textobjects') end,
+          { desc = 'select around function' },
+        },
+        {
+          { 'n', 'x', 'o' },
+          'vib',
+          function() select.select_textobject('@block.inner', 'textobjects') end,
+          { desc = 'select inside block' },
+        },
+        {
+          { 'n', 'x', 'o' },
+          'vab',
+          function() select.select_textobject('@block.outer', 'textobjects') end,
+          { desc = 'select around block' },
+        },
+        {
+          { 'n', 'x', 'o' },
+          'vic',
+          function() select.select_textobject('@conditional.inner', 'textobjects') end,
+          { desc = 'select inside condition' },
+        },
+        {
+          { 'n', 'x', 'o' },
+          'vac',
+          function() select.select_textobject('@conditional.outer', 'textobjects') end,
+          { desc = 'select around condition' },
+        },
+      };
 
       for _index, map in ipairs(keymaps) do
-        vim.keymap.set(unpack(map))
+        vim.keymap.set(unpack(map));
       end
     end,
   }
-}
+};

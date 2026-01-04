@@ -8,7 +8,7 @@ local undotree = require('configuration.plugins.undotree');
 
 vim.pack.add({
   -- 'https://github.com/talha-akram/noctis.nvim',
-  -- 'https://github.com/norcalli/nvim-colorizer.lua',
+  -- 'https://github.com/norcalli/nvim-colorizer.lua', -- to help with colorscheme development
   gitsigns,
   picker,
   snippets,
