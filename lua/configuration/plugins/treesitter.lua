@@ -8,7 +8,7 @@ return {
         'css', 'dockerfile', 'fish', 'html', 'http', 'javascript',
         'json', 'lua', 'python', 'regex', 'ruby', 'rust', 'scss',
         'typescript', 'vue', 'yaml', 'markdown', 'bash', 'c', 'cmake', 'comment',
-        'cpp', 'dart', 'go', 'jsdoc', 'json5', 'jsonc', 'llvm', 'make', 'ninja',
+        'cpp', 'dart', 'go', 'jsdoc', 'json5', 'llvm', 'make', 'ninja',
         'proto', 'pug', 'swift', 'todotxt', 'toml', 'tsx', 'vim', 'vimdoc',
         'gitcommit', 'git_rebase', 'slim',
       }
