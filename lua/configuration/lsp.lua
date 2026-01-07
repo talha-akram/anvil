@@ -11,6 +11,7 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Setup tagfunc for symbol navigation
   vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
+  vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr(#{timeout_ms:250})')
 
   -- Add keybindings for LSP integration
   set_keymap('K', buf.hover, 'popup docs')
@@ -23,7 +24,9 @@ local on_attach = function(client, bufnr)
   set_keymap('gr', buf.references, 'get references')
   set_keymap('grn', buf.rename, 'rename')
   set_keymap('ga', buf.code_action, 'get code actions', {'v', 'n'})
-  set_keymap('=g', buf.format, 'format buffer', {'v', 'n'})
+  set_keymap('=g', function()
+    buf.format({ async = true })
+  end, 'format code', {'v', 'n'})
 
   set_keymap('<Leader>s', buf.document_symbol, 'document symbols')
   set_keymap('<Leader>w', buf.workspace_symbol, 'workspace symbols')

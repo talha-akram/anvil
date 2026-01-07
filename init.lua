@@ -2,7 +2,7 @@
 require('configuration')
 
 -- Set colorscheme
-vim.cmd('colorscheme concoctis-neo')
+vim.cmd.colorscheme('concoctis-neo')
 
 -- Specify Highlight groups to use for extracting fg color for
 -- statusline components
