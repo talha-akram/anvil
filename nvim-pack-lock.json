@@ -5,15 +5,15 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "gitsigns.nvim": {
-      "rev": "6bd29494e3f79ff08be1d35bc1926ed23c22ed9a",
+      "rev": "30e5c516f03e0a0a4f71300c52abad481ee90337",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "mini.pick": {
-      "rev": "8cb40ee55dd156957b1116eded6135e6aeaa078b",
+      "rev": "aa242acc17683515d8f749552aebe061bced9132",
       "src": "https://github.com/nvim-mini/mini.pick"
     },
     "nvim-treesitter": {
-      "rev": "99dfc5acefd7728cec4ad0d0a6a9720f2c2896ff",
+      "rev": "de878155ca66c49b027b1380e4e60a6c665b2630",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
