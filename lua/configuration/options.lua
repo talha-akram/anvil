@@ -96,7 +96,7 @@ end
 
 -- Undo file settings
 if (fn.has('persistent_undo')) then
-  defined_options.undodir     = fn.stdpath('config') .. '/undodir/'
+  defined_options.undodir     = fn.stdpath('data') .. '/undodir/'
   defined_options.undofile    = true
 end
 
