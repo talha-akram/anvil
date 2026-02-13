@@ -61,6 +61,9 @@ set_keymap('n', ']B', '<CMD>blast<CR>', options)
 set_keymap('n', ',b', '<CMD>bprev<CR>', options)
 set_keymap('n', ',n', '<CMD>bnext<CR>', options)
 
+-- Explore directory of current file
+set_keymap('n', '<Leader>d', '<CMD>ex %:p:h<CR>', options)
+
 -- Delete current buffer
 set_keymap('n', ',c', '<CMD>bp|bd #<CR>', options)
 
