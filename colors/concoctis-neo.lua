@@ -1,5 +1,5 @@
 -- Miramare
-local colorscheme = require('colorscheme');
+local colorscheme = require('colorscheme')
 
 -- Yet to be defined and used:
   -- Brown
@@ -42,7 +42,7 @@ local palette = {
   light_grey    = '#928374',
   light_yellow  = '#d8caac',
   none          = 'NONE',
-};
+}
 
 vim.opt.background = 'dark'
 vim.g.colors_name = 'concoctis-neo'
@@ -51,4 +51,4 @@ colorscheme.from_palette(palette, {
   Include          = { fg=palette.red,        bold=true },
   Keyword          = { fg=palette.orange,     bold=true },
   Operator         = { fg=palette.red,        bold=true },
-});
+})

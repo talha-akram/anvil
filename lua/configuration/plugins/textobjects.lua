@@ -16,11 +16,11 @@ return {
           enable = true,
           lookahead = true,
         },
-      });
+      })
 
-      local move = require('nvim-treesitter-textobjects.move');
-      local swap = require('nvim-treesitter-textobjects.swap');
-      local select = require('nvim-treesitter-textobjects.select');
+      local move = require('nvim-treesitter-textobjects.move')
+      local swap = require('nvim-treesitter-textobjects.swap')
+      local select = require('nvim-treesitter-textobjects.select')
       local keymaps = {
         {
           { 'n', 'x', 'o' },
@@ -142,11 +142,11 @@ return {
           function() select.select_textobject('@conditional.outer', 'textobjects') end,
           { desc = 'select around condition' },
         },
-      };
+      }
 
       for _index, map in ipairs(keymaps) do
-        vim.keymap.set(unpack(map));
+        vim.keymap.set(unpack(map))
       end
     end,
   }
-};
+}

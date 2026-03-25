@@ -1,4 +1,4 @@
-local options = require('configuration.lsp');
+local options = require('configuration.lsp')
 
 if (vim.fn.executable('vls') == 1) then
   vim.lsp.start({
