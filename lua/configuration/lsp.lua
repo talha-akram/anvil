@@ -35,6 +35,10 @@ local on_attach = function(client, bufnr)
   set_keymap('d[', diagnostic.goto_prev, 'go to previous diagnostic')
   set_keymap(',d', diagnostic.open_float, 'view diagnostics')
 
+  set_keymap('<Leader>c', function()
+    vim.lsp.document_color.enable(true, nil, { style = 'virtual' })
+  end, 'show colors', {'n'})
+
   if client.server_capabilities.selectionRangeProvider then
     set_keymap('gs', function() buf.selection_range(1) end , 'select current range', {'n', 'v'})
     set_keymap('<C-k>', function() buf.selection_range(1) end, 'expand current selection range', {'n', 'v'})
