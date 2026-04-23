@@ -1,4 +1,4 @@
-local options = require('configuration.lsp');
+local options = require('configuration.lsp')
 local filetypes = {
   'javascript',
   'javascriptreact',

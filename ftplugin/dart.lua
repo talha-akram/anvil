@@ -1,4 +1,4 @@
-local options = require('configuration.lsp');
+local options = require('configuration.lsp')
 
 -- set comment string for dart files
 vim.bo.commentstring = '// %s'

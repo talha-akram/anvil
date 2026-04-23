@@ -1,4 +1,4 @@
-local highlight = vim.api.nvim_set_hl;
+local highlight = vim.api.nvim_set_hl
 
 return {
   from_palette = function(palette, override)
@@ -464,4 +464,4 @@ return {
       end
     end
   end
-};
+}
