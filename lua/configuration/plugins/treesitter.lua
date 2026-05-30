@@ -11,6 +11,8 @@ local function build_coffeescript_parser(force)
     return
   end
 
+  vim.fn.mkdir(parser_dir, 'p')
+
   local repo = 'https://github.com/svkozak/tree-sitter-coffeescript'
   local src = vim.fn.tempname()
   vim.notify('Building coffeescript treesitter parser...', vim.log.levels.INFO)
@@ -23,14 +25,13 @@ local function build_coffeescript_parser(force)
       return
     end
 
-    vim.fn.mkdir(parser_dir, 'p')
     local compile = {
       'cc', '-o', out, '-shared', '-Os', '-fPIC',
       '-I' .. src .. '/src', src .. '/src/parser.c', src .. '/src/scanner.c',
     }
     vim.system(compile, {}, function(cc)
-      vim.fn.delete(src, 'rf')
       vim.schedule(function()
+        vim.fn.delete(src, 'rf')
         if cc.code == 0 then
           vim.notify('coffeescript parser built (restart or :e to apply)', vim.log.levels.INFO)
         else
