@@ -1,16 +1,24 @@
 -- TreeSitter configuration
 
-local function build_coffeescript_parser(force)
+-- CoffeeScript has no parser in the nvim-treesitter registry,
+-- so we build it from svkozak/tree-sitter-coffeescript.
+local building_coffeescript = false
+local function build_coffeescript_parser(force, on_done)
   -- Install alongside the parsers nvim-treesitter manages.
   local parser_dir = vim.fn.stdpath('data') .. '/site/parser'
   local out = parser_dir .. '/coffeescript.so'
 
-  if not force and vim.uv.fs_stat(out) then return end
+  if not force and vim.uv.fs_stat(out) then
+    if on_done then on_done() end
+    return
+  end
+  if building_coffeescript then return end
   if vim.fn.executable('git') == 0 or vim.fn.executable('cc') == 0 then
     vim.notify('coffeescript grammar: git and cc are required to build', vim.log.levels.WARN)
     return
   end
 
+  building_coffeescript = true
   vim.fn.mkdir(parser_dir, 'p')
 
   local repo = 'https://github.com/svkozak/tree-sitter-coffeescript'
@@ -19,6 +27,7 @@ local function build_coffeescript_parser(force)
 
   vim.system({ 'git', 'clone', '--depth', '1', repo, src }, {}, function(clone)
     if clone.code ~= 0 then
+      building_coffeescript = false
       vim.schedule(function()
         vim.notify('coffeescript grammar clone failed: ' .. (clone.stderr or ''), vim.log.levels.ERROR)
       end)
@@ -31,9 +40,11 @@ local function build_coffeescript_parser(force)
     }
     vim.system(compile, {}, function(cc)
       vim.schedule(function()
+        building_coffeescript = false
         vim.fn.delete(src, 'rf')
         if cc.code == 0 then
-          vim.notify('coffeescript parser built (restart or :e to apply)', vim.log.levels.INFO)
+          vim.notify('coffeescript parser built', vim.log.levels.INFO)
+          if on_done then on_done() end
         else
           vim.notify('coffeescript grammar compile failed: ' .. (cc.stderr or ''), vim.log.levels.ERROR)
         end
@@ -70,9 +81,6 @@ return {
         build_coffeescript_parser(true)
       end, { desc = 'Rebuild the CoffeeScript treesitter parser' })
 
-      -- Build once if the parser is not present yet.
-      build_coffeescript_parser(false)
-
       vim.api.nvim_create_autocmd('FileType', {
         desc = "Enable Treesitter",
         group = vim.api.nvim_create_augroup("enable_treesitter", {}),
@@ -108,8 +116,16 @@ return {
             start_ts()
             return
           end
+          -- Build and start coffeescript.
+          if parser_name == 'coffeescript' then
+            build_coffeescript_parser(false, function()
+              if vim.api.nvim_buf_is_valid(bufnr) and vim.treesitter.language.add(parser_name) then
+                start_ts()
+              end
+            end)
+          end
 
-          -- Install from available parsers if not already installed.
+          -- Install from available parsers on demand.
           local ts_config = require('nvim-treesitter.config')
           if not vim.tbl_contains(ts_config.get_available(), parser_name) then
             vim.bo[bufnr].syntax = "ON"
