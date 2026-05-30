@@ -1,5 +1,5 @@
 return {
-  cmd = 'coffeesense-language-server',
-  filetypes = { 'coffee', 'vue' },
-  root_markers = { '.git', 'package.json' },
+  cmd = { 'coffeesense-language-server', '--stdio' },
+  filetypes = { 'coffee', 'coffeescript', 'vue' },
+  root_markers = { 'package.json', '.git' },
 }

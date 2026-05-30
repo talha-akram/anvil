@@ -28,14 +28,7 @@ return {
         group = vim.api.nvim_create_augroup("enable_treesitter", {}),
         callback = function(event)
           local bufnr = event.buf
-          local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-          -- Start treesitter for this buffer
-          local start_ts = function()
-            vim.treesitter.start(bufnr, parser_name)
-            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-            vim.wo.foldmethod = 'expr'
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-          end
+          local filetype = vim.bo[bufnr].filetype
 
           -- Skip if no filetype
           if filetype == "" then
@@ -51,19 +44,29 @@ return {
             return
           end
 
-          -- Try to get existing parser
-          local ts_config = require('nvim-treesitter.config')
-          if not vim.tbl_contains(ts_config.get_available(), parser_name) then return end
+          -- Start available parsers
+          local start_ts = function()
+            vim.treesitter.start(bufnr, parser_name)
+            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            vim.wo.foldmethod = 'expr'
+            vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
 
-          local already_installed = ts_config.get_installed('parsers')
-          if not vim.tbl_contains(already_installed, parser_name) then
-            -- Install parser
-            vim.notify("Installing parser for " .. parser_name, vim.log.levels.INFO)
-            require('nvim-treesitter').install({ parser_name }):await(start_ts)
+          -- Try to start an available parser
+          local ok, available = pcall(vim.treesitter.language.add, parser_name)
+          if ok and available then
+            start_ts()
             return
           end
 
-          start_ts()
+          -- Install from available parsers if not already installed.
+          local ts_config = require('nvim-treesitter.config')
+          if not vim.tbl_contains(ts_config.get_available(), parser_name) then
+            vim.bo[bufnr].syntax = "ON"
+            return
+          end
+          vim.notify("Installing parser for " .. parser_name, vim.log.levels.INFO)
+          require('nvim-treesitter').install({ parser_name }):await(start_ts)
         end,
       })
     end,

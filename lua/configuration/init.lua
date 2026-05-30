@@ -12,6 +12,9 @@ require('configuration.autocommands')
 -- Set custom keymaps (nvim >= 0.7)
 require('configuration.keymaps')
 
+-- Configure LSPs
+require('configuration.lsp')
+
 -- Only load plugins when not runing as root
 if (vim.fn.exists('$SUDO_USER') == 0) then
   -- Enable Plugins
