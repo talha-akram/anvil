@@ -1,4 +1,46 @@
 -- TreeSitter configuration
+
+local function build_coffeescript_parser(force)
+  -- Install alongside the parsers nvim-treesitter manages.
+  local parser_dir = vim.fn.stdpath('data') .. '/site/parser'
+  local out = parser_dir .. '/coffeescript.so'
+
+  if not force and vim.uv.fs_stat(out) then return end
+  if vim.fn.executable('git') == 0 or vim.fn.executable('cc') == 0 then
+    vim.notify('coffeescript grammar: git and cc are required to build', vim.log.levels.WARN)
+    return
+  end
+
+  local repo = 'https://github.com/svkozak/tree-sitter-coffeescript'
+  local src = vim.fn.tempname()
+  vim.notify('Building coffeescript treesitter parser...', vim.log.levels.INFO)
+
+  vim.system({ 'git', 'clone', '--depth', '1', repo, src }, {}, function(clone)
+    if clone.code ~= 0 then
+      vim.schedule(function()
+        vim.notify('coffeescript grammar clone failed: ' .. (clone.stderr or ''), vim.log.levels.ERROR)
+      end)
+      return
+    end
+
+    vim.fn.mkdir(parser_dir, 'p')
+    local compile = {
+      'cc', '-o', out, '-shared', '-Os', '-fPIC',
+      '-I' .. src .. '/src', src .. '/src/parser.c', src .. '/src/scanner.c',
+    }
+    vim.system(compile, {}, function(cc)
+      vim.fn.delete(src, 'rf')
+      vim.schedule(function()
+        if cc.code == 0 then
+          vim.notify('coffeescript parser built (restart or :e to apply)', vim.log.levels.INFO)
+        else
+          vim.notify('coffeescript grammar compile failed: ' .. (cc.stderr or ''), vim.log.levels.ERROR)
+        end
+      end)
+    end)
+  end)
+end
+
 return {
   src = 'https://github.com/nvim-treesitter/nvim-treesitter',
   version = 'main',
@@ -22,6 +64,13 @@ return {
       })
 
       require('nvim-treesitter').install(languages)
+
+      vim.api.nvim_create_user_command('TSCoffeeScriptBuild', function()
+        build_coffeescript_parser(true)
+      end, { desc = 'Rebuild the CoffeeScript treesitter parser' })
+
+      -- Build once if the parser is not present yet.
+      build_coffeescript_parser(false)
 
       vim.api.nvim_create_autocmd('FileType', {
         desc = "Enable Treesitter",
