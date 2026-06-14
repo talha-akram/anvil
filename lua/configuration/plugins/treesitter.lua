@@ -1,7 +1,9 @@
 -- TreeSitter configuration
 
 -- CoffeeScript has no parser in the nvim-treesitter registry,
--- so we build it from svkozak/tree-sitter-coffeescript.
+-- so we build it from talha-akram/tree-sitter-coffeescript,
+-- forked from svkozak/tree-sitter-coffeescript with improved
+-- grammar and parser.
 local building_coffeescript = false
 local function build_coffeescript_parser(force, on_done)
   -- Install alongside the parsers nvim-treesitter manages.
@@ -21,7 +23,7 @@ local function build_coffeescript_parser(force, on_done)
   building_coffeescript = true
   vim.fn.mkdir(parser_dir, 'p')
 
-  local repo = 'https://github.com/svkozak/tree-sitter-coffeescript'
+  local repo = 'https://github.com/talha-akram/tree-sitter-coffeescript'
   local src = vim.fn.tempname()
   vim.notify('Building coffeescript treesitter parser...', vim.log.levels.INFO)
 
