@@ -5,11 +5,11 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "gitsigns.nvim": {
-      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
+      "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "mini.pick": {
-      "rev": "26f94e9c84f529d713de00b900c0a307ca260f35",
+      "rev": "8905fe4b8fb6be80e1a940b905f17013ed27a006",
       "src": "https://github.com/nvim-mini/mini.pick"
     },
     "nvim-treesitter": {
