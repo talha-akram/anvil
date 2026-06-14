@@ -1,9 +1,9 @@
 ; CoffeeScript highlights
 ;
-; Neovim applies the LAST matching pattern for a given node, so order matters:
-; the generic `(identifier) @variable` fallback comes first and the more
-; specific identifier roles (functions, members, parameters, types) come after
-; so they win.
+; Tree-sitter applies the LAST matching pattern for a given node, so order
+; matters: the generic `(identifier) @variable` fallback comes first and the
+; more specific identifier roles (functions, members, parameters, types) come
+; after so they win.
 
 ; --- Fallback ---------------------------------------------------------------
 
@@ -22,7 +22,7 @@
 (instance_variable
   (identifier) @variable.member)
 
-; { key: value }  ->  key is a property
+; { key: value }  ->  key is a property (also matches `{ a, b }` shorthand)
 (pair
   (identifier) @property)
 
@@ -47,6 +47,10 @@
 
 (splat_pattern (identifier) @variable.parameter)
 
+; catch err  ->  the bound error is a parameter-like binding
+(catch_clause
+  (identifier) @variable.parameter)
+
 ; --- Functions & methods ----------------------------------------------------
 
 (function_definition
@@ -64,6 +68,18 @@
 
 (existential_function_call
   (expression (identifier) @function.call))
+
+; implicit (paren-less) call:  foo a, b   (callee is the first child only)
+(implicit_call
+  .
+  (expression (identifier) @function.call))
+
+; implicit method call:  console.log msg
+(implicit_call
+  .
+  (expression
+    (member_expression
+      (identifier) @function.method.call)))
 
 ; method call:  obj.bar()  (wins over the member rule above)
 (function_call
@@ -217,6 +233,8 @@
   "-"
   "*"
   "/"
+  "%"
+  "%%"
   "&"
   "|"
   "^"
@@ -246,6 +264,9 @@
 
 [ "(" ")" "[" "]" "{" "}" ] @punctuation.bracket
 [ "," ";" ":" "." ] @punctuation.delimiter
+
+; Embedded-code fences (` ... ` JavaScript, ``` ... ``` HTML) frame injections.
+[ "`" "```" ] @punctuation.special
 
 ; --- JSX (light support) ----------------------------------------------------
 

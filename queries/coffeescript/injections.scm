@@ -19,3 +19,8 @@
   (#match? @injection.content "^\"\"\"[\\s\\S]*<")
   (#set! injection.language "html")
   (#offset! @injection.content 0 3 0 -3))
+
+; Backtick-embedded JavaScript:  `return 1`  (strip the surrounding backticks)
+((embedded_js) @injection.content
+  (#set! injection.language "javascript")
+  (#offset! @injection.content 0 1 0 -1))
