@@ -72,9 +72,13 @@ local pickers =  {
       end
     end
 
+    -- Apply the change highlights and collect the 1-indexed line of each
+    -- changed region, so `[g` / `]g` can hop between hunks in the preview.
     local apply_diff = function(bufnr, diff)
       local total = vim.api.nvim_buf_line_count(bufnr)
-      local lnum, removed = nil, {}
+      local lnum, removed, changed = nil, {}, {}
+
+      local mark = function(line) changed[math.min(math.max(line, 1), total)] = true end
 
       local flush = function(at)
         if #removed == 0 then return end
@@ -89,6 +93,7 @@ local pickers =  {
             virt_lines = virt, virt_lines_above = true
           })
         end
+        mark(at or total + 1)
       end
 
       for _, line in ipairs(diff) do
@@ -102,6 +107,7 @@ local pickers =  {
             flush(lnum)
             if lnum >= 1 and lnum <= total then
               vim.api.nvim_buf_set_extmark(bufnr, ns, lnum - 1, 0, { line_hl_group = 'DiffAdd' })
+              mark(lnum)
             end
             lnum = lnum + 1
           elseif tag == '-' then
@@ -113,6 +119,61 @@ local pickers =  {
         end
       end
       flush(lnum)
+
+      -- Collapse adjacent changed lines into one hunk anchor (its first line).
+      local sorted, hunks = {}, {}
+      for line in pairs(changed) do sorted[#sorted + 1] = line end
+      table.sort(sorted)
+      for i, line in ipairs(sorted) do
+        if i == 1 or line > sorted[i - 1] + 1 then hunks[#hunks + 1] = line end
+      end
+      return hunks
+    end
+
+    -- Resolve the currently shown preview window/buffer, or nil when the
+    -- picker is not previewing (the window then shows the match list, not the
+    -- preview buffer).
+    local preview_target = function()
+      local state = pick.get_picker_state()
+      local win = state and state.windows.main
+      local buf = state and state.buffers.preview
+      if win and buf and vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_buf(win) == buf then
+        return win, buf
+      end
+    end
+
+    -- `[` / `]`: jump to the previous / next changed hunk in the preview. When
+    -- not previewing, fall back to typing the bracket into the query so it can
+    -- still be used to filter.
+    local hunk_jump = function(bracket, dir)
+      return function()
+        local win, buf = preview_target()
+        if not buf then
+          local query = pick.get_picker_query()
+          query[#query + 1] = bracket
+          return pick.set_picker_query(query)
+        end
+
+        local hunks = vim.b[buf].git_hunks
+        if type(hunks) ~= 'table' or #hunks == 0 then return end
+
+        local cur = vim.api.nvim_win_get_cursor(win)[1]
+        local target
+        if dir > 0 then
+          for _, line in ipairs(hunks) do
+            if line > cur then target = line break end
+          end
+          target = target or hunks[1]
+        else
+          for i = #hunks, 1, -1 do
+            if hunks[i] < cur then target = hunks[i] break end
+          end
+          target = target or hunks[#hunks]
+        end
+
+        pcall(vim.api.nvim_win_set_cursor, win, { target, 0 })
+        vim.api.nvim_win_call(win, function() vim.cmd('normal! zz') end)
+      end
     end
 
     pick.builtin.cli({
@@ -120,11 +181,16 @@ local pickers =  {
         'git', 'status', '--short'
       }
     }, {
+      mappings = {
+        hunk_next = { char = ']', func = hunk_jump(']',  1) },
+        hunk_prev = { char = '[', func = hunk_jump('[', -1) },
+      },
       source = {
         name = 'Git Status',
         preview = function(bufnr, item)
           local path = status_path(item)
           vim.b[bufnr].git_preview = path
+          vim.b[bufnr].git_hunks = {}
           local fresh = function()
             return vim.api.nvim_buf_is_valid(bufnr) and vim.b[bufnr].git_preview == path
           end
@@ -134,6 +200,7 @@ local pickers =  {
               if not fresh() then return end
               set_content(bufnr, path, content)
               highlight_all(bufnr, 'DiffDelete')
+              vim.b[bufnr].git_hunks = { 1 }
             end)
             return
           end
@@ -143,12 +210,13 @@ local pickers =  {
           -- Untracked: nothing to diff against
           if item:sub(1, 2) == '??' then
             highlight_all(bufnr, 'DiffAdd')
+            vim.b[bufnr].git_hunks = { 1 }
             return
           end
 
           run({ 'git', 'diff', 'HEAD', '--', path }, function(diff)
             if not fresh() then return end
-            apply_diff(bufnr, diff)
+            vim.b[bufnr].git_hunks = apply_diff(bufnr, diff)
           end)
         end,
         choose = function(item)
