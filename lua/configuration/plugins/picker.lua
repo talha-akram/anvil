@@ -73,7 +73,7 @@ local pickers =  {
     end
 
     -- Apply the change highlights and collect the 1-indexed line of each
-    -- changed region, so `[g` / `]g` can hop between hunks in the preview.
+    -- changed region, so `[` / `]` can hop between hunks in the preview.
     local apply_diff = function(bufnr, diff)
       local total = vim.api.nvim_buf_line_count(bufnr)
       local lnum, removed, changed = nil, {}, {}
