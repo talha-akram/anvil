@@ -37,11 +37,82 @@ local pickers =  {
   end,
   git_status = function()
     local pick = require('mini.pick')
+    local ns = vim.api.nvim_create_namespace('MiniPickGitStatus')
+
     local status_path = function(item)
       local path = vim.trim(item:sub(4))
       path = path:match('%-> (.+)$') or path
       if path:sub(1, 1) == '"' then path = path:sub(2, -2) end
       return path
+    end
+
+    local run = function(cmd, done)
+      local out = {}
+      vim.fn.jobstart(cmd, {
+        stdout_buffered = true,
+        on_stdout = function(_, data) if data then out = data end end,
+        on_exit = function()
+          if out[#out] == '' then table.remove(out) end
+          vim.schedule(function() done(out) end)
+        end,
+      })
+    end
+
+    local set_content = function(bufnr, path, lines)
+      vim.bo[bufnr].modifiable = true
+      vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+      vim.bo[bufnr].modifiable = false
+      pcall(vim.api.nvim_buf_clear_namespace, bufnr, ns, 0, -1)
+      vim.bo[bufnr].filetype = vim.filetype.match({ filename = path, buf = bufnr }) or ''
+    end
+
+    local highlight_all = function(bufnr, group)
+      for row = 0, vim.api.nvim_buf_line_count(bufnr) - 1 do
+        vim.api.nvim_buf_set_extmark(bufnr, ns, row, 0, { line_hl_group = group })
+      end
+    end
+
+    local apply_diff = function(bufnr, diff)
+      local total = vim.api.nvim_buf_line_count(bufnr)
+      local lnum, removed = nil, {}
+
+      local flush = function(at)
+        if #removed == 0 then return end
+        local virt = {}
+        for _, text in ipairs(removed) do virt[#virt + 1] = { { text, 'DiffDelete' } } end
+        removed = {}
+        local row = (at or total + 1) - 1
+        if row >= total then
+          vim.api.nvim_buf_set_extmark(bufnr, ns, total - 1, 0, { virt_lines = virt })
+        else
+          vim.api.nvim_buf_set_extmark(bufnr, ns, math.max(row, 0), 0, {
+            virt_lines = virt, virt_lines_above = true
+          })
+        end
+      end
+
+      for _, line in ipairs(diff) do
+        local start = line:match('^@@ %-%d+,?%d* %+(%d+)')
+        if start then
+          flush(lnum)
+          lnum = tonumber(start)
+        elseif lnum then
+          local tag = line:sub(1, 1)
+          if tag == '+' then
+            flush(lnum)
+            if lnum >= 1 and lnum <= total then
+              vim.api.nvim_buf_set_extmark(bufnr, ns, lnum - 1, 0, { line_hl_group = 'DiffAdd' })
+            end
+            lnum = lnum + 1
+          elseif tag == '-' then
+            removed[#removed + 1] = line:sub(2)
+          elseif tag ~= '\\' then
+            flush(lnum)
+            lnum = lnum + 1
+          end
+        end
+      end
+      flush(lnum)
     end
 
     pick.builtin.cli({
@@ -53,24 +124,32 @@ local pickers =  {
         name = 'Git Status',
         preview = function(bufnr, item)
           local path = status_path(item)
-          local cmd = item:sub(1, 2) == '??'
-            and { 'git', 'diff', '--no-index', '/dev/null', path }
-            or  { 'git', 'diff', 'HEAD', '--', path }
-
-          local render = function(_, data)
-            if not data or (#data == 1 and data[1] == '') then return end
-            if not vim.api.nvim_buf_is_valid(bufnr) then return end
-
-            vim.bo[bufnr].modifiable = true
-            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, data)
-            vim.bo[bufnr].filetype = 'diff'
-            vim.bo[bufnr].modifiable = false
+          vim.b[bufnr].git_preview = path
+          local fresh = function()
+            return vim.api.nvim_buf_is_valid(bufnr) and vim.b[bufnr].git_preview == path
           end
 
-          vim.fn.jobstart(cmd, {
-            stdout_buffered = true,
-            on_stdout = render,
-          })
+          if vim.fn.filereadable(path) == 0 then
+            run({ 'git', 'show', 'HEAD:./' .. path }, function(content)
+              if not fresh() then return end
+              set_content(bufnr, path, content)
+              highlight_all(bufnr, 'DiffDelete')
+            end)
+            return
+          end
+
+          set_content(bufnr, path, vim.fn.readfile(path))
+
+          -- Untracked: nothing to diff against
+          if item:sub(1, 2) == '??' then
+            highlight_all(bufnr, 'DiffAdd')
+            return
+          end
+
+          run({ 'git', 'diff', 'HEAD', '--', path }, function(diff)
+            if not fresh() then return end
+            apply_diff(bufnr, diff)
+          end)
         end,
         choose = function(item)
           local path = status_path(item)
