@@ -36,37 +36,48 @@ local pickers =  {
     return picker.registry[selected]()
   end,
   git_status = function()
-    local selection = require('mini.pick').builtin.cli({
+    local pick = require('mini.pick')
+    local status_path = function(item)
+      local path = vim.trim(item:sub(4))
+      path = path:match('%-> (.+)$') or path
+      if path:sub(1, 1) == '"' then path = path:sub(2, -2) end
+      return path
+    end
+
+    pick.builtin.cli({
       command = {
-        'git', 'status', '-s'
+        'git', 'status', '--short'
       }
     }, {
       source = {
         name = 'Git Status',
         preview = function(bufnr, item)
-          local file = vim.trim(item):match('%s+(.+)')
-          -- get diff and show
-          local append_data = function(_, data)
-            if data then
-              vim.bo[bufnr].modifiable = true
-              vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, data)
-              vim.bo[bufnr].filetype = 'diff'
-              vim.bo[bufnr].modifiable = false
-            end
+          local path = status_path(item)
+          local cmd = item:sub(1, 2) == '??'
+            and { 'git', 'diff', '--no-index', '/dev/null', path }
+            or  { 'git', 'diff', 'HEAD', '--', path }
+
+          local render = function(_, data)
+            if not data or (#data == 1 and data[1] == '') then return end
+            if not vim.api.nvim_buf_is_valid(bufnr) then return end
+
+            vim.bo[bufnr].modifiable = true
+            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, data)
+            vim.bo[bufnr].filetype = 'diff'
+            vim.bo[bufnr].modifiable = false
           end
 
-          vim.fn.jobstart({'git','diff', 'HEAD', file}, {
+          vim.fn.jobstart(cmd, {
             stdout_buffered = true,
-            on_stdout = append_data,
-            on_stderr = append_data,
+            on_stdout = render,
           })
+        end,
+        choose = function(item)
+          local path = status_path(item)
+          vim.schedule(function() vim.cmd.edit(vim.fn.fnameescape(path)) end)
         end
       }
     })
-
-    if selection then
-      vim.cmd.edit(vim.trim(selection):match('%s+(.+)'))
-    end
   end,
   find = function()
     local register = vim.fn.getreg('"')
