@@ -79,25 +79,33 @@ return {
       netrwSymLink                = { link='Fg' },
       netrwVersion                = { link='Orange' },
 
+      Added                       = { link='Green' },
       Annotation                  = { fg=palette.light_yellow, bold=true },
       Attribute                   = { fg=palette.light_yellow, bold=true },
       Boolean                     = { fg=palette.orange,     bg=palette.none },
+      Changed                     = { link='Blue' },
       Character                   = { fg=palette.green,      bg=palette.none },
       ColorColumn                 = { fg=palette.none,       bg=palette.bg1 },
       Comment                     = { fg=palette.light_grey, bg=palette.none, italic=true },
+      ComplHint                   = { link='NonText' },
+      ComplHintMore               = { link='MoreMsg' },
+      ComplMatchIns               = { link='Grey' },
       Conceal                     = { link='Black' },
       Conditional                 = { fg=palette.light_red,  bg=palette.none, bold=true },
       Constant                    = { fg=palette.cyan,       bg=palette.none },
+      CurSearch                   = { fg=palette.bg0,        bg=palette.orange },
       Cursor                      = { fg=palette.none,       bg=palette.none, reverse=true },
       CursorColumn                = { fg=palette.none,       bg=palette.bg0 },
       CursorIM                    = { fg=palette.none,       bg=palette.fg },
       CursorLine                  = { fg=palette.none,       bg=palette.bg1 },
+      CursorLineFold              = { fg=palette.grey,       bg=palette.bg1 },
       CursorLineNr                = { fg=palette.fg,         bg=palette.bg1 },
+      CursorLineSign              = { fg=palette.fg,         bg=palette.bg1 },
       Debug                       = { fg=palette.yellow,     bg=palette.none },
       Define                      = { fg=palette.light_red,  bg=palette.none },
       Delimiter                   = { fg=palette.fg,         bg=palette.none },
 
-      -- DiagnosticDeprecated        = { link='' },
+      DiagnosticDeprecated        = { sp=palette.red,        strikethrough=true },
       DiagnosticError             = { fg=palette.red },
       DiagnosticFloatingError     = { link='DiagnosticError' },
       DiagnosticFloatingHint      = { link='DiagnosticHint' },
@@ -117,12 +125,12 @@ return {
       DiagnosticUnderlineInfo     = { sp=palette.blue, undercurl=true },
       DiagnosticUnderlineOk       = { sp=palette.green , undercurl=true },
       DiagnosticUnderlineWarn     = { sp=palette.orange, undercurl=true },
-      -- DiagnosticUnnecessary       = { link='' },
-      -- DiagnosticVirtualLinesError = { link='' },
-      -- DiagnosticVirtualLinesHint  = { link='' },
-      -- DiagnosticVirtualLinesInfo  = { link='' },
-      -- DiagnosticVirtualLinesOk    = { link='' },
-      -- DiagnosticVirtualLinesWarn  = { link='' },
+      DiagnosticUnnecessary       = { fg=palette.grey },
+      DiagnosticVirtualLinesError = { link='DiagnosticError' },
+      DiagnosticVirtualLinesHint  = { link='DiagnosticHint' },
+      DiagnosticVirtualLinesInfo  = { link='DiagnosticInfo' },
+      DiagnosticVirtualLinesOk    = { link='DiagnosticOk' },
+      DiagnosticVirtualLinesWarn  = { link='DiagnosticWarn' },
       DiagnosticVirtualTextError  = { fg=palette.red , bg=palette.bg },
       DiagnosticVirtualTextHint   = { fg=palette.purple, bg=palette.bg },
       DiagnosticVirtualTextInfo   = { fg=palette.blue, bg=palette.bg },
@@ -137,6 +145,7 @@ return {
       -- DiffModifiedGutter          = { link='' },
       -- DiffRemovedGutter           = { link='' },
       DiffText                    = { fg=palette.none,       bg=palette.bg0, reverse=true },
+      DiffTextAdd                 = { link='DiffText' },
 
       Directory                   = { fg=palette.green,      bg=palette.none },
       EndOfBuffer                 = { fg=palette.bg0,        bg=palette.bg0 },
@@ -144,6 +153,11 @@ return {
       ErrorMsg                    = { fg=palette.red,        bg=palette.none, bold=true, underline=true },
       Exception                   = { fg=palette.red,        bg=palette.none, italic=true },
       Float                       = { fg=palette.purple,     bg=palette.none },
+      FloatBorder                 = { fg=palette.grey,       bg=palette.bg2 },
+      FloatFooter                 = { fg=palette.grey,       bg=palette.bg2 },
+      FloatShadow                 = { bg=palette.black,      blend=80 },
+      FloatShadowThrough          = { bg=palette.black,      blend=100 },
+      FloatTitle                  = { fg=palette.orange,     bg=palette.bg2, bold=true },
       FoldColumn                  = { fg=palette.grey,       bg=palette.bg1 },
       Folded                      = { fg=palette.grey,       bg=palette.bg1 },
       Function                    = { fg=palette.green,      bg=palette.none },
@@ -154,26 +168,45 @@ return {
       Keyword                     = { fg=palette.light_red,        bg=palette.none, italic=true },
       Label                       = { fg=palette.orange,     bg=palette.none },
       LineNr                      = { fg=palette.grey,       bg=palette.bg0 },
+      LineNrAbove                 = { link='LineNr' },
+      LineNrBelow                 = { link='LineNr' },
       Macro                       = { fg=palette.cyan,       bg=palette.none },
       MatchParen                  = { fg=palette.none,       bg=palette.none, bold=true, underline=true },
       ModeMsg                     = { fg=palette.fg,         bg=palette.none, bold=true },
       MoreMsg                     = { fg=palette.blue,       bg=palette.none, bold=true },
+      MsgArea                     = { fg=palette.fg,         bg=palette.none },
+      MsgSeparator                = { link='StatusLine' },
       NonText                     = { fg=palette.grey,       bg=palette.none },
       Normal                      = { fg=palette.fg,         bg=palette.bg0 },
+      NormalFloat                 = { fg=palette.fg,         bg=palette.bg2 },
+      NormalNC                    = { fg=palette.fg,         bg=palette.bg0 },
       Number                      = { fg=palette.purple,     bg=palette.none },
+      OkMsg                       = { fg=palette.green,      bg=palette.none, bold=true },
       Operator                    = { fg=palette.orange,     bg=palette.none },
       Pmenu                       = { fg=palette.fg,         bg=palette.bg2 },
+      PmenuBorder                 = { fg=palette.grey,       bg=palette.bg2 },
+      PmenuExtra                  = { fg=palette.grey,       bg=palette.bg2 },
+      PmenuExtraSel               = { link='PmenuSel' },
+      PmenuKind                   = { fg=palette.green,      bg=palette.bg2 },
+      PmenuKindSel                = { link='PmenuSel' },
+      PmenuMatch                  = { fg=palette.orange,     bg=palette.bg2, bold=true },
+      PmenuMatchSel               = { fg=palette.bg0,        bg=palette.fg, bold=true },
       PmenuSbar                   = { fg=palette.none,       bg=palette.bg2 },
       PmenuSel                    = { fg=palette.bg0,        bg=palette.fg },
+      PmenuShadow                 = { link='FloatShadow' },
+      PmenuShadowThrough          = { link='FloatShadowThrough' },
       PmenuThumb                  = { fg=palette.none,       bg=palette.grey },
       PreCondit                   = { fg=palette.purple,     bg=palette.none, italic=true },
+      PreInsert                   = { link='Added' },
       PreProc                     = { fg=palette.purple,     bg=palette.none, italic=true },
       Question                    = { fg=palette.yellow,     bg=palette.none },
       QuickFixLine                = { fg=palette.blue,       bg=palette.bg1 },
+      Removed                     = { link='Red' },
       Repeat                      = { fg=palette.light_red,        bg=palette.none, bold=true },
       Search                      = { fg=palette.bg0,        bg=palette.light_red },
       SignColumn                  = { fg=palette.fg,         bg=palette.bg0 },
       SnippetTabstop              = { link='Visual' },
+      SnippetTabstopActive        = { link='SnippetTabstop' },
       Special                     = { fg=palette.yellow,     bg=palette.none },
       SpecialChar                 = { fg=palette.yellow,     bg=palette.none },
       SpecialComment              = { fg=palette.light_grey, bg=palette.none, italic=true },
@@ -187,13 +220,17 @@ return {
       StatusLineNC                = { fg=palette.grey,       bg=palette.bg1 },
       StatusLineTerm              = { fg=palette.fg,         bg=palette.bg3 },
       StatusLineTermNC            = { fg=palette.grey,       bg=palette.bg1 },
+      StderrMsg                   = { link='ErrorMsg' },
+      StdoutMsg                   = { link='Fg' },
       StorageClass                = { fg=palette.orange,     bg=palette.none, bold=true },
       String                      = { fg=palette.green,      bg=palette.none },
       Structure                   = { fg=palette.orange,     bg=palette.none },
+      Substitute                  = { fg=palette.bg0,        bg=palette.yellow },
       TabLine                     = { fg=palette.fg,         bg=palette.bg4 },
       TabLineFill                 = { fg=palette.grey,       bg=palette.bg1 },
       TabLineSel                  = { fg=palette.bg0,        bg=palette.green },
       Tag                         = { fg=palette.orange,     bg=palette.none },
+      TermCursor                  = { fg=palette.none,       bg=palette.none, reverse=true },
       Terminal                    = { fg=palette.fg,         bg=palette.bg0 },
       Title                       = { fg=palette.orange,     bg=palette.none, bold=true },
       Todo                        = { fg=palette.purple,     bg=palette.none, italic=true },
@@ -206,6 +243,7 @@ return {
       Visual                      = { fg=palette.bg0,        bg=palette.light_yellow },
       VisualNOS                   = { fg=palette.bg0,        bg=palette.light_yellow, underline=true },
       WarningMsg                  = { fg=palette.yellow,     bg=palette.none, bold=true },
+      Whitespace                  = { link='NonText' },
       WildMenu                    = { fg=palette.bg0,        bg=palette.fg },
       WinBar                      = { fg=palette.bg4,        bg=palette.bg4, bold=true },
       WinBarNC                    = { fg=palette.bg4,        bg=palette.bg4, bold=true },
@@ -262,85 +300,85 @@ return {
       ['@keyword.type']                       = { link='Keyword' },       -- keywords defining composite types (e.g. struct, enum)
       ['@label']                              = { link='Label' },         -- GOTO and other labels (e.g. label: in C), including heredoc labels
       -- ['@lsp']                                = { link='' },
-      -- ['@lsp.mod.deprecated']                 = { link='' },
-      -- ['@lsp.type.class']                     = { link='' },
-      -- ['@lsp.type.comment']                   = { link='' },
-      -- ['@lsp.type.decorator']                 = { link='' },
-      -- ['@lsp.type.enum']                      = { link='' },
-      -- ['@lsp.type.enumMember']                = { link='' },
-      -- ['@lsp.type.event']                     = { link='' },
-      -- ['@lsp.type.function']                  = { link='' },
-      -- ['@lsp.type.interface']                 = { link='' },
-      -- ['@lsp.type.keyword']                   = { link='' },
-      -- ['@lsp.type.macro']                     = { link='' },
-      -- ['@lsp.type.method']                    = { link='' },
-      -- ['@lsp.type.modifier']                  = { link='' },
-      -- ['@lsp.type.namespace']                 = { link='' },
-      -- ['@lsp.type.number']                    = { link='' },
-      -- ['@lsp.type.operator']                  = { link='' },
-      -- ['@lsp.type.parameter']                 = { link='' },
-      -- ['@lsp.type.property']                  = { link='' },
-      -- ['@lsp.type.regexp']                    = { link='' },
-      -- ['@lsp.type.string']                    = { link='' },
-      -- ['@lsp.type.struct']                    = { link='' },
-      -- ['@lsp.type.type']                      = { link='' },
-      -- ['@lsp.type.typeParameter']             = { link='' },
-      -- ['@lsp.type.variable']                  = { link='' },
+      ['@lsp.mod.deprecated']                 = { link='DiagnosticDeprecated' },
+      ['@lsp.type.class']                     = { link='@type' },
+      ['@lsp.type.comment']                   = { link='@comment' },
+      ['@lsp.type.decorator']                 = { link='@attribute' },
+      ['@lsp.type.enum']                      = { link='@type' },
+      ['@lsp.type.enumMember']                = { link='@constant' },
+      ['@lsp.type.event']                     = { link='@type' },
+      ['@lsp.type.function']                  = { link='@function' },
+      ['@lsp.type.interface']                 = { link='@type' },
+      ['@lsp.type.keyword']                   = { link='@keyword' },
+      ['@lsp.type.macro']                     = { link='@constant.macro' },
+      ['@lsp.type.method']                    = { link='@function.method' },
+      ['@lsp.type.modifier']                  = { link='@keyword.modifier' },
+      ['@lsp.type.namespace']                 = { link='@module' },
+      ['@lsp.type.number']                    = { link='@number' },
+      ['@lsp.type.operator']                  = { link='@operator' },
+      ['@lsp.type.parameter']                 = { link='@variable.parameter' },
+      ['@lsp.type.property']                  = { link='@property' },
+      ['@lsp.type.regexp']                    = { link='@string.regexp' },
+      ['@lsp.type.string']                    = { link='@string' },
+      ['@lsp.type.struct']                    = { link='@structure' },
+      ['@lsp.type.type']                      = { link='@type' },
+      ['@lsp.type.typeParameter']             = { link='@type.definition' },
+      ['@lsp.type.variable']                  = { link='@variable' },
       ['@macro']                              = { link='Macro' },
-      -- ['@markup']                             = { link='' },
-      -- ['@markup.heading']                     = { link='' },              -- headings, titles (including markers)
-      -- ['@markup.heading.1']                   = { link='' },              -- top-level heading
-      -- ['@markup.heading.1.delimiter.vimdoc']  = { link='' },
-      -- ['@markup.heading.2']                   = { link='' },              -- section heading
-      -- ['@markup.heading.2.delimiter.vimdoc']  = { link='' },
-      -- ['@markup.heading.3']                   = { link='' },              -- subsection heading
-      -- ['@markup.heading.4']                   = { link='' },              -- and so on
-      -- ['@markup.heading.5']                   = { link='' },              -- and so forth
-      -- ['@markup.heading.6']                   = { link='' },              -- six levels ought to be enough for anybody
-      -- ['@markup.italic']                      = { link='' },              -- italic text
-      -- ['@markup.link']                        = { link='' },              -- text references, footnotes, citations, etc.
-      -- ['@markup.link.label']                  = { link='' },              -- link, reference descriptions
-      -- ['@markup.link.url']                    = { link='' },              -- URL-style links
-      -- ['@markup.list']                        = { link='' },              -- list markers
-      -- ['@markup.list.checked']                = { link='' },              -- checked todo-style list markers
-      -- ['@markup.list.unchecked']              = { link='' },              -- unchecked todo-style list markers
-      -- ['@markup.math']                        = { link='' },              -- math environments (e.g. $ ... $ in LaTeX)
-      -- ['@markup.quote']                       = { link='' },              -- block quotes
-      -- ['@markup.raw']                         = { link='' },              -- literal or verbatim text (e.g. inline code)
-      -- ['@markup.raw.block']                   = { link='' },              -- literal or verbatim text as a stand-alone block
-      -- ['@markup.strikethrough']               = { link='' },              -- struck-through text
-      -- ['@markup.strong']                      = { link='' },              -- bold text
-      -- ['@markup.underline']                   = { link='' },              -- underlined text (only for literal underline markup!)
+      ['@markup']                             = { link='Fg' },
+      ['@markup.heading']                     = { link='Title' },         -- headings, titles (including markers)
+      ['@markup.heading.1']                   = { fg=palette.red,    bold=true }, -- top-level heading
+      ['@markup.heading.1.delimiter.vimdoc']  = { link='Grey' },
+      ['@markup.heading.2']                   = { fg=palette.orange, bold=true }, -- section heading
+      ['@markup.heading.2.delimiter.vimdoc']  = { link='Grey' },
+      ['@markup.heading.3']                   = { fg=palette.yellow, bold=true }, -- subsection heading
+      ['@markup.heading.4']                   = { fg=palette.green,  bold=true }, -- and so on
+      ['@markup.heading.5']                   = { fg=palette.blue,   bold=true }, -- and so forth
+      ['@markup.heading.6']                   = { fg=palette.purple, bold=true }, -- six levels ought to be enough for anybody
+      ['@markup.italic']                      = { italic=true },          -- italic text
+      ['@markup.link']                        = { link='Underlined' },    -- text references, footnotes, citations, etc.
+      ['@markup.link.label']                  = { link='SpecialChar' },   -- link, reference descriptions
+      ['@markup.link.url']                    = { link='helpURL' },       -- URL-style links
+      ['@markup.list']                        = { link='Red' },           -- list markers
+      ['@markup.list.checked']                = { link='Green' },         -- checked todo-style list markers
+      ['@markup.list.unchecked']              = { link='Grey' },          -- unchecked todo-style list markers
+      ['@markup.math']                        = { link='Blue' },          -- math environments (e.g. $ ... $ in LaTeX)
+      ['@markup.quote']                       = { link='Grey' },          -- block quotes
+      ['@markup.raw']                         = { link='Green' },         -- literal or verbatim text (e.g. inline code)
+      ['@markup.raw.block']                   = { link='Green' },         -- literal or verbatim text as a stand-alone block
+      ['@markup.strikethrough']               = { strikethrough=true },   -- struck-through text
+      ['@markup.strong']                      = { bold=true },            -- bold text
+      ['@markup.underline']                   = { underline=true },       -- underlined text (only for literal underline markup!)
       ['@method']                             = { link='Function' },
-      -- ['@module']                             = { link='' },              -- modules or namespaces
-      -- ['@module.builtin']                     = { link='' },              -- built-in modules or namespaces
+      ['@module']                             = { link='Identifier' },    -- modules or namespaces
+      ['@module.builtin']                     = { link='Special' },       -- built-in modules or namespaces
       ['@namespace']                          = { link='Identifier' },
       ['@number']                             = { link='Number' },        -- numeric literals
-      -- ['@number.float']                       = { link='' },              -- floating-point number literals
+      ['@number.float']                       = { link='Float' },         -- floating-point number literals
       ['@operator']                           = { link='Operator' },      -- symbolic operators (e.g. +, *)
       ['@parameter']                          = { link='Identifier' },
       ['@preproc']                            = { link='PreProc' },
       ['@property']                           = { link='Identifier' },    -- the key in key/value pairs
       ['@punctuation']                        = { link='Delimiter' },
       ['@punctuation.bracket']                = { link='Special' },       -- brackets (e.g. (), {}, [])
-      -- ['@punctuation.delimiter']              = { link='' },              -- delimiters (e.g. ;, ., ,)
-      -- ['@punctuation.special']                = { link='' },              -- special symbols (e.g. {} in string interpolation)
+      ['@punctuation.delimiter']              = { link='Delimiter' },     -- delimiters (e.g. ;, ., ,)
+      ['@punctuation.special']                = { link='Special' },       -- special symbols (e.g. {} in string interpolation)
       ['@repeat']                             = { link='Repeat' },
       ['@spell']                              = { link='cleared' },
       ['@storageclass']                       = { link='StorageClass' },
       ['@string']                             = { link='String' },        -- string literals
-      -- ['@string.documentation']               = { link='' },           -- string documenting code (e.g. Python docstrings)
+      ['@string.documentation']               = { link='String' },        -- string documenting code (e.g. Python docstrings)
       ['@string.escape']                      = { link='SpecialChar' },   -- escape sequences
-      -- ['@string.regexp']                      = { link='' },              -- regular expressions
+      ['@string.regexp']                      = { link='Yellow' },        -- regular expressions
       ['@string.special']                     = { link='SpecialChar' },   -- other special strings (e.g. dates)
       ['@string.special.path']                = { link='Identifier' },              -- filenames
       ['@string.special.symbol']              = { link='Identifier' },              -- symbols or atoms
       ['@string.special.url']                 = { link='helpURL' },              -- URIs (e.g. hyperlinks)
       ['@structure']                          = { link='Structure' },
       ['@tag']                                = { link='Tag' },           -- XML-style tag names (e.g. in XML, HTML, etc.)
-      -- ['@tag.attribute']                      = { link='' },              -- XML-style tag attributes
-      -- ['@tag.builtin']                        = { link='' },              -- XML-style tag names (e.g. HTML5 tags)
-      -- ['@tag.delimiter']                      = { link='' },              -- XML-style tag delimiters
+      ['@tag.attribute']                      = { link='Identifier' },    -- XML-style tag attributes
+      ['@tag.builtin']                        = { link='Tag' },           -- XML-style tag names (e.g. HTML5 tags)
+      ['@tag.delimiter']                      = { link='Grey' },          -- XML-style tag delimiters
       ['@text']                               = { link='Normal' },
       ['@text.literal']                       = { link='Comment' },
       ['@text.reference']                     = { link='Identifier' },
@@ -349,13 +387,13 @@ return {
       ['@text.underline']                     = { link='Underlined' },
       ['@text.uri']                           = { link='Underlined' },
       ['@type']                               = { link='Type' },          -- type or class definitions and annotations
-      -- ['@type.builtin']                       = { link='' },              -- built-in types
+      ['@type.builtin']                       = { link='Type' },          -- built-in types
       ['@type.definition']                    = { link='Typedef' },       -- identifiers in type definitions (e.g. typedef <type> <identifier> in C)
       ['@variable']                           = { link='Identifier' },    -- various variable names
-      -- ['@variable.builtin']                   = { link='' },              -- built-in variable names (e.g. this, self)
-      -- ['@variable.member']                    = { link='' },              -- object and struct fields
-      -- ['@variable.parameter']                 = { link='' },              -- parameters of a function
-      -- ['@variable.parameter.builtin']         = { link='' },              -- special parameters (e.g. _, it)
+      ['@variable.builtin']                   = { link='PurpleItalic' },  -- built-in variable names (e.g. this, self)
+      ['@variable.member']                    = { link='Identifier' },    -- object and struct fields
+      ['@variable.parameter']                 = { link='Identifier' },    -- parameters of a function
+      ['@variable.parameter.builtin']         = { link='Special' },       -- special parameters (e.g. _, it)
 
       -- ['GitGutterAdd']  = { link='' },
       -- ['GitGutterAddLine']  = { link='' },
@@ -426,14 +464,14 @@ return {
       -- ['GitSignsUntrackedNr']  = { link='' },
       -- ['GitSignsVirtLnum']  = { link='' },
 
-      ['LspCodeLens']  = { link='' },
-      ['LspCodeLensSeparator']  = { link='' },
-      ['LspInlayHint']  = { link='' },
-      ['LspReferenceRead']  = { link='' },
-      ['LspReferenceTarget']  = { link='' },
-      ['LspReferenceText']  = { link='' },
-      ['LspReferenceWrite']  = { link='' },
-      ['LspSignatureActiveParameter']  = { link='' },
+      LspCodeLens                 = { link='NonText' },
+      LspCodeLensSeparator        = { link='NonText' },
+      LspInlayHint                = { fg=palette.grey,       bg=palette.bg1 },
+      LspReferenceRead            = { fg=palette.none,       bg=palette.black },
+      LspReferenceTarget          = { link='LspReferenceText' },
+      LspReferenceText            = { fg=palette.none,       bg=palette.black },
+      LspReferenceWrite           = { fg=palette.none,       bg=palette.black, underline=true },
+      LspSignatureActiveParameter = { fg=palette.orange,     bg=palette.none, bold=true },
 
       GitSignsCurrentLineBlame    = { link='NonText' },
       GitSignsAdd                 = { fg=palette.green },

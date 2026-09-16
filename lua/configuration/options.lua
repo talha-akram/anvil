@@ -87,6 +87,8 @@ local defined_options  = {
   path           = '.,/usr/include,**',
   -- Only savee buffers and current dir in session file
   sessionoptions = 'buffers,curdir',
+  -- Hide top banner in netrw
+  -- netrw_banner   = 0,
 }
 
 -- Enable true colors if supported
