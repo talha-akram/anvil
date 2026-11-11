@@ -1,19 +1,19 @@
 {
   "plugins": {
     "friendly-snippets": {
-      "rev": "b4d01b0fdf3c9a549961c2f9ffe8dc09be166219",
+      "rev": "7a1c9f7897a4eb078b157a04c7af81e5869215b1",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "gitsigns.nvim": {
-      "rev": "5eb287fdbd523c3a1b3d01f304f43570e73e259b",
+      "rev": "ef707fb93301a9b856f36eae4c8f56f5b988a794",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "mini.pick": {
-      "rev": "360c1bb33610e030698d07ed15969ab4762dbcd6",
+      "rev": "f1216d764d0c2772e88d4e1a0cef3082f5b498e1",
       "src": "https://github.com/nvim-mini/mini.pick"
     },
     "nvim-treesitter": {
-      "rev": "9a168f6357ed21c3a636e1727bc7d382abc451b8",
+      "rev": "19bdfc04f40ed2ccb3340591d125f759b0406875",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
